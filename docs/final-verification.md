@@ -235,3 +235,13 @@ Generated proof artifacts:
 - `audit-artifacts/compare-desktop-eli.jpg`
 
 Known remaining note: the original full-size reference images are preserved under `assets/reference/` for audit/source traceability, but the live page now uses optimized images.
+
+## 10. Live Pages cache note
+
+An immediate check of `https://dberg042.github.io/atasucuk/?v=5ade892` showed updated HTML but stale cached `styles.css` in the browser/CDN path. To prevent users from seeing mismatched new markup with old CSS, the stylesheet link was changed to:
+
+```html
+<link rel="stylesheet" href="./styles.css?v=20260618-2139">
+```
+
+After this change, local parity verification was re-run and remained green.
