@@ -1,0 +1,1330 @@
+{
+  "desktop": {
+    "reference": {
+      "title": "Ata Sucuk | Norges første autentiske, lokalproduserte halal sucuk",
+      "url": "https://atasucuk.gentic.run/lansman",
+      "bodyHeight": 3523,
+      "bodyBg": "rgb(253, 251, 247)",
+      "bodyFont": "Inter, sans-serif",
+      "text": "ATA SUCUK\nLanseres snart i Norge\nNorges første autentiske\n lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din første smakebit når vi starter produksjonen.\n\nE-postadresse\nFå tidlig tilgang\n\nIngen spam. Vi varsler deg kun når vi er klare til å ta i mot bestillinger.\n\n100% Garantert Halal\nProdusert i Norge\nTradisjonelt Fermentert\nHvorfor betale overpris for importert sucuk?\n\nI dag koster importert sucuk i Norge opp mot 370 kr/kg. Den reiser langt, ligger lenge på lager og mister sin ferskhet. Vi mener du fortjener noe bedre.\n\nDagens marked\nDyr import (ofte over 370 kr/kg).\nLang transporttid og ukesvis på lager.\nHurtigproduksjon på bekostning av tradisjonell smak.\nAta-metoden\nLokal produksjon = Rettferdig, tilgjengelig pris.\nFerske, norske råvarer fra anerkjent kjøttprodusent.\nTradisjonell fermentering og autentisk krydderblanding.\nKompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPremium Norsk Kjøtt\n\nProdusert i Norge med ferskt, kortreist storfekjøtt av høyeste kvalitet. Vi samarbeider kun med de beste lokale leverandørene under strenge halal-sertifiseringer.\n\nAutentisk Krydder\n\nVår hemmelige familieoppskrift benytter krydder importert direkte fra Tyrkia. Hvitløk, spisskummen og rød pepper i perfekt harmoni for den gjenkjennelige smaken.\n\nHjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadresse\nBli med på listen\nATA SUCUK\n\n© 2023 Ata Sucuk Norge. Alle rettigheter reservert.",
+      "links": [
+        "https://fonts.googleapis.com/",
+        "https://fonts.gstatic.com/",
+        "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      ],
+      "sections": [
+        {
+          "i": 0,
+          "tag": "SECTION",
+          "cls": "relative bg-brand-dark min-h-[90vh] flex items-center pt-20 pb-16 overflow-hidden bg-[url('https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211111_1b3a6ff1.jpg')] bg-cover bg-center",
+          "text": "Lanseres snart i Norge\nNorges første autentiske\n lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din først",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1280,
+            "h": 798
+          },
+          "style": {
+            "bg": "rgb(28, 25, 23)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "80px 0px 64px",
+            "backgroundImage": "url(\"https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211111_1b3a6ff1.jpg\")"
+          }
+        },
+        {
+          "i": 1,
+          "tag": "SECTION",
+          "cls": "py-24 bg-brand-cream",
+          "text": "Hvorfor betale overpris for importert sucuk?\n\nI dag koster importert sucuk i Norge opp mot 370 kr/kg. Den reiser langt, ligger lenge på lager og mister sin ferskhet. Vi mener du fortjener noe bedre.\n\nDagens marked\nDyr im",
+          "rect": {
+            "x": 0,
+            "y": 872,
+            "w": 1280,
+            "h": 738
+          },
+          "style": {
+            "bg": "rgb(253, 251, 247)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "96px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 2,
+          "tag": "SECTION",
+          "cls": "py-16 bg-brand-cream",
+          "text": "",
+          "rect": {
+            "x": 0,
+            "y": 1610,
+            "w": 1280,
+            "h": 728
+          },
+          "style": {
+            "bg": "rgb(253, 251, 247)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "64px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 3,
+          "tag": "SECTION",
+          "cls": "py-24 bg-brand-sand border-y border-brand-dark/5",
+          "text": "Kompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPrem",
+          "rect": {
+            "x": 0,
+            "y": 2338,
+            "w": 1280,
+            "h": 578
+          },
+          "style": {
+            "bg": "rgb(244, 239, 230)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "96px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 4,
+          "tag": "SECTION",
+          "cls": "py-24 bg-brand-red relative overflow-hidden bg-[url('https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211449_a92fbd78.jpg')] bg-cover bg-center",
+          "text": "Hjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadres",
+          "rect": {
+            "x": 0,
+            "y": 2916,
+            "w": 1280,
+            "h": 482
+          },
+          "style": {
+            "bg": "rgb(113, 26, 27)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "96px 0px",
+            "backgroundImage": "url(\"https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211449_a92fbd78.jpg\")"
+          }
+        },
+        {
+          "i": 5,
+          "tag": "FOOTER",
+          "cls": "bg-brand-dark text-brand-cream/60 py-12 border-t border-white/10",
+          "text": "ATA SUCUK\n\n© 2023 Ata Sucuk Norge. Alle rettigheter reservert.",
+          "rect": {
+            "x": 0,
+            "y": 3398,
+            "w": 1280,
+            "h": 125
+          },
+          "style": {
+            "bg": "rgb(28, 25, 23)",
+            "color": "rgba(253, 251, 247, 0.6)",
+            "padding": "48px 0px",
+            "backgroundImage": "none"
+          }
+        }
+      ],
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Norges første autentiske\n lokalproduserte halal sucuk.",
+          "rect": {
+            "x": 192,
+            "y": 150,
+            "w": 896,
+            "h": 216
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "72px",
+            "line": "72px",
+            "weight": "700",
+            "color": "rgb(253, 251, 247)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hvorfor betale overpris for importert sucuk?",
+          "rect": {
+            "x": 256,
+            "y": 968,
+            "w": 768,
+            "h": 96
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "48px",
+            "line": "48px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Dagens marked",
+          "rect": {
+            "x": 73,
+            "y": 1321,
+            "w": 502,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Ata-metoden",
+          "rect": {
+            "x": 704,
+            "y": 1320,
+            "w": 504,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(253, 251, 247)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Kompromissløs kvalitet",
+          "rect": {
+            "x": 32,
+            "y": 2435,
+            "w": 1216,
+            "h": 48
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "48px",
+            "line": "48px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Langtidsfermentert",
+          "rect": {
+            "x": 32,
+            "y": 2671,
+            "w": 373.328125,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Premium Norsk Kjøtt",
+          "rect": {
+            "x": 453.328125,
+            "y": 2671,
+            "w": 373.328125,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Autentisk Krydder",
+          "rect": {
+            "x": 874.65625,
+            "y": 2671,
+            "w": 373.34375,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hjelp oss å bringe Ata Sucuk til live",
+          "rect": {
+            "x": 224,
+            "y": 3012,
+            "w": 832,
+            "h": 48
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "48px",
+            "line": "48px",
+            "weight": "700",
+            "color": "rgb(253, 251, 247)",
+            "align": "center"
+          }
+        }
+      ],
+      "forms": [
+        {
+          "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+          "method": "POST",
+          "html": "E-postadresse\nFå tidlig tilgang\n\nIngen spam. Vi varsler deg kun når vi er klare til å ta i mot bestillinger.",
+          "inputs": [
+            {
+              "type": "hidden",
+              "name": "source",
+              "placeholder": "",
+              "value": "hero_waitlist",
+              "required": false,
+              "hidden": true
+            },
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "Din e-postadresse",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        },
+        {
+          "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+          "method": "POST",
+          "html": "E-postadresse\nBli med på listen",
+          "inputs": [
+            {
+              "type": "hidden",
+              "name": "source",
+              "placeholder": "",
+              "value": "footer_waitlist",
+              "required": false,
+              "hidden": true
+            },
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "Skriv inn e-postadressen din",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        }
+      ],
+      "images": [
+        {
+          "src": "https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211442_c5967d2f.jpg",
+          "alt": "Ata Sucuk Showcase",
+          "rect": {
+            "x": 32,
+            "y": 1674,
+            "w": 1216,
+            "h": 600
+          },
+          "fit": "cover",
+          "radius": "0px"
+        }
+      ]
+    },
+    "clone": {
+      "title": "Ata Sucuk | Norges første autentiske, lokalproduserte halal sucuk",
+      "url": "https://dberg042.github.io/atasucuk/",
+      "bodyHeight": 2525,
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyFont": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+      "text": "LANSERES SNART I NORGE\n\nNorges første autentiske lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din første smakebit når vi starter produksjonen.\n\n100% Garantert Halal\nProdusert i Norge\nTradisjonelt Fermentert\nE-postadresse\nFå tidlig tilgang\nHvorfor betale overpris for importert sucuk?\nDagens marked\nDyr import (ofte over 370 kr/kg).\nLang transporttid og ukesvis på lager.\nHurtigproduksjon på bekostning av tradisjonell smak.\nAta-metoden\nLokal produksjon = Rettferdig, tilgjengelig pris.\nFerske, norske råvarer fra anerkjent kjøttprodusent.\nTradisjonell fermentering og autentisk krydderblanding.\nKompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPremium Norsk Kjøtt\n\nProdusert i Norge med ferskt, kortreist storfekjøtt av høyeste kvalitet. Vi samarbeider kun med de beste lokale leverandørene under strenge halal-sertifiseringer.\n\nAutentisk Krydder\n\nVår hemmelige familieoppskrift benytter krydder importert direkte fra Tyrkia. Hvitløk, spisskummen og rød pepper i perfekt harmoni for den gjenkjennelige smaken.\n\nHjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadresse\nBli med på listen\n\n© 2023 Ata Sucuk Norge",
+      "links": [
+        "https://dberg042.github.io/atasucuk/styles.css"
+      ],
+      "sections": [
+        {
+          "i": 0,
+          "tag": "HEADER",
+          "cls": "hero",
+          "text": "LANSERES SNART I NORGE\n\nNorges første autentiske lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din først",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1280,
+            "h": 654.578125
+          },
+          "style": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)), url(\"https://dberg042.github.io/atasucuk/hero.jpg\")"
+          }
+        },
+        {
+          "i": 1,
+          "tag": "SECTION",
+          "cls": "section section--alt",
+          "text": "Hvorfor betale overpris for importert sucuk?\nDagens marked\nDyr import (ofte over 370 kr/kg).\nLang transporttid og ukesvis på lager.\nHurtigproduksjon på bekostning av tradisjonell smak.\nAta-metoden\nLokal produksjon = Rett",
+          "rect": {
+            "x": 0,
+            "y": 654.578125,
+            "w": 1280,
+            "h": 920.171875
+          },
+          "style": {
+            "bg": "rgb(246, 244, 242)",
+            "color": "rgb(17, 17, 17)",
+            "padding": "64px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 2,
+          "tag": "SECTION",
+          "cls": "section",
+          "text": "Kompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPrem",
+          "rect": {
+            "x": 0,
+            "y": 1574.75,
+            "w": 1280,
+            "h": 430.765625
+          },
+          "style": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(17, 17, 17)",
+            "padding": "64px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 3,
+          "tag": "SECTION",
+          "cls": "section section--alt",
+          "text": "Hjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadres",
+          "rect": {
+            "x": 0,
+            "y": 2005.515625,
+            "w": 1280,
+            "h": 399.328125
+          },
+          "style": {
+            "bg": "rgb(246, 244, 242)",
+            "color": "rgb(17, 17, 17)",
+            "padding": "64px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 4,
+          "tag": "FOOTER",
+          "cls": "site-footer",
+          "text": "© 2023 Ata Sucuk Norge",
+          "rect": {
+            "x": 0,
+            "y": 2404.84375,
+            "w": 1280,
+            "h": 120.3125
+          },
+          "style": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(255, 255, 255)",
+            "padding": "48px 0px",
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(\"https://dberg042.github.io/atasucuk/footer.jpg\")"
+          }
+        }
+      ],
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Norges første autentiske lokalproduserte halal sucuk.",
+          "rect": {
+            "x": 88,
+            "y": 100.46875,
+            "w": 440.46875,
+            "h": 211.1875
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "44px",
+            "line": "52.8px",
+            "weight": "700",
+            "color": "rgb(255, 255, 255)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hvorfor betale overpris for importert sucuk?",
+          "rect": {
+            "x": 88,
+            "y": 718.578125,
+            "w": 1104,
+            "h": 38.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "32px",
+            "line": "38.4px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Dagens marked",
+          "rect": {
+            "x": 113,
+            "y": 813.96875,
+            "w": 490,
+            "h": 26.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "line": "26.4px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Ata-metoden",
+          "rect": {
+            "x": 677,
+            "y": 816.96875,
+            "w": 490,
+            "h": 26.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "line": "26.4px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Kompromissløs kvalitet",
+          "rect": {
+            "x": 88,
+            "y": 1638.75,
+            "w": 1104,
+            "h": 38.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "32px",
+            "line": "38.4px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Langtidsfermentert",
+          "rect": {
+            "x": 113,
+            "y": 1734.140625,
+            "w": 302,
+            "h": 26.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "line": "26.4px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Premium Norsk Kjøtt",
+          "rect": {
+            "x": 489,
+            "y": 1734.140625,
+            "w": 302,
+            "h": 26.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "line": "26.4px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Autentisk Krydder",
+          "rect": {
+            "x": 865,
+            "y": 1734.140625,
+            "w": 302,
+            "h": 26.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "line": "26.4px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hjelp oss å bringe Ata Sucuk til live",
+          "rect": {
+            "x": 308,
+            "y": 2069.515625,
+            "w": 664,
+            "h": 38.390625
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "32px",
+            "line": "38.4px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "center"
+          }
+        }
+      ],
+      "forms": [
+        {
+          "action": "#",
+          "method": null,
+          "html": "E-postadresse\nFå tidlig tilgang",
+          "inputs": [
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "navn@eksempel.no",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        },
+        {
+          "action": "#",
+          "method": null,
+          "html": "E-postadresse\nBli med på listen",
+          "inputs": [
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "navn@eksempel.no",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        }
+      ],
+      "images": [
+        {
+          "src": "https://dberg042.github.io/atasucuk/middle.png",
+          "alt": "Skiver av tradisjonelt fermentert Ata Sucuk på et skjærebrett.",
+          "rect": {
+            "x": 280,
+            "y": 1030.75,
+            "w": 720,
+            "h": 480
+          },
+          "fit": "fill",
+          "radius": "12px"
+        }
+      ]
+    }
+  },
+  "mobile": {
+    "reference": {
+      "title": "Ata Sucuk | Norges første autentiske, lokalproduserte halal sucuk",
+      "url": "https://atasucuk.gentic.run/lansman",
+      "bodyHeight": 5039,
+      "bodyBg": "rgb(253, 251, 247)",
+      "bodyFont": "Inter, sans-serif",
+      "text": "ATA SUCUK\nLanseres snart i Norge\nNorges første autentiske\n lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din første smakebit når vi starter produksjonen.\n\nE-postadresse\nFå tidlig tilgang\n\nIngen spam. Vi varsler deg kun når vi er klare til å ta i mot bestillinger.\n\n100% Garantert Halal\nProdusert i Norge\nTradisjonelt Fermentert\nHvorfor betale overpris for importert sucuk?\n\nI dag koster importert sucuk i Norge opp mot 370 kr/kg. Den reiser langt, ligger lenge på lager og mister sin ferskhet. Vi mener du fortjener noe bedre.\n\nDagens marked\nDyr import (ofte over 370 kr/kg).\nLang transporttid og ukesvis på lager.\nHurtigproduksjon på bekostning av tradisjonell smak.\nAta-metoden\nLokal produksjon = Rettferdig, tilgjengelig pris.\nFerske, norske råvarer fra anerkjent kjøttprodusent.\nTradisjonell fermentering og autentisk krydderblanding.\nKompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPremium Norsk Kjøtt\n\nProdusert i Norge med ferskt, kortreist storfekjøtt av høyeste kvalitet. Vi samarbeider kun med de beste lokale leverandørene under strenge halal-sertifiseringer.\n\nAutentisk Krydder\n\nVår hemmelige familieoppskrift benytter krydder importert direkte fra Tyrkia. Hvitløk, spisskummen og rød pepper i perfekt harmoni for den gjenkjennelige smaken.\n\nHjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadresse\nBli med på listen\nATA SUCUK\n\n© 2023 Ata Sucuk Norge. Alle rettigheter reservert.",
+      "links": [
+        "https://fonts.googleapis.com/",
+        "https://fonts.gstatic.com/",
+        "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      ],
+      "sections": [
+        {
+          "i": 0,
+          "tag": "SECTION",
+          "cls": "relative bg-brand-dark min-h-[90vh] flex items-center pt-20 pb-16 overflow-hidden bg-[url('https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211111_1b3a6ff1.jpg')] bg-cover bg-center",
+          "text": "Lanseres snart i Norge\nNorges første autentiske\n lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din først",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 900.25
+          },
+          "style": {
+            "bg": "rgb(28, 25, 23)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "80px 0px 64px",
+            "backgroundImage": "url(\"https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211111_1b3a6ff1.jpg\")"
+          }
+        },
+        {
+          "i": 1,
+          "tag": "SECTION",
+          "cls": "py-24 bg-brand-cream",
+          "text": "Hvorfor betale overpris for importert sucuk?\n\nI dag koster importert sucuk i Norge opp mot 370 kr/kg. Den reiser langt, ligger lenge på lager og mister sin ferskhet. Vi mener du fortjener noe bedre.\n\nDagens marked\nDyr im",
+          "rect": {
+            "x": 0,
+            "y": 1120.25,
+            "w": 390,
+            "h": 1294
+          },
+          "style": {
+            "bg": "rgb(253, 251, 247)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "96px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 2,
+          "tag": "SECTION",
+          "cls": "py-16 bg-brand-cream",
+          "text": "",
+          "rect": {
+            "x": 0,
+            "y": 2414.25,
+            "w": 390,
+            "h": 528
+          },
+          "style": {
+            "bg": "rgb(253, 251, 247)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "64px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 3,
+          "tag": "SECTION",
+          "cls": "py-24 bg-brand-sand border-y border-brand-dark/5",
+          "text": "Kompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPrem",
+          "rect": {
+            "x": 0,
+            "y": 2942.25,
+            "w": 390,
+            "h": 1262
+          },
+          "style": {
+            "bg": "rgb(244, 239, 230)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "96px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 4,
+          "tag": "SECTION",
+          "cls": "py-24 bg-brand-red relative overflow-hidden bg-[url('https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211449_a92fbd78.jpg')] bg-cover bg-center",
+          "text": "Hjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadres",
+          "rect": {
+            "x": 0,
+            "y": 4204.25,
+            "w": 390,
+            "h": 666
+          },
+          "style": {
+            "bg": "rgb(113, 26, 27)",
+            "color": "rgb(28, 25, 23)",
+            "padding": "96px 0px",
+            "backgroundImage": "url(\"https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211449_a92fbd78.jpg\")"
+          }
+        },
+        {
+          "i": 5,
+          "tag": "FOOTER",
+          "cls": "bg-brand-dark text-brand-cream/60 py-12 border-t border-white/10",
+          "text": "ATA SUCUK\n\n© 2023 Ata Sucuk Norge. Alle rettigheter reservert.",
+          "rect": {
+            "x": 0,
+            "y": 4870.25,
+            "w": 390,
+            "h": 169
+          },
+          "style": {
+            "bg": "rgb(28, 25, 23)",
+            "color": "rgba(253, 251, 247, 0.6)",
+            "padding": "48px 0px",
+            "backgroundImage": "none"
+          }
+        }
+      ],
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Norges første autentiske\n lokalproduserte halal sucuk.",
+          "rect": {
+            "x": 24,
+            "y": 150,
+            "w": 354,
+            "h": 240
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "48px",
+            "line": "60px",
+            "weight": "700",
+            "color": "rgb(253, 251, 247)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hvorfor betale overpris for importert sucuk?",
+          "rect": {
+            "x": 24,
+            "y": 1216.25,
+            "w": 342,
+            "h": 120
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "36px",
+            "line": "40px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Dagens marked",
+          "rect": {
+            "x": 57,
+            "y": 1669.25,
+            "w": 276,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Ata-metoden",
+          "rect": {
+            "x": 56,
+            "y": 2062.25,
+            "w": 278,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(253, 251, 247)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Kompromissløs kvalitet",
+          "rect": {
+            "x": 24,
+            "y": 3039.25,
+            "w": 342,
+            "h": 80
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "36px",
+            "line": "40px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Langtidsfermentert",
+          "rect": {
+            "x": 24,
+            "y": 3307.25,
+            "w": 342,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Premium Norsk Kjøtt",
+          "rect": {
+            "x": 24,
+            "y": 3633.25,
+            "w": 342,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Autentisk Krydder",
+          "rect": {
+            "x": 24,
+            "y": 3959.25,
+            "w": 342,
+            "h": 32
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "24px",
+            "line": "32px",
+            "weight": "700",
+            "color": "rgb(28, 25, 23)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hjelp oss å bringe Ata Sucuk til live",
+          "rect": {
+            "x": 24,
+            "y": 4300.25,
+            "w": 342,
+            "h": 80
+          },
+          "style": {
+            "font": "\"Playfair Display\", serif",
+            "size": "36px",
+            "line": "40px",
+            "weight": "700",
+            "color": "rgb(253, 251, 247)",
+            "align": "center"
+          }
+        }
+      ],
+      "forms": [
+        {
+          "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+          "method": "POST",
+          "html": "E-postadresse\nFå tidlig tilgang\n\nIngen spam. Vi varsler deg kun når vi er klare til å ta i mot bestillinger.",
+          "inputs": [
+            {
+              "type": "hidden",
+              "name": "source",
+              "placeholder": "",
+              "value": "hero_waitlist",
+              "required": false,
+              "hidden": true
+            },
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "Din e-postadresse",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        },
+        {
+          "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+          "method": "POST",
+          "html": "E-postadresse\nBli med på listen",
+          "inputs": [
+            {
+              "type": "hidden",
+              "name": "source",
+              "placeholder": "",
+              "value": "footer_waitlist",
+              "required": false,
+              "hidden": true
+            },
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "Skriv inn e-postadressen din",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        }
+      ],
+      "images": [
+        {
+          "src": "https://gentic-mcp.s3.us-east-1.amazonaws.com/generated-assets/generated_20260516_211442_c5967d2f.jpg",
+          "alt": "Ata Sucuk Showcase",
+          "rect": {
+            "x": 24,
+            "y": 2478.25,
+            "w": 342,
+            "h": 400
+          },
+          "fit": "cover",
+          "radius": "0px"
+        }
+      ]
+    },
+    "clone": {
+      "title": "Ata Sucuk | Norges første autentiske, lokalproduserte halal sucuk",
+      "url": "https://dberg042.github.io/atasucuk/",
+      "bodyHeight": 3302,
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyFont": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+      "text": "LANSERES SNART I NORGE\n\nNorges første autentiske lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din første smakebit når vi starter produksjonen.\n\n100% Garantert Halal\nProdusert i Norge\nTradisjonelt Fermentert\nE-postadresse\nFå tidlig tilgang\nHvorfor betale overpris for importert sucuk?\nDagens marked\nDyr import (ofte over 370 kr/kg).\nLang transporttid og ukesvis på lager.\nHurtigproduksjon på bekostning av tradisjonell smak.\nAta-metoden\nLokal produksjon = Rettferdig, tilgjengelig pris.\nFerske, norske råvarer fra anerkjent kjøttprodusent.\nTradisjonell fermentering og autentisk krydderblanding.\nKompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPremium Norsk Kjøtt\n\nProdusert i Norge med ferskt, kortreist storfekjøtt av høyeste kvalitet. Vi samarbeider kun med de beste lokale leverandørene under strenge halal-sertifiseringer.\n\nAutentisk Krydder\n\nVår hemmelige familieoppskrift benytter krydder importert direkte fra Tyrkia. Hvitløk, spisskummen og rød pepper i perfekt harmoni for den gjenkjennelige smaken.\n\nHjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadresse\nBli med på listen\n\n© 2023 Ata Sucuk Norge",
+      "links": [
+        "https://dberg042.github.io/atasucuk/styles.css"
+      ],
+      "sections": [
+        {
+          "i": 0,
+          "tag": "HEADER",
+          "cls": "hero",
+          "text": "LANSERES SNART I NORGE\n\nNorges første autentiske lokalproduserte halal sucuk.\n\nTradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for å sikre deg din først",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 798.171875
+          },
+          "style": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)), url(\"https://dberg042.github.io/atasucuk/hero.jpg\")"
+          }
+        },
+        {
+          "i": 1,
+          "tag": "SECTION",
+          "cls": "section section--alt",
+          "text": "Hvorfor betale overpris for importert sucuk?\nDagens marked\nDyr import (ofte over 370 kr/kg).\nLang transporttid og ukesvis på lager.\nHurtigproduksjon på bekostning av tradisjonell smak.\nAta-metoden\nLokal produksjon = Rett",
+          "rect": {
+            "x": 0,
+            "y": 798.171875,
+            "w": 390,
+            "h": 1002.953125
+          },
+          "style": {
+            "bg": "rgb(246, 244, 242)",
+            "color": "rgb(17, 17, 17)",
+            "padding": "40px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 2,
+          "tag": "SECTION",
+          "cls": "section",
+          "text": "Kompromissløs kvalitet\nLangtidsfermentert\n\nVi tar ingen snarveier. En ekte sucuk krever tid. Vi benytter tradisjonelle metoder for langsom fermentering, som gir den dype, komplekse smaken og den perfekte teksturen.\n\nPrem",
+          "rect": {
+            "x": 0,
+            "y": 1801.125,
+            "w": 390,
+            "h": 883.546875
+          },
+          "style": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(17, 17, 17)",
+            "padding": "40px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 3,
+          "tag": "SECTION",
+          "cls": "section section--alt",
+          "text": "Hjelp oss å bringe Ata Sucuk til live\n\nVi har oppskriften, produsenten og råvarene klare. Nå trenger vi kun å bevise at Norge er klart for en ekte premium sucuk. Meld din interesse i dag, helt uforpliktende.\n\nE-postadres",
+          "rect": {
+            "x": 0,
+            "y": 2684.671875,
+            "w": 390,
+            "h": 497.3125
+          },
+          "style": {
+            "bg": "rgb(246, 244, 242)",
+            "color": "rgb(17, 17, 17)",
+            "padding": "40px 0px",
+            "backgroundImage": "none"
+          }
+        },
+        {
+          "i": 4,
+          "tag": "FOOTER",
+          "cls": "site-footer",
+          "text": "© 2023 Ata Sucuk Norge",
+          "rect": {
+            "x": 0,
+            "y": 3181.984375,
+            "w": 390,
+            "h": 120.3125
+          },
+          "style": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(255, 255, 255)",
+            "padding": "48px 0px",
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(\"https://dberg042.github.io/atasucuk/footer.jpg\")"
+          }
+        }
+      ],
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Norges første autentiske lokalproduserte halal sucuk.",
+          "rect": {
+            "x": 24,
+            "y": 100.46875,
+            "w": 304.21875,
+            "h": 145.9375
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "30.4px",
+            "line": "36.48px",
+            "weight": "700",
+            "color": "rgb(255, 255, 255)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hvorfor betale overpris for importert sucuk?",
+          "rect": {
+            "x": 24,
+            "y": 838.171875,
+            "w": 342,
+            "h": 67.1875
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "28px",
+            "line": "33.6px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Dagens marked",
+          "rect": {
+            "x": 49,
+            "y": 962.359375,
+            "w": 292,
+            "h": 24
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "20px",
+            "line": "24px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Ata-metoden",
+          "rect": {
+            "x": 49,
+            "y": 1235.34375,
+            "w": 292,
+            "h": 24
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "20px",
+            "line": "24px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Kompromissløs kvalitet",
+          "rect": {
+            "x": 24,
+            "y": 1841.125,
+            "w": 342,
+            "h": 33.59375
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "28px",
+            "line": "33.6px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "center"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Langtidsfermentert",
+          "rect": {
+            "x": 49,
+            "y": 1931.71875,
+            "w": 292,
+            "h": 24
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "20px",
+            "line": "24px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Premium Norsk Kjøtt",
+          "rect": {
+            "x": 49,
+            "y": 2185.703125,
+            "w": 292,
+            "h": 24
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "20px",
+            "line": "24px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H3",
+          "text": "Autentisk Krydder",
+          "rect": {
+            "x": 49,
+            "y": 2439.6875,
+            "w": 292,
+            "h": 24
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "20px",
+            "line": "24px",
+            "weight": "700",
+            "color": "rgb(139, 0, 0)",
+            "align": "start"
+          }
+        },
+        {
+          "tag": "H2",
+          "text": "Hjelp oss å bringe Ata Sucuk til live",
+          "rect": {
+            "x": 24,
+            "y": 2724.671875,
+            "w": 342,
+            "h": 67.1875
+          },
+          "style": {
+            "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "28px",
+            "line": "33.6px",
+            "weight": "700",
+            "color": "rgb(17, 17, 17)",
+            "align": "center"
+          }
+        }
+      ],
+      "forms": [
+        {
+          "action": "#",
+          "method": null,
+          "html": "E-postadresse\nFå tidlig tilgang",
+          "inputs": [
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "navn@eksempel.no",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        },
+        {
+          "action": "#",
+          "method": null,
+          "html": "E-postadresse\nBli med på listen",
+          "inputs": [
+            {
+              "type": "email",
+              "name": "email",
+              "placeholder": "navn@eksempel.no",
+              "value": "",
+              "required": true,
+              "hidden": false
+            }
+          ]
+        }
+      ],
+      "images": [
+        {
+          "src": "https://dberg042.github.io/atasucuk/middle.png",
+          "alt": "Skiver av tradisjonelt fermentert Ata Sucuk på et skjærebrett.",
+          "rect": {
+            "x": 24,
+            "y": 1533.125,
+            "w": 342,
+            "h": 228
+          },
+          "fit": "fill",
+          "radius": "12px"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "mobile": {
+    "bodyHeight": 5052,
+    "bodyBg": "rgb(253, 251, 247)",
+    "bodyFont": "Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
+    "h1": {
+      "size": "48px",
+      "line": "60px",
+      "font": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+      "align": "center"
+    },
+    "middleImg": {
+      "w": 342,
+      "h": 400,
+      "src": "./assets/middle.jpg"
+    },
+    "ctaBg": "rgb(113, 26, 27)",
+    "qualityBg": "rgb(244, 239, 230)",
+    "forms": [
+      {
+        "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+        "method": "post",
+        "inputs": [
+          {
+            "type": "hidden",
+            "name": "source",
+            "value": "hero_waitlist",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "email",
+            "name": "email",
+            "value": "",
+            "placeholder": "Din e-postadresse",
+            "required": true
+          }
+        ]
+      },
+      {
+        "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+        "method": "post",
+        "inputs": [
+          {
+            "type": "hidden",
+            "name": "source",
+            "value": "footer_waitlist",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "email",
+            "name": "email",
+            "value": "",
+            "placeholder": "Skriv inn e-postadressen din",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "iconCount": 18,
+    "console": []
+  },
+  "desktop": {
+    "bodyHeight": 3540,
+    "bodyBg": "rgb(253, 251, 247)",
+    "bodyFont": "Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
+    "h1": {
+      "size": "72px",
+      "line": "72px",
+      "font": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+      "align": "center"
+    },
+    "middleImg": {
+      "w": 1216,
+      "h": 600,
+      "src": "./assets/middle.jpg"
+    },
+    "ctaBg": "rgb(113, 26, 27)",
+    "qualityBg": "rgb(244, 239, 230)",
+    "forms": [
+      {
+        "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+        "method": "post",
+        "inputs": [
+          {
+            "type": "hidden",
+            "name": "source",
+            "value": "hero_waitlist",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "email",
+            "name": "email",
+            "value": "",
+            "placeholder": "Din e-postadresse",
+            "required": true
+          }
+        ]
+      },
+      {
+        "action": "https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070",
+        "method": "post",
+        "inputs": [
+          {
+            "type": "hidden",
+            "name": "source",
+            "value": "footer_waitlist",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "email",
+            "name": "email",
+            "value": "",
+            "placeholder": "Skriv inn e-postadressen din",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "iconCount": 18,
+    "console": []
+  }
+}

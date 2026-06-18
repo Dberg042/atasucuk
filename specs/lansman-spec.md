@@ -1,3 +1,16 @@
+> ⚠️ **SUPERSEDED (2026-06-18).** This original brief targeted a *dependency-free,
+> system-font, white/`#8b0000`* static page. That goal conflicts with the actual
+> requirement — a **birebir (pixel-faithful) clone** of
+> <https://atasucuk.gentic.run/lansman>. Following this spec is what produced the
+> ~60% "brochure" divergence documented in `docs/eksikler-listesi.md`.
+>
+> The authoritative spec is now **`docs/parity-backlog.md`** (+ `docs/eksikler-listesi.md`).
+> Key overrides: fonts = **Inter + Playfair Display** (Google Fonts); palette =
+> dark `#1C1917` / cream `#FDFBF7` / sand `#F4EFE6` / red `#711A1B` / gold `#B8860B`;
+> hero/middle/CTA use `assets/reference/*`; forms **POST** to the Gentic lead
+> endpoint with hidden `source` fields; icons = inline Lucide SVGs; H1 = 48px mobile /
+> 72px desktop, centered. The sections below are kept only for historical context.
+
 # Ata Sucuk Landing Page — Detailed Implementation Spec
 
 Source URL
