@@ -25,7 +25,7 @@ Ake likes the current Ata Sucuk homepage at <https://dberg042.github.io/atasucuk
   - `v2/styles.css`
   - `v3/index.html`
   - `v3/styles.css`
-- Same assets only: use existing images from `../assets/hero.jpg`, `../assets/middle.jpg`, `../assets/cta.jpg` and/or existing reference assets already in this repo. Do not fetch or invent new product images.
+- Same assets only: use existing images from `../assets/hero.jpg`, `../assets/middle.png`, `../assets/cta.jpg` and/or existing reference assets already in this repo. Do not fetch or invent new product images.
 - Same core content and facts. You may restructure section order and shorten labels only where the design needs it, but do not invent:
   - testimonials,
   - customer logos,

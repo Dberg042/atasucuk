@@ -123,7 +123,7 @@ with `grep`/`ls` in-session. Results:
 | No Tailwind/Lucide/unpkg CDN | ✅ none |
 | CSS `prefers-reduced-motion` / `@media` / `cursor: pointer` / `:focus-visible` | ✅ all present each stylesheet |
 | Stylesheet hrefs resolve (local `./styles.css` + Google Fonts) | ✅ |
-| `<img>` src resolves + has `alt` | ✅ `../assets/middle.jpg` |
+| `<img>` src resolves + has `alt` | ✅ `../assets/middle.png` |
 | CSS `url()` resolve | ✅ `../assets/hero.jpg`, `../assets/cta.jpg` |
 | HTML tag-balance (open == close) | ✅ all containers balanced |
 

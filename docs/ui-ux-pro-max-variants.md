@@ -92,7 +92,7 @@ Supplemental style matches:
 
 - Create `/v1/index.html` + `/v1/styles.css`, `/v2/index.html` + `/v2/styles.css`, `/v3/index.html` + `/v3/styles.css`.
 - Preserve `/index.html` and `/styles.css` unless a tiny navigation link to variants is explicitly justified; default is **do not touch**.
-- Use existing images from `../assets/hero.jpg`, `../assets/middle.jpg`, `../assets/cta.jpg` or existing reference assets if already used by the current site.
+- Use existing images from `../assets/hero.jpg`, `../assets/middle.png`, `../assets/cta.jpg` or existing reference assets if already used by the current site.
 - Use relative paths that work on GitHub Pages subpaths.
 - Preserve the Gentic lead endpoint:
   `https://mcp.gentic.co/api/leads/socialdock/666ab854-c5e2-4add-b1a2-adfdf4851070`

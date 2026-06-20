@@ -23,7 +23,7 @@
 - **Trap found:** the root page's Lucide `flame` icon path contains the literal
   substring `4.9` (`2 4.9 4 6.5`), which is a forbidden claim token. All variants use
   a neutralized flame path (`2 5 4 6.5`) so the verifier stays green.
-- Asset plan: `middle.jpg` rendered as an inline `<img>` (real dims 5056×3392, alt +
+- Asset plan: `middle.png` rendered as an inline `<img>` (real dims 5056×3392, alt +
   lazy); `hero.jpg` and `cta.jpg` used as CSS `background-image` in `aspect-ratio` /
   full-bleed boxes (no width/height needed, no layout shift). All three resolve via
   `../assets/…` from the `vN/` subdir.
@@ -47,7 +47,7 @@
   gold gradient CTAs, proof strip, dark glow panels, cinematic plate with caption
   overlay, radial-glow finale. High contrast cream-on-dark throughout. Forms:
   `v3_hero_waitlist`, `v3_footer_waitlist`.
-- Asset usage: `middle.jpg` inline `<img>` (alt+lazy, dims 5056×3392) in every variant;
+- Asset usage: `middle.png` inline `<img>` (alt+lazy, dims 5056×3392) in every variant;
   `hero.jpg`/`cta.jpg` as CSS backgrounds. All resolve via `../assets/…`.
 - Root `index.html` / `styles.css` NOT modified (confirmed via `git status --short`).
 
@@ -72,7 +72,7 @@
   - No `cdn.tailwindcss.com` / `unpkg.com` / `lucide` / `tailwind` references.
   - Each stylesheet contains `prefers-reduced-motion`, `@media`, `cursor: pointer`,
     `:focus-visible`.
-  - All asset refs resolve: `../assets/middle.jpg` (img, with alt),
+  - All asset refs resolve: `../assets/middle.png` (img, with alt),
     `../assets/hero.jpg` + `../assets/cta.jpg` (CSS url), `./styles.css`, Google Fonts.
   - HTML tag-balance check: all open/close tag counts match per file.
 - **Live forms NOT submitted** (per task) — markup-only verification.

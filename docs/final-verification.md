@@ -198,7 +198,7 @@ Additional changes before push:
 - Ran `.claude-run/optimize-images.sh` successfully.
 - Generated optimized web images:
   - `assets/hero.jpg` — 181 KB
-  - `assets/middle.jpg` — 186 KB
+  - `assets/middle.png` — 186 KB
   - `assets/cta.jpg` — 331 KB
 - Repointed the page from `assets/reference/*-reference.jpg` to the optimized image files.
 - Added `scripts/verify_parity.py` as the committed parity smoke-check harness.
@@ -218,7 +218,7 @@ Runtime verification result:
 | Desktop body height | `3540px` — PASS, target `3523±150` |
 | Mobile H1 | `48px / 60px`, Playfair, centered — PASS |
 | Desktop H1 | `72px / 72px`, Playfair, centered — PASS |
-| Mobile middle image | `342x400`, `./assets/middle.jpg` — PASS |
+| Mobile middle image | `342x400`, `./assets/middle.png` — PASS |
 | Body background | `rgb(253, 251, 247)` — PASS |
 | Quality background | `rgb(244, 239, 230)` — PASS |
 | CTA background | `rgb(113, 26, 27)` — PASS |

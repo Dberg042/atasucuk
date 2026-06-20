@@ -180,8 +180,8 @@ environment (no browser binary; Playwright/npm blocked) — see
 
 ## 2026-06-18T21:32:42+00:00 — Eli post-Claude verification and image optimization
 
-- Changed: Ran `.claude-run/optimize-images.sh`, generating web-sized `assets/hero.jpg`, `assets/middle.jpg`, and `assets/cta.jpg`, then repointing the page away from the 8–9 MB reference originals.
-- Files touched: `index.html`, `styles.css`, `assets/hero.jpg`, `assets/middle.jpg`, `assets/cta.jpg`, `scripts/verify_parity.py`, `audit-artifacts/clone-mobile-after-eli.png`, `audit-artifacts/clone-desktop-after-eli.png`, `audit-artifacts/computed-clone-after-eli.json`.
+- Changed: Ran `.claude-run/optimize-images.sh`, generating web-sized `assets/hero.jpg`, `assets/middle.png`, and `assets/cta.jpg`, then repointing the page away from the 8–9 MB reference originals.
+- Files touched: `index.html`, `styles.css`, `assets/hero.jpg`, `assets/middle.png`, `assets/cta.jpg`, `scripts/verify_parity.py`, `audit-artifacts/clone-mobile-after-eli.png`, `audit-artifacts/clone-desktop-after-eli.png`, `audit-artifacts/computed-clone-after-eli.json`.
 - Why: Fixes the mobile performance follow-up Claude documented before push; keeps visual parity while reducing shipped image size.
 - Verification: Started a local server on `http://127.0.0.1:8099/` and ran `python3 scripts/verify_parity.py`. PASS: mobile body height `5052` within `5039±250`; desktop body height `3540` within `3523±150`; mobile H1 `48px/60px`; desktop H1 `72px/72px`; mobile middle image `342x400`; browser console empty.
 
