@@ -1,0 +1,22 @@
+# Environment — gerçek key'ler burada, ASLA commit etme
+.env
+.env.local
+.env.*.local
+.dev.vars
+api/.dev.vars
+
+# Astro build
+dist/
+.astro/
+
+# Node
+node_modules/
+api/node_modules/
+
+# Wrangler
+.wrangler/
+api/.wrangler/
+
+# OS
+.DS_Store
+Thumbs.db

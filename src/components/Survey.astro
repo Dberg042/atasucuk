@@ -1,0 +1,23 @@
+---
+import { surveyUIFor, type SurveyUI } from '../i18n/survey';
+import type { Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui: SurveyUI = surveyUIFor(lang);
+// Modal kabuğu. Adımları client (scripts/survey.ts) .survey__body içine render eder.
+---
+
+<div class="survey" id="survey" role="dialog" aria-modal="true" aria-label={ui.intro_title} hidden>
+  <div class="survey__backdrop" data-survey-close></div>
+  <div class="survey__panel" role="document">
+    <button class="survey__close" type="button" data-survey-close aria-label={ui.close}>
+      <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+    <div class="survey__progress" hidden>
+      <div class="survey__progress-track"><div class="survey__progress-bar"></div></div>
+      <span class="survey__progress-label"></span>
+    </div>
+    <div class="survey__body"></div>
+  </div>
+</div>

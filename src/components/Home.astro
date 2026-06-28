@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Trust from './Trust.astro';
+import ProblemSolution from './ProblemSolution.astro';
+import Showcase from './Showcase.astro';
+import Quality from './Quality.astro';
+import Cta from './Cta.astro';
+import Footer from './Footer.astro';
+import Survey from './Survey.astro';
+import { useTranslations, dirFor, type Lang } from '../i18n/ui';
+
+// Paylaşılan ana sayfa gövdesi — hem / (no) hem /[lang]/ tarafından kullanılır.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base
+  lang={lang}
+  dir={dirFor(lang)}
+  title={t('meta.title')}
+  description={t('meta.description')}
+>
+  <Nav lang={lang} />
+  <Hero lang={lang} />
+  <main>
+    <Trust lang={lang} />
+    <ProblemSolution lang={lang} />
+    <Showcase lang={lang} />
+    <Quality lang={lang} />
+    <Cta lang={lang} />
+  </main>
+  <Footer lang={lang} />
+  <Survey lang={lang} />
+</Base>
+
+<script>
+  import '../scripts/signup.ts';
+  import '../scripts/survey.ts';
+</script>

@@ -1,0 +1,54 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { surveyUIFor } from '../i18n/survey';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const surveyTrigger = surveyUIFor(lang).trigger;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+// Hızlı yol: doğrudan e-posta (form). Zengin yol: anket tetiği (data-survey-open).
+---
+
+<header class="hero">
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__blob hero__blob--red" aria-hidden="true"></div>
+  <div class="hero__blob hero__blob--gold" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__badge">
+      <span class="hero__badge-dot" aria-hidden="true"></span>
+      <span>{t('hero.badge')}</span>
+    </div>
+
+    <h1 class="hero__title">
+      {t('hero.title_pre')}<span class="hero__title-accent">{t('hero.title_accent')}<svg class="hero__underline" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="transparent"></path></svg></span>{t('hero.title_post')}
+    </h1>
+
+    <p class="hero__lead">{t('hero.lead')}</p>
+
+    <div class="hero__form-panel">
+      <form
+        class="signup"
+        data-signup
+        data-source="hero_waitlist"
+        data-msg-sending={t('form.sending')}
+        data-msg-ok={t('form.ok')}
+        data-msg-already={t('form.already')}
+        data-msg-error={t('form.error')}
+      >
+        <label class="sr-only" for="hero-email">{t('hero.email_label')}</label>
+        <input class="signup__input" id="hero-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('hero.email_placeholder')} />
+        <button class="signup__btn signup__btn--primary" type="submit">
+          <span>{t('hero.cta')}</span>
+          <svg class="ico ico-5 signup__btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+        {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible" data-appearance="interaction-only"></div>}
+        <p class="signup__note">{t('hero.note')}</p>
+        <p class="signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <button class="hero__survey-trigger" type="button" data-survey-open>{surveyTrigger}</button>
+  </div>
+</header>

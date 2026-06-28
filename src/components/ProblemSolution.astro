@@ -1,0 +1,63 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="section problem" aria-labelledby="problem-heading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="problem-heading" class="section-head__title">{t('problem.title')}</h2>
+      <p class="section-head__lead">{t('problem.lead')}</p>
+    </div>
+
+    <div class="cards">
+      <!-- The problem -->
+      <div class="card">
+        <div class="card__icon card__icon--muted">
+          <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+        </div>
+        <h3 class="card__title">{t('problem.market_title')}</h3>
+        <ul class="card__list">
+          <li class="card__item">
+            <svg class="ico ico-5 card__bullet card__bullet--bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+            <span>{t('problem.market_1')}</span>
+          </li>
+          <li class="card__item">
+            <svg class="ico ico-5 card__bullet card__bullet--bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+            <span>{t('problem.market_2')}</span>
+          </li>
+          <li class="card__item">
+            <svg class="ico ico-5 card__bullet card__bullet--bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+            <span>{t('problem.market_3')}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- The solution -->
+      <div class="card card--dark">
+        <div class="card__blob" aria-hidden="true"></div>
+        <div class="card__icon card__icon--gold">
+          <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+        </div>
+        <h3 class="card__title">{t('problem.ata_title')}</h3>
+        <ul class="card__list">
+          <li class="card__item">
+            <svg class="ico ico-5 card__bullet card__bullet--good" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>{t('problem.ata_1')}</span>
+          </li>
+          <li class="card__item">
+            <svg class="ico ico-5 card__bullet card__bullet--good" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>{t('problem.ata_2')}</span>
+          </li>
+          <li class="card__item">
+            <svg class="ico ico-5 card__bullet card__bullet--good" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>{t('problem.ata_3')}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

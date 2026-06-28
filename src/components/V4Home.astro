@@ -1,0 +1,335 @@
+---
+import Base from '../layouts/Base.astro';
+import Survey from './Survey.astro';
+import { useV4 } from '../i18n/v4';
+import { recipes, recipeHref, pickL } from '../i18n/recipes';
+import { activeLanguages, dirFor, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useV4(lang);
+const current = lang;
+const v4href = (l: Lang) => (l === 'no' ? '/v4/' : `/v4/${l}/`);
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const msgAttrs = {
+  'data-msg-sending': t('form.sending'),
+  'data-msg-ok': t('form.ok'),
+  'data-msg-already': t('form.already'),
+  'data-msg-error': t('form.error'),
+};
+
+// Fiyat barı segmentleri: kırmızı = gerçek değer, gri = aracı/maliyet katmanı.
+const importSegs = [
+  { k: 'price.seg_ravare', w: 18, c: 'ravare' },
+  { k: 'price.seg_produksjon', w: 14, c: 'produksjon' },
+  { k: 'price.seg_transport', w: 14, c: 'extra' },
+  { k: 'price.seg_toll', w: 16, c: 'extra' },
+  { k: 'price.seg_mellomledd', w: 12, c: 'extra' },
+  { k: 'price.seg_mellomledd', w: 12, c: 'extra' },
+  { k: 'price.seg_mellomledd', w: 14, c: 'extra' },
+] as const;
+const ataSegs = [
+  { k: 'price.seg_ravare', w: 26, c: 'ravare' },
+  { k: 'price.seg_produksjon', w: 16, c: 'produksjon' },
+] as const;
+---
+
+<Base lang={lang} dir={dirFor(lang)} title={t('meta.title')} description={t('meta.description')}>
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href={v4href(lang)} aria-label={t('nav.brand')}>
+        <svg class="ico ico-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12.5" cy="8.5" r="2.5"></circle><path d="M12.5 2a6.5 6.5 0 0 0-6.22 4.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3A6.5 6.5 0 0 0 12.5 2Z"></path><path d="m18.5 6 2.19 4.5a6.48 6.48 0 0 1 .31 2 6.49 6.49 0 0 1-2.6 5.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"></path></svg>
+        <span class="brand__name">{t('nav.brand')}</span>
+      </a>
+      <div class="langsel">
+        {activeLanguages.map((l, i) => (
+          <>
+            {i > 0 && <span class="langsel__sep">·</span>}
+            <a class:list={['langsel__link', { 'is-active': l === current }]} href={v4href(l)}>{l.toUpperCase()}</a>
+          </>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Seksjon 1 — Hero -->
+  <header class="hero">
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__badge"><span class="hero__badge-dot" aria-hidden="true"></span><span>{t('hero.badge')}</span></div>
+      <h1 class="hero__title">{t('hero.title_pre')}<span class="hero__title-accent hero__title-accent--gold">{t('hero.title_accent')}</span>{t('hero.title_post')}</h1>
+      <p class="hero__lead">{t('hero.lead')}</p>
+      <button class="hero__survey-cta" type="button" data-survey-open>🎁 {t('hero.survey_trigger')}</button>
+      <p class="hero__waitlist-heading">{t('hero.waitlist_heading')}</p>
+      <div class="hero__form-panel">
+        <form class="signup" data-signup data-source="v4_hero" {...msgAttrs}>
+          <label class="sr-only" for="v4-hero-email">{t('hero.email_label')}</label>
+          <input class="signup__input" id="v4-hero-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('hero.email_placeholder')} />
+          <button class="signup__btn signup__btn--primary" type="submit"><span>{t('hero.cta')}</span></button>
+          {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible" data-appearance="interaction-only"></div>}
+          <p class="signup__note">{t('hero.note')}</p>
+          <p class="signup__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Seksjon 2 — Trust-stripe (v1, ikonlu) -->
+    <div class="trust">
+      <div class="container">
+        <div class="trust__grid">
+          <div class="trust__item">
+            <svg class="ico ico-6 trust__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            <span>{t('trust.halal')}</span>
+          </div>
+          <div class="trust__item">
+            <svg class="ico ico-6 trust__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>{t('trust.local')}</span>
+          </div>
+          <div class="trust__item">
+            <svg class="ico ico-6 trust__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>{t('trust.fermented')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seksjon 3 — Pris + animasyonlu segmentli bar + karşılaştırma (v1 stil) -->
+    <section class="section problem">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="section-head__title">{t('price.title')}</h2>
+          <p class="section-head__lead">{t('price.lead')}</p>
+        </div>
+
+        <div class="pricebar" data-reveal>
+          <div class="pricebar__row">
+            <div class="pricebar__head"><span>{t('price.bar_import_label')}</span><strong>{t('price.bar_import_value')}</strong></div>
+            <div class="pricebar__track">
+              {importSegs.map((s) => (
+                <div class={`pricebar__seg pricebar__seg--${s.c}`} style={`--w:${s.w}%`}><span>{t(s.k as any)}</span></div>
+              ))}
+            </div>
+          </div>
+          <div class="pricebar__row">
+            <div class="pricebar__head"><span>{t('price.bar_ata_label')}</span><strong class="pricebar__value-ata">{t('price.bar_ata_value')}</strong></div>
+            <div class="pricebar__track">
+              {ataSegs.map((s) => (
+                <div class={`pricebar__seg pricebar__seg--${s.c}`} style={`--w:${s.w}%`}><span>{t(s.k as any)}</span></div>
+              ))}
+            </div>
+          </div>
+          <div class="pricebar__legend">
+            <span><i class="dot dot--ravare"></i>{t('price.seg_ravare')} + {t('price.seg_produksjon')}</span>
+            <span><i class="dot dot--extra"></i>{t('price.seg_toll')} + {t('price.seg_transport')} + {t('price.seg_mellomledd')}</span>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card" data-reveal>
+            <div class="card__icon card__icon--muted">
+              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+            </div>
+            <h3 class="card__title">{t('price.today_title')}</h3>
+            <ul class="card__list">
+              {[1, 2, 3, 4].map((n) => (
+                <li class="card__item">
+                  <svg class="ico ico-5 card__bullet card__bullet--bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+                  <span>{t(`price.today_${n}` as any)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="card card--dark" data-reveal>
+            <div class="card__blob" aria-hidden="true"></div>
+            <div class="card__icon card__icon--gold">
+              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+            </div>
+            <h3 class="card__title">{t('price.ata_title')}</h3>
+            <ul class="card__list">
+              {[1, 2, 3, 4].map((n) => (
+                <li class="card__item">
+                  <svg class="ico ico-5 card__bullet card__bullet--good" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                  <span>{t(`price.ata_${n}` as any)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hva er sucuk? (resim + yazı) -->
+    <section class="section whatis">
+      <div class="container whatis__grid" data-reveal>
+        <div class="whatis__media">
+          <img src="/assets/middle.png" alt={t('whatis.title')} width="1536" height="1024" loading="lazy" />
+        </div>
+        <div class="whatis__text">
+          <h2 class="section-head__title">{t('whatis.title')}</h2>
+          <p class="whatis__lead">{t('whatis.text')}</p>
+          <div class="whatis__tags">
+            <span class="offer__tag">{t('whatis.tag1')}</span>
+            <span class="offer__tag">{t('whatis.tag2')}</span>
+            <span class="offer__tag">{t('whatis.tag3')}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarifler (3 kart → blog) -->
+    <section class="section recipes">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="section-head__title">{t('recipes.title')}</h2>
+          <p class="section-head__lead">{t('recipes.lead')}</p>
+        </div>
+        <div class="recipes__grid">
+          {recipes.map((r) => (
+            <a class="recipe" href={recipeHref(lang, r.slug)} data-reveal>
+              <div class={`recipe__media recipe__media--${r.tone}`}>
+                <span class="recipe__emoji">{r.emoji}</span>
+                <span class="recipe__time">⏱ {pickL(r.time, lang)}</span>
+              </div>
+              <div class="recipe__body">
+                <h3 class="recipe__title">{pickL(r.title, lang)}</h3>
+                <p class="recipe__excerpt">{pickL(r.excerpt, lang)}</p>
+                <span class="recipe__cta">{t('recipes.cta')}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Seksjon 4 — Clean-label (ikonlu) -->
+    <section class="section quality clean">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="section-head__title">{t('clean.title')}</h2>
+          <p class="section-head__lead">{t('clean.lead')}</p>
+        </div>
+        <div class="cards">
+          <div class="card" data-reveal>
+            <div class="card__icon card__icon--muted">
+              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v10a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V9a1 1 0 0 1 1-1h2"></path><path d="M9 2a1 1 0 0 0-1 1v5h8V3a1 1 0 0 0-1-1z"></path><path d="M8 14h8"></path><path d="M8 18h5"></path></svg>
+            </div>
+            <h3 class="card__title">{t('clean.import_title')}</h3>
+            <p class="clean__text">{t('clean.import_text')}</p>
+          </div>
+          <div class="card card--dark" data-reveal>
+            <div class="card__blob" aria-hidden="true"></div>
+            <div class="card__icon card__icon--gold">
+              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+            </div>
+            <h3 class="card__title">{t('clean.ata_title')}</h3>
+            <p class="clean__text clean__text--strong">{t('clean.ata_text')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seksjon 5 — Tilbud -->
+    <section class="section offer">
+      <div class="container container--narrow offer__inner" data-reveal>
+        <div class="offer__icon">
+          <svg class="ico ico-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4Z"></path></svg>
+        </div>
+        <h2 class="section-head__title">{t('offer.title')}</h2>
+        <p class="offer__text">{t('offer.text')}</p>
+        <div class="offer__tags">
+          <span class="offer__tag">{t('offer.tag1')}</span>
+          <span class="offer__tag">{t('offer.tag2')}</span>
+          <span class="offer__tag">{t('offer.tag3')}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seksjon 6 — Hvorfor vi startet -->
+    <section class="section founder">
+      <div class="container container--narrow founder__inner" data-reveal>
+        <div class="founder__avatar" aria-hidden="true">
+          <svg class="ico ico-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <h2 class="section-head__title">{t('founder.title')}</h2>
+        <p class="founder__text">{t('founder.text')}</p>
+      </div>
+    </section>
+
+    <!-- Seksjon 7 — Proof -->
+    <section class="section proof">
+      <div class="container container--narrow" data-reveal>
+        <h2 class="section-head__title">{t('proof.title')}</h2>
+        <p class="proof__counter">{t('proof.counter_pre')} <strong data-count>—</strong> {t('proof.counter_post')}</p>
+        <ul class="proof__list">
+          {['proof.p1', 'proof.p2', 'proof.p3'].map((k) => (
+            <li>
+              <svg class="ico ico-5 proof__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+              <span>{t(k as any)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Seksjon 8 — Motor -->
+    <section class="section engine">
+      <div class="container container--narrow engine__inner" data-reveal>
+        <div class="engine__icon">
+          <svg class="ico ico-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h6"></path><path d="M9 16h6"></path><path d="M9 8h6"></path><rect width="16" height="20" x="4" y="2" rx="2"></rect></svg>
+        </div>
+        <h2 class="section-head__title">{t('engine.title')}</h2>
+        <p class="engine__text">{t('engine.text')}</p>
+        <button class="hero__survey-cta engine__btn" type="button" data-survey-open>🎁 {t('hero.survey_trigger')}</button>
+      </div>
+    </section>
+
+    <!-- Seksjon 9 — Son CTA -->
+    <section class="cta">
+      <div class="cta__overlay" aria-hidden="true"></div>
+      <div class="container container--narrow cta__inner">
+        <h2 class="cta__title">{t('cta.title')}</h2>
+        <p class="cta__lead">{t('cta.lead')}</p>
+        <div class="cta__form-panel">
+          <form class="signup signup--row" data-signup data-source="v4_footer" {...msgAttrs}>
+            <label class="sr-only" for="v4-cta-email">{t('cta.email_label')}</label>
+            <input class="signup__input" id="v4-cta-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('cta.email_placeholder')} />
+            <button class="signup__btn signup__btn--dark" type="submit">{t('cta.button')}</button>
+            {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible" data-appearance="interaction-only"></div>}
+            <p class="signup__status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Seksjon 10 — Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="brand" href={v4href(lang)} aria-label={t('nav.brand')}>
+        <span class="brand__name brand__name--sm">{t('nav.brand')}</span>
+      </a>
+      <p class="footer__copy">{t('footer.copy')}</p>
+    </div>
+  </footer>
+
+  <Survey lang={lang} />
+</Base>
+
+<script>
+  import '../scripts/signup.ts';
+  import '../scripts/survey.ts';
+  import '../scripts/reveal.ts';
+  (async () => {
+    const el = document.querySelector('[data-count]');
+    if (!el) return;
+    try {
+      const r = await fetch(`${import.meta.env.PUBLIC_API_URL}/count`);
+      const d = await r.json();
+      el.textContent = String(d?.data?.total ?? 0);
+    } catch {
+      el.textContent = '0';
+    }
+  })();
+</script>

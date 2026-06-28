@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { recipeBySlug, pickL, pickA, recipeHref } from '../i18n/recipes';
+import { useV4 } from '../i18n/v4';
+import { dirFor, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = useV4(lang);
+const r = recipeBySlug(slug)!;
+const backHref = lang === 'no' ? '/v4/' : `/v4/${lang}/`;
+const labelIng = lang === 'tr' ? 'Malzemeler' : 'Ingredienser';
+const labelStep = lang === 'tr' ? 'Hazırlanışı' : 'Slik gjør du';
+const back = lang === 'tr' ? '← Ana sayfa' : '← Tilbake';
+---
+
+<Base lang={lang} dir={dirFor(lang)} title={`${pickL(r.title, lang)} · Ata Sucuk`} description={pickL(r.excerpt, lang)}>
+  <article class="post">
+    <div class={`post__hero post__hero--${r.tone}`}><span class="post__emoji">{r.emoji}</span></div>
+    <div class="container container--narrow post__body">
+      <a class="post__back" href={backHref}>{back}</a>
+      <p class="post__time">⏱ {pickL(r.time, lang)}</p>
+      <h1 class="post__title">{pickL(r.title, lang)}</h1>
+      <p class="post__excerpt">{pickL(r.excerpt, lang)}</p>
+
+      <h2 class="post__h2">{labelIng}</h2>
+      <ul class="post__ing">
+        {pickA(r.ingredients, lang).map((i) => <li>{i}</li>)}
+      </ul>
+
+      <h2 class="post__h2">{labelStep}</h2>
+      <ol class="post__steps">
+        {pickA(r.steps, lang).map((s) => <li>{s}</li>)}
+      </ol>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="brand__name brand__name--sm">{t('nav.brand')}</span>
+      <p class="footer__copy">{t('footer.copy')}</p>
+    </div>
+  </footer>
+</Base>

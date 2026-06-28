@@ -1,0 +1,35 @@
+---
+import { activeLanguages, getLangFromUrl, type Lang } from '../i18n/ui';
+
+const current = getLangFromUrl(Astro.url);
+const href = (l: Lang) => (l === 'no' ? '/' : `/${l}/`);
+---
+
+<div class="langsel" role="navigation" aria-label="Språk / Dil">
+  {
+    activeLanguages.map((l, i) => (
+      <>
+        {i > 0 && <span class="langsel__sep" aria-hidden="true">·</span>}
+        <a
+          class:list={['langsel__link', { 'is-active': l === current }]}
+          href={href(l)}
+          data-lang={l}
+          hreflang={l}
+          aria-current={l === current ? 'true' : undefined}
+        >
+          {l.toUpperCase()}
+        </a>
+      </>
+    ))
+  }
+</div>
+
+<script is:inline>
+  document.querySelectorAll('.langsel__link').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try {
+        localStorage.setItem('lang', a.getAttribute('data-lang'));
+      } catch (e) {}
+    });
+  });
+</script>

@@ -1,0 +1,37 @@
+name: db-backup
+
+# plan.md'nin "en sık atlanan ölümcül hata"sı: off-site backup.
+# Günlük pg_dump → Cloudflare R2 (S3-uyumlu). 90 gün saklanır (lifecycle R2'de ayarlanır).
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # her gün 03:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install postgres client (v16)
+        run: |
+          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg
+          sudo apt-get update && sudo apt-get install -y postgresql-client-16 awscli
+
+      - name: pg_dump
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }} # postgresql://postgres:...@db.<ref>.supabase.co:5432/postgres
+        run: |
+          ts=$(date -u +%Y%m%d-%H%M%S)
+          pg_dump "$DB_URL" --no-owner --no-privileges -Fc -f "atasucuk-$ts.dump"
+          echo "DUMP=atasucuk-$ts.dump" >> "$GITHUB_ENV"
+
+      - name: Upload to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }} # https://<account_id>.r2.cloudflarestorage.com
+          R2_BUCKET: ${{ secrets.R2_BUCKET }} # örn. atasucuk-backups
+        run: |
+          aws s3 cp "$DUMP" "s3://$R2_BUCKET/db/$DUMP" --endpoint-url "$R2_ENDPOINT"
+          echo "Yüklendi: $DUMP"

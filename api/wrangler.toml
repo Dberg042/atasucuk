@@ -1,0 +1,23 @@
+name = "atasucuk-api"
+main = "src/index.ts"
+compatibility_date = "2026-06-26"
+compatibility_flags = ["nodejs_compat"]
+
+# Gizli olmayan değişkenler (lokal varsayılan). Prod [env.production] altında.
+[vars]
+ALLOWED_ORIGIN = "http://localhost:4321"
+SITE_URL = "http://localhost:4321"
+
+# --- Production ortamı: wrangler deploy --env production --------------------
+[env.production]
+vars = { ALLOWED_ORIGIN = "https://atasucuk.no", SITE_URL = "https://atasucuk.no" }
+# Worker'ı api.atasucuk.no custom domain'ine bağlar (zone CF'de olmalı — öyle).
+routes = [{ pattern = "api.atasucuk.no", custom_domain = true }]
+
+# Secret'ler (wrangler secret put ile prod'a; lokalde .dev.vars):
+#   SUPABASE_URL
+#   SUPABASE_SERVICE_ROLE_KEY
+#   TURNSTILE_SECRET_KEY
+#   RESEND_API_KEY
+#   MAIL_FROM
+#   CONFIRM_TOKEN_SECRET

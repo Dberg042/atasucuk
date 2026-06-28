@@ -1,0 +1,13 @@
+---
+import BlogPost from '../../../../components/BlogPost.astro';
+import { recipes } from '../../../../i18n/recipes';
+import { languages, defaultLang, type Lang } from '../../../../i18n/ui';
+
+export function getStaticPaths() {
+  const langs = (Object.keys(languages) as Lang[]).filter((l) => l !== defaultLang);
+  return langs.flatMap((lang) => recipes.map((r) => ({ params: { lang, slug: r.slug } })));
+}
+const { lang, slug } = Astro.params as { lang: Lang; slug: string };
+---
+
+<BlogPost lang={lang} slug={slug} />

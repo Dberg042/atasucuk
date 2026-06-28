@@ -1,0 +1,15 @@
+---
+import V4Home from '../../../components/V4Home.astro';
+import { languages, defaultLang, type Lang } from '../../../i18n/ui';
+
+// /v4/tr/, /v4/en/, /v4/ar/, /v4/fa/
+export function getStaticPaths() {
+  return (Object.keys(languages) as Lang[])
+    .filter((l) => l !== defaultLang)
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<V4Home lang={lang} />

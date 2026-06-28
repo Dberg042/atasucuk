@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+
+// T1.2 — temel layout. lang/dir prop'larıyla i18n + RTL'e hazır (T1.7/T1.9).
+// Varsayılan değerler mevcut index.html ile birebir (NO).
+export interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  dir?: 'ltr' | 'rtl';
+  ogImage?: string;
+}
+
+const {
+  title = 'Ata Sucuk | Norges første autentiske, lokalproduserte halal sucuk',
+  description = 'Tradisjonelt fermentert. Ferske norske råvarer. Ekte tyrkisk smak – til en rettferdig pris. Meld deg på ventelisten for lansering.',
+  lang = 'no',
+  dir = 'ltr',
+  ogImage = '/assets/hero.jpg',
+} = Astro.props;
+
+const ogImageUrl = new URL(ogImage, Astro.site ?? 'https://atasucuk.no').href;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts (Inter + Playfair Display, mevcut referansla aynı) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dil algılama (T1.7): ilk ziyarette tarayıcı diline, sonra kayıtlı manuel
+         seçime göre yönlendir. Aktif diller: no, tr. Diğerleri UI'da sunulmaz. -->
+    <script is:inline>
+      (function () {
+        try {
+          if (location.pathname.indexOf('/v4') === 0) return; // v4 önizleme: yönlendirme yok
+          var active = ['no', 'tr'];
+          var seg = location.pathname.split('/')[1];
+          var current = active.indexOf(seg) >= 0 ? seg : 'no';
+          var to = function (l) {
+            return l === 'no' ? '/' : '/' + l + '/';
+          };
+          var saved = localStorage.getItem('lang');
+          if (saved && active.indexOf(saved) >= 0) {
+            if (saved !== current) location.replace(to(saved));
+            return;
+          }
+          var nav = (navigator.language || 'no').slice(0, 2).toLowerCase();
+          if (active.indexOf(nav) >= 0 && nav !== current) location.replace(to(nav));
+        } catch (e) {}
+      })();
+    </script>
+
+    {/* Cloudflare Turnstile (fraud) — yalnız site key tanımlıysa */}
+    {turnstileSiteKey && (
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    )}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

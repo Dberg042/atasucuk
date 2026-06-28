@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "bodyHeight": 5052,
+    "bodyHeight": 5028,
     "bodyBg": "rgb(253, 251, 247)",
     "bodyFont": "Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
     "h1": {
@@ -12,7 +12,7 @@
     "middleImg": {
       "w": 342,
       "h": 400,
-      "src": "./assets/middle.png"
+      "src": "/assets/middle.png"
     },
     "ctaBg": "rgb(113, 26, 27)",
     "qualityBg": "rgb(244, 239, 230)",
@@ -74,7 +74,7 @@
     "middleImg": {
       "w": 1216,
       "h": 600,
-      "src": "./assets/middle.png"
+      "src": "/assets/middle.png"
     },
     "ctaBg": "rgb(113, 26, 27)",
     "qualityBg": "rgb(244, 239, 230)",

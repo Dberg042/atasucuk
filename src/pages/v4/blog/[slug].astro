@@ -1,0 +1,11 @@
+---
+import BlogPost from '../../../components/BlogPost.astro';
+import { recipes } from '../../../i18n/recipes';
+
+export function getStaticPaths() {
+  return recipes.map((r) => ({ params: { slug: r.slug } }));
+}
+const { slug } = Astro.params as { slug: string };
+---
+
+<BlogPost lang="no" slug={slug} />
