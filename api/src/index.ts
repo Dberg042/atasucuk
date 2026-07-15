@@ -188,9 +188,15 @@ app.post('/waitlist', async (c) => {
 });
 
 // --- Survey (T5.3) ---------------------------------------------------------
+// answers sınırlı: anonim uç — boyut tavanları olmadan DB şişirilebilir (DoS/çöp veri).
 const surveySchema = z.object({
   session_key: z.string().min(8).max(64),
-  answers: z.record(z.union([z.string(), z.array(z.string())])),
+  answers: z
+    .record(
+      z.string().max(32), // anahtar: q1_consumption, q4_expectation_text …
+      z.union([z.string().max(300), z.array(z.string().max(64)).max(12)])
+    )
+    .refine((a) => Object.keys(a).length <= 12, { message: 'too_many_answers' }),
   locale: localeSchema,
 });
 

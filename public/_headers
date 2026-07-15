@@ -1,0 +1,11 @@
+# Cloudflare Pages güvenlik başlıkları (tüm sayfalar).
+# CSP bilinçli olarak yalnız frame-ancestors: inline script'ler (dil algılama),
+# Google Fonts ve Turnstile widget'ı tam CSP'de tek tek izinlenmeli — lansman
+# sonrası sıkılaştırma adayı.
+/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=15552000; includeSubDomains
