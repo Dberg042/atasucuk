@@ -12,7 +12,7 @@ export const languages = {
 export type Lang = keyof typeof languages;
 
 export const defaultLang: Lang = 'no';
-export const activeLanguages: Lang[] = ['no', 'tr'];
+export const activeLanguages: Lang[] = ['no', 'tr', 'en'];
 export const rtlLangs: Lang[] = ['ar', 'fa'];
 
 export function isRtl(lang: Lang): boolean {
