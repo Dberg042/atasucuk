@@ -83,3 +83,62 @@ curl https://api.atasucuk.no/health
 ## Notlar
 - Lokal geliştirme portları (`supabase/config.toml`: API 55421, DB 55432; studio/smtp/analytics kapalı) yalnız bu makineye özel — prod'u etkilemez.
 - Taşınabilirlik: tüm DB erişimi `api/src/db.ts`'te izole. Hetzner'e taşırken yalnız `SUPABASE_URL`/bağlantı değişir.
+
+## 9) Admin takibi — referral & çekiliş sorguları
+
+Dashboard: **Supabase Dashboard → SQL Editor** (supabase.com → proje → soldaki menü).
+Aşağıdaki sorguları oraya yapıştırıp çalıştır; sık kullandıklarını "Save query" ile kaydet.
+Tablolar: `subscribers` (status: pending/confirmed), `raffle_tickets` (iki-taraflı biletler),
+`subscriber_tickets` view (onaylı kişi başına referral bilet sayısı).
+
+```sql
+-- Genel durum: kaç kayıt, kaç onaylı
+select status, count(*) from subscribers group by status;
+
+-- Referral lider tablosu: kim kaç kişi getirdi, kaç lodd'u var
+-- (lodd = 1 temel katılım + referral biletleri; yalnız onaylılar)
+select
+  s.email,
+  s.referral_code,
+  s.fylke,
+  count(distinct r.id) filter (where r.status = 'confirmed') as onaylı_davet,
+  1 + coalesce(t.tickets, 0)                                 as toplam_lodd,
+  s.created_at::date                                          as kayıt_tarihi
+from subscribers s
+left join subscribers r on r.referred_by = s.id
+left join subscriber_tickets t on t.id = s.id
+where s.status = 'confirmed'
+group by s.id, s.email, s.referral_code, s.fylke, t.tickets, s.created_at
+order by toplam_lodd desc, kayıt_tarihi;
+
+-- Kim kimi davet etti (zincir)
+select davet_eden.email as davet_eden, gelen.email as gelen, gelen.status, gelen.created_at::date
+from subscribers gelen
+join subscribers davet_eden on davet_eden.id = gelen.referred_by
+order by gelen.created_at desc;
+
+-- ÇEKİLİŞ (20 Ağustos 2026): bilet ağırlıklı 4 farklı kazanan.
+-- Ağırlıklı örnekleme (A-Res): priority = random()^(1/lodd), en yüksek 4 kazanır.
+-- Çalıştırmadan önce sonucu kayıt altına al (ekran görüntüsü + bu sorgunun çıktısı).
+with entries as (
+  select s.id, s.email, 1 + coalesce(t.tickets, 0) as lodd
+  from subscribers s
+  left join subscriber_tickets t on t.id = s.id
+  where s.status = 'confirmed'
+)
+select email, lodd, random() ^ (1.0 / lodd) as priority
+from entries
+order by priority desc
+limit 4;
+```
+
+## 10) Test sonrası DB sıfırlama
+
+Canlı test bittikten sonra tüm katılımcı verisini temizleyip kampanyaya sıfırdan başlamak için
+(Supabase Dashboard → SQL Editor):
+
+```sql
+-- DİKKAT: tüm kayıtları, anket cevaplarını ve biletleri siler. Geri dönüşü yok.
+truncate raffle_tickets, survey_responses, subscribers cascade;
+```
+`posts` tablosuna dokunmaz. Şema/migration'lar yerinde kalır.

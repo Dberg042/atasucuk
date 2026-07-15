@@ -710,6 +710,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 12px;
   margin-bottom: 24px;
+  padding-inline-end: 36px;
 }
 .survey__progress-track {
   flex: 1 1 auto;
@@ -738,7 +739,13 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.25;
   font-weight: 700;
   color: var(--dark);
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+}
+.survey__hint {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(28, 25, 23, 0.55);
+  margin-bottom: 20px;
 }
 .survey__options {
   display: flex;
@@ -747,6 +754,9 @@ a { color: inherit; text-decoration: none; }
 }
 .survey__opt {
   font: inherit;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   text-align: start;
   padding: 16px 18px;
   border-radius: 14px;
@@ -758,10 +768,44 @@ a { color: inherit; text-decoration: none; }
 }
 .survey__opt:hover { border-color: var(--gold); }
 .survey__opt:active { transform: scale(0.99); }
+.survey__opt[disabled] { cursor: default; }
 .survey__opt.is-selected {
   border-color: var(--red);
   background: rgba(113, 26, 27, 0.06);
   font-weight: 600;
+}
+/* Radyo (single) / onay kutusu (multi) göstergesi */
+.survey__opt-ind {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(28, 25, 23, 0.3);
+  background: #fff;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.survey__opt--single .survey__opt-ind { border-radius: 50%; }
+.survey__opt--multi .survey__opt-ind { border-radius: 6px; }
+.survey__opt.is-selected .survey__opt-ind { border-color: var(--red); }
+.survey__opt--single.is-selected .survey__opt-ind::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.survey__opt--multi.is-selected .survey__opt-ind {
+  background: var(--red);
+}
+.survey__opt--multi.is-selected .survey__opt-ind::after {
+  content: '';
+  width: 6px;
+  height: 11px;
+  margin-top: -2px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
 }
 .survey__other,
 .survey__input {
@@ -1098,6 +1142,37 @@ a { color: inherit; text-decoration: none; }
   background: rgba(184, 134, 11, 0.15); color: var(--gold);
 }
 
+/* Tillit + Tilbud (birleşik koyu bölüm) */
+.trust-offer { background: var(--dark); color: var(--cream); }
+.trust-offer .section-head__title { color: var(--cream); }
+.trust-offer .section-head__lead { color: rgba(253, 251, 247, 0.75); }
+.trust-offer__media {
+  max-width: 1100px; margin: 0 auto 48px;
+  border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-2xl);
+}
+.trust-offer__media img {
+  width: 100%; height: clamp(400px, 60vh, 620px); object-fit: cover; display: block;
+}
+/* Kartlar koyu zeminde okunur olsun */
+.trust-offer .cards { margin-top: 0; }
+.trust-offer .card {
+  background: rgba(253, 251, 247, 0.05);
+  border: 1px solid rgba(253, 251, 247, 0.12);
+  box-shadow: none; color: var(--cream);
+}
+.trust-offer .card--dark {
+  background: rgba(113, 26, 27, 0.18);
+  border-color: var(--gold);
+}
+.trust-offer .card__title { color: var(--cream); }
+.trust-offer .card__icon--muted { background: rgba(253, 251, 247, 0.12); color: rgba(253, 251, 247, 0.75); }
+.trust-offer .clean__text { color: rgba(253, 251, 247, 0.7); }
+.trust-offer .clean__text--strong { color: var(--cream); }
+/* Kapanış / teklif bloğu */
+.trust-offer__payoff { max-width: 768px; margin: 64px auto 0; text-align: center; }
+.trust-offer__payoff .section-head__title { color: var(--cream); }
+.trust-offer__payoff .offer__text { max-width: 640px; }
+
 /* Founder avatar */
 .founder__inner { text-align: center; }
 .founder__avatar {
@@ -1141,8 +1216,9 @@ a { color: inherit; text-decoration: none; }
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .recipe:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
-.recipe__media { position: relative; height: 160px; display: flex; align-items: center; justify-content: center; }
+.recipe__media { position: relative; height: 240px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .recipe__emoji { font-size: 56px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25)); }
+.recipe__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .recipe__time {
   position: absolute; top: 12px; inset-inline-end: 12px;
   background: rgba(0, 0, 0, 0.45); color: #fff; font-size: 12px; font-weight: 600;
@@ -1155,12 +1231,13 @@ a { color: inherit; text-decoration: none; }
 
 /* Tarif/blog tonları */
 .recipe__media--egg, .post__hero--egg { background: linear-gradient(135deg, #d9a441, #b8860b); }
-.recipe__media--menemen, .post__hero--menemen { background: linear-gradient(135deg, #a83232, #711a1b); }
-.recipe__media--toast, .post__hero--toast { background: linear-gradient(135deg, #c9a87c, #8a6d4b); }
+.recipe__media--pizza, .post__hero--pizza { background: linear-gradient(135deg, #d94a2b, #a3281a); }
+.recipe__media--tur, .post__hero--tur { background: linear-gradient(135deg, #5a7d3c, #2f4a22); }
 
 /* Blog post (tarif) */
-.post__hero { height: 200px; display: flex; align-items: center; justify-content: center; }
+.post__hero { position: relative; height: clamp(380px, 55vh, 600px); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .post__emoji { font-size: 84px; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3)); }
+.post__hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .post__body { padding-top: 40px; padding-bottom: 80px; }
 .post__back { color: var(--red); font-weight: 600; font-size: 14px; }
 .post__time { margin-top: 16px; color: rgba(28, 25, 23, 0.6); font-weight: 600; font-size: 14px; }
@@ -1198,4 +1275,138 @@ a { color: inherit; text-decoration: none; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ==========================================================================
+   v5 eklemeleri — lansman bölümü, founder foto, engine şartlar satırı,
+   footer iletişim, anket gizlilik linki, legal (personvern) sayfası
+   ========================================================================== */
+
+/* Lansering + levering (açık zemin) */
+.launch { background: var(--cream); text-align: center; }
+.launch__inner { text-align: center; }
+.launch__icon {
+  width: 64px; height: 64px; margin: 0 auto 20px;
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  background: #fff; color: var(--red); box-shadow: var(--shadow-sm);
+}
+.launch__text {
+  margin: 20px auto 0;
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(28, 25, 23, 0.78);
+}
+.offer__tag--light { border-color: var(--red); color: var(--red); }
+
+/* Founder foto + imza */
+.founder__photo {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-xl);
+}
+.founder__sign {
+  margin-top: 20px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: rgba(28, 25, 23, 0.6);
+}
+
+/* Engine küçük şartlar satırı */
+.engine__terms {
+  margin-top: 16px;
+  font-size: 13px;
+  color: rgba(28, 25, 23, 0.55);
+}
+.engine__terms a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Footer iletişim */
+.footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 12px;
+  font-size: 14px;
+}
+.footer__contact a { transition: color 0.15s ease; }
+.footer__contact a:hover { color: var(--cream); }
+.footer__sep { opacity: 0.4; }
+
+/* Anket kayıt adımı — gizlilik linki */
+.survey__privacy {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(28, 25, 23, 0.6);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.survey__privacy:hover { color: var(--dark); }
+
+/* Legal sayfa (personvern) */
+.legal { padding: 64px 0 96px; background: var(--cream); }
+.legal__back {
+  display: inline-block;
+  margin-bottom: 32px;
+  font-weight: 600;
+  color: var(--red);
+}
+.legal h1 {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.legal__updated { font-size: 14px; color: rgba(28, 25, 23, 0.55); margin-bottom: 32px; }
+.legal h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  margin: 32px 0 12px;
+}
+.legal p { margin-bottom: 12px; line-height: 1.7; color: rgba(28, 25, 23, 0.8); }
+.legal ul { list-style: disc; padding-inline-start: 24px; color: rgba(28, 25, 23, 0.8); }
+.legal li { margin-bottom: 8px; line-height: 1.6; }
+.legal a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Son CTA — tur ateşi görseli öne çıksın: yüksek bölüm, degrade overlay
+   (üst koyu → orta neredeyse şeffaf → alt koyu). Başlık üstte, form altta;
+   aradaki boşlukta görsel net görünür. */
+.cta {
+  display: flex;
+  align-items: stretch;
+}
+.cta__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.66) 0%,
+    rgba(0, 0, 0, 0.32) 32%,
+    rgba(0, 0, 0, 0.08) 58%,
+    rgba(0, 0, 0, 0.52) 100%
+  );
+}
+.cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 78vh;
+}
+.cta__title,
+.cta__lead { text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5); }
+.cta__form-panel { margin-top: auto; width: 100%; }
+
+/* Anket: alan ipucu (telefon) + paylaşım beklenti satırı */
+.survey__field-hint {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(28, 25, 23, 0.55);
+}
+.survey__share-hint {
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(28, 25, 23, 0.55);
 }

@@ -17,6 +17,10 @@ import {
   upsertSurveyBySession,
   linkSurveyToSubscriber,
   countTickets,
+  getSubscriberStatus,
+  getReferralCode,
+  findPendingForReminder,
+  markReminded,
 } from './db';
 import { ok, fail, parseBody, localeSchema } from './lib';
 import { sha256Hex, signToken, verifyToken, genReferralCode } from './crypto';
@@ -86,6 +90,7 @@ const waitlistSchema = z.object({
   ref: z.string().min(3).max(16).optional(),
   fylke: z.string().max(64).optional(),
   postnummer: z.string().max(16).optional(),
+  phone: z.string().max(24).optional(), // isteğe bağlı — ödül/teslimat iletişimi
   consent: z.boolean().optional().default(false),
   session_key: z.string().min(8).max(64).optional(), // anketi bağlamak için
   turnstile_token: z.string().max(2048).optional(), // fraud (T7.4)
@@ -138,7 +143,7 @@ app.post('/waitlist', async (c) => {
     }
     // pending → onay mailini yeniden gönder (idempotent)
     const confirmUrl = await buildConfirmUrl(c, existing.id);
-    const mail = await sendConfirmMail(c, email, existing.locale ?? body.locale, confirmUrl);
+    const mail = await sendConfirmMail(c, email, existing.locale ?? body.locale, confirmUrl, existing.referral_code);
     return ok(c, {
       status: 'pending',
       resent: true,
@@ -164,6 +169,7 @@ app.post('/waitlist', async (c) => {
     ua_hash,
     fylke: body.fylke ?? null,
     postnummer: body.postnummer ?? null,
+    phone: body.phone?.trim() || null,
     consent: body.consent,
   });
 
@@ -172,7 +178,7 @@ app.post('/waitlist', async (c) => {
 
   const confirmUrl = await buildConfirmUrl(c, sub.id);
   const tickets_token = await buildTicketsToken(c, sub.id);
-  const mail = await sendConfirmMail(c, email, body.locale, confirmUrl);
+  const mail = await sendConfirmMail(c, email, body.locale, confirmUrl, code);
 
   return ok(
     c,
@@ -196,9 +202,11 @@ app.post('/survey', async (c) => {
 });
 
 // mail.ts'i lazım olunca import et (dev log / Resend)
-async function sendConfirmMail(c: any, to: string, locale: string | null, confirmUrl: string) {
+// Onay mailine kişisel davet linki de eklenir — "link otomatik gitsin" (SPEC-06).
+async function sendConfirmMail(c: any, to: string, locale: string | null, confirmUrl: string, refCode?: string) {
   const { sendConfirmEmail } = await import('./mail');
-  return sendConfirmEmail(c.env, { to, locale, confirmUrl });
+  const refUrl = refCode ? `${c.env.SITE_URL}/?ref=${refCode}` : undefined;
+  return sendConfirmEmail(c.env, { to, locale, confirmUrl, refUrl });
 }
 
 // --- Confirm (T4.3) --------------------------------------------------------
@@ -224,9 +232,15 @@ app.get('/confirm', async (c) => {
     }
   }
 
-  // Siteye yönlendir (teşekkür/paylaşım ekranı Faz 5/6'da zenginleşecek).
+  // Siteye yönlendir — karşılama + paylaşım ekranı parametrelerle açılır:
+  // code = kişinin referral kodu, tt = imzalı bilet token'ı (yalnız sayı sızdırır).
   const url = new URL(c.env.SITE_URL);
   url.searchParams.set('confirmed', '1');
+  const code = confirmed?.referral_code ?? (await getReferralCode(db, payload!.id));
+  if (code) {
+    url.searchParams.set('code', code);
+    url.searchParams.set('tt', await buildTicketsToken(c, payload!.id));
+  }
   return c.redirect(url.toString(), 302);
 });
 
@@ -236,8 +250,12 @@ app.get('/tickets', async (c) => {
   if (!token) fail('missing_token', 'Token gerekli.', 400);
   const payload = await verifyToken<{ sid: string }>(token!, c.env.CONFIRM_TOKEN_SECRET);
   if (!payload?.sid) fail('invalid_token', 'Geçersiz token.', 400);
-  const tickets = await countTickets(createDb(c.env), payload!.sid);
-  return ok(c, { tickets });
+  const db = createDb(c.env);
+  // Toplam lodd = 1 temel katılım (onaylıysa) + referral biletleri.
+  // Onaysızken 0 döner; client sayacı ancak confirmed=true iken gösterir.
+  const confirmed = (await getSubscriberStatus(db, payload!.sid)) === 'confirmed';
+  const referral = confirmed ? await countTickets(db, payload!.sid) : 0;
+  return ok(c, { tickets: confirmed ? 1 + referral : 0, confirmed });
 });
 
 // --- Hata yönetimi ---------------------------------------------------------
@@ -249,4 +267,40 @@ app.onError((err, c) => {
   return c.json({ error: { code: 'internal', message: 'Sunucu hatası.' } }, 500);
 });
 
-export default app;
+// --- Hatırlatma cron'u (wrangler.toml [triggers]) ---------------------------
+// 24-72 saat önce kaydolup onaylamayanlara TEK seferlik "biletin bekliyor" maili.
+// reminded_at damgası ikinci gönderimi engeller; 72 saati geçenler pencereden çıkar.
+const REMIND_AFTER_H = 24;
+const REMIND_WINDOW_H = 72;
+const REMIND_BATCH = 50; // koşu başına üst sınır (Resend limitlerine nazik)
+
+async function runReminders(env: Bindings): Promise<void> {
+  const db = createDb(env);
+  const now = Date.now();
+  const fromIso = new Date(now - REMIND_WINDOW_H * 3_600_000).toISOString();
+  const toIso = new Date(now - REMIND_AFTER_H * 3_600_000).toISOString();
+  const pending = await findPendingForReminder(db, fromIso, toIso, REMIND_BATCH);
+  if (!pending.length) return;
+
+  const { sendReminderEmail } = await import('./mail');
+  for (const s of pending) {
+    try {
+      const token = await signToken({ id: s.id, exp: now + CONFIRM_TTL_MS }, env.CONFIRM_TOKEN_SECRET);
+      await sendReminderEmail(env, {
+        to: s.email,
+        locale: s.locale,
+        confirmUrl: `${env.API_ORIGIN}/confirm?token=${token}`,
+      });
+      await markReminded(db, s.id);
+    } catch (e) {
+      console.error('reminder failed', s.id, e); // tek kayıt düşerse diğerleri devam
+    }
+  }
+}
+
+export default {
+  fetch: app.fetch,
+  scheduled(_event: unknown, env: Bindings, ctx: { waitUntil(p: Promise<unknown>): void }) {
+    ctx.waitUntil(runReminders(env));
+  },
+};

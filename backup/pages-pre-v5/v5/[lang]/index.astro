@@ -1,8 +1,8 @@
 ---
-import V5Home from '../../components/V5Home.astro';
-import { languages, defaultLang, type Lang } from '../../i18n/ui';
+import V5Home from '../../../components/V5Home.astro';
+import { languages, defaultLang, type Lang } from '../../../i18n/ui';
 
-// /tr/, /en/, /ar/, /fa/ — ana sayfa (v5). ar/fa içerik NO'ya düşer.
+// /v5/tr/, /v5/en/, /v5/ar/, /v5/fa/
 export function getStaticPaths() {
   return (Object.keys(languages) as Lang[])
     .filter((l) => l !== defaultLang)

@@ -97,7 +97,8 @@ function initSurvey(root: HTMLElement) {
   function setProgress(visible: boolean, n = 0) {
     progress.hidden = !visible;
     if (!visible) return;
-    progressLabel.textContent = ui.progress.replace('{n}', String(n)).replace('{total}', String(total));
+    // Kayıt adımı da bir adım — payda total+1 (ör. 4 soru + kayıt = "5/5").
+    progressLabel.textContent = ui.progress.replace('{n}', String(n)).replace('{total}', String(total + 1));
     progressBar.style.width = `${(n / (total + 1)) * 100}%`;
   }
 
@@ -109,25 +110,44 @@ function initSurvey(root: HTMLElement) {
     else renderResult();
   }
 
+  // Seçenek butonu: radyo (single) / onay kutusu (multi) göstergesiyle.
+  function optionButton(q: Question, label: string, isSelected: boolean): HTMLButtonElement {
+    return el('button', {
+      class: `survey__opt survey__opt--${q.type}` + (isSelected ? ' is-selected' : ''),
+      type: 'button',
+      role: q.type === 'single' ? 'radio' : 'checkbox',
+      'aria-checked': String(isSelected),
+    }, [
+      el('span', { class: 'survey__opt-ind', 'aria-hidden': 'true' }),
+      el('span', { class: 'survey__opt-label' }, [label]),
+    ]) as HTMLButtonElement;
+  }
+
   function renderQuestion(q: Question, num: number) {
     setProgress(true, num);
     body.append(el('h2', { class: 'survey__q' }, [pick(q.title, lang)]));
+    body.append(
+      el('p', { class: 'survey__hint' }, [q.type === 'single' ? ui.hint_single : ui.hint_multi])
+    );
 
     if (q.type === 'single') {
-      const list = el('div', { class: 'survey__options' });
+      const list = el('div', { class: 'survey__options', role: 'radiogroup' });
       for (const opt of q.options) {
-        list.append(
-          el('button', {
-            class: 'survey__opt',
-            type: 'button',
-            onclick: () => {
-              answers[q.id] = opt.id;
-              saveProgress();
-              step++;
-              render();
-            },
-          }, [pick(opt.label, lang)])
-        );
+        const btn = optionButton(q, pick(opt.label, lang), answers[q.id] === opt.id);
+        btn.addEventListener('click', () => {
+          // Önce seçimi göster, kısa bir beklemeden sonra ilerle — çift tıklamayı da engelle.
+          list.querySelectorAll('.survey__opt').forEach((b) => {
+            b.classList.remove('is-selected');
+            b.setAttribute('aria-checked', 'false');
+            (b as HTMLButtonElement).disabled = true;
+          });
+          btn.classList.add('is-selected');
+          btn.setAttribute('aria-checked', 'true');
+          answers[q.id] = opt.id;
+          saveProgress();
+          setTimeout(() => { step++; render(); }, 350);
+        });
+        list.append(btn);
       }
       body.append(list);
       return;
@@ -135,21 +155,22 @@ function initSurvey(root: HTMLElement) {
 
     // multi
     const selected = new Set<string>((answers[q.id] as string[]) ?? []);
-    const list = el('div', { class: 'survey__options' });
+    const list = el('div', { class: 'survey__options', role: 'group' });
     let otherInput: HTMLInputElement | null = null;
+    let nextBtn: HTMLButtonElement;
+    const syncNext = () => { nextBtn.disabled = selected.size === 0; };
 
     for (const opt of q.options) {
-      const btn = el('button', {
-        class: 'survey__opt' + (selected.has(opt.id) ? ' is-selected' : ''),
-        type: 'button',
-      }, [pick(opt.label, lang)]);
+      const btn = optionButton(q, pick(opt.label, lang), selected.has(opt.id));
       btn.addEventListener('click', () => {
         if (selected.has(opt.id)) selected.delete(opt.id);
         else selected.add(opt.id);
         btn.classList.toggle('is-selected');
+        btn.setAttribute('aria-checked', String(selected.has(opt.id)));
         if (q.hasOther && opt.id === 'other' && otherInput) {
           otherInput.hidden = !selected.has('other');
         }
+        syncNext();
       });
       list.append(btn);
     }
@@ -167,20 +188,20 @@ function initSurvey(root: HTMLElement) {
       body.append(otherInput);
     }
 
-    body.append(
-      el('button', {
-        class: 'survey__next',
-        type: 'button',
-        onclick: () => {
-          answers[q.id] = [...selected];
-          if (q.hasOther && otherInput && selected.has('other') && otherInput.value.trim())
-            answers[q.id + '_text'] = otherInput.value.trim();
-          saveProgress();
-          step++;
-          render();
-        },
-      }, [ui.next])
-    );
+    nextBtn = el('button', {
+      class: 'survey__next',
+      type: 'button',
+      onclick: () => {
+        answers[q.id] = [...selected];
+        if (q.hasOther && otherInput && selected.has('other') && otherInput.value.trim())
+          answers[q.id + '_text'] = otherInput.value.trim();
+        saveProgress();
+        step++;
+        render();
+      },
+    }, [ui.next]) as HTMLButtonElement;
+    syncNext();
+    body.append(nextBtn);
   }
 
   function renderRegistration() {
@@ -202,15 +223,30 @@ function initSurvey(root: HTMLElement) {
       maxlength: '8', placeholder: ui.reg_postnummer_ph, 'aria-label': ui.reg_postnummer,
     }) as HTMLInputElement;
 
+    // Telefon — isteğe bağlı, kimlik değil: ödül araması + Agder teslimat koordinasyonu.
+    const phone = el('input', {
+      class: 'survey__input', type: 'tel', name: 'phone', autocomplete: 'tel',
+      maxlength: '24', placeholder: ui.reg_phone_ph, 'aria-label': ui.reg_phone,
+    }) as HTMLInputElement;
+    const phoneHint = el('p', { class: 'survey__field-hint' }, [ui.reg_phone_hint]);
+
     const consentWrap = el('label', { class: 'survey__consent' });
     const consent = el('input', { type: 'checkbox', required: 'true' }) as HTMLInputElement;
     consentWrap.append(consent, el('span', {}, [ui.reg_consent]));
+
+    const privacyHref = lang === 'no' ? '/personvern' : `/${lang}/personvern`;
+    const privacyLink = el('a', {
+      class: 'survey__privacy',
+      href: privacyHref,
+      target: '_blank',
+      rel: 'noopener',
+    }, [ui.reg_privacy]);
 
     const turnstileBox = el('div', { class: 'survey__turnstile' });
     const status = el('p', { class: 'survey__status', role: 'status', 'aria-live': 'polite' });
     const submit = el('button', { class: 'survey__next', type: 'submit' }, [ui.reg_submit]);
 
-    form.append(email, fylke, post, consentWrap, turnstileBox, submit, status);
+    form.append(email, fylke, post, phone, phoneHint, consentWrap, privacyLink, turnstileBox, submit, status);
     renderTurnstile(turnstileBox);
 
     form.addEventListener('submit', async (e) => {
@@ -230,6 +266,7 @@ function initSurvey(root: HTMLElement) {
             locale: lang,
             fylke: fylke.value,
             postnummer: post.value.trim() || undefined,
+            phone: phone.value.trim() || undefined,
             consent: true,
             ref,
             session_key: sessionKey,
@@ -280,12 +317,16 @@ function initSurvey(root: HTMLElement) {
 
   function renderShare(code: string): HTMLElement {
     const sh = shareUIFor(lang);
-    const link = `${location.origin}/?ref=${code}`;
+    // Davet linki ziyaretçinin bulunduğu sayfayı korur (/v5/, /v5/tr/ …) —
+    // arkadaş aynı varyantı ve dili görür.
+    const link = `${location.origin}${location.pathname}?ref=${code}`;
     const full = `${sh.text} ${link}`;
     const wrap = el('div', { class: 'survey__share' });
 
     wrap.append(el('h3', { class: 'survey__share-title' }, [sh.title]));
     wrap.append(el('p', { class: 'survey__share-sub' }, [sh.subtitle]));
+    // Beklenti yönetimi: "arkadaşım girdi ama bilet gelmedi" karışıklığını önler.
+    wrap.append(el('p', { class: 'survey__share-hint' }, [sh.hint]));
 
     // Kişisel link (tıkla-kopyala)
     const linkBox = el('button', { class: 'survey__share-link', type: 'button', title: sh.copy }, [link]);
@@ -324,14 +365,16 @@ function initSurvey(root: HTMLElement) {
     }
 
     // Kişisel bilet sayacı (imzalı /tickets) — public sıralama yok.
+    // Yalnız onaylı kullanıcıda gösterilir (onaysızda "0 bilet" moral bozar;
+    // onay çağrısı zaten sonuç ekranında).
     if (ticketsToken) {
       const counter = el('p', { class: 'survey__share-tickets' });
       wrap.append(counter);
       fetch(`${API}/tickets?token=${encodeURIComponent(ticketsToken)}`)
         .then((r) => r.json())
         .then((d) => {
-          const n = d?.data?.tickets ?? 0;
-          counter.textContent = sh.tickets.replace('{n}', String(n));
+          if (!d?.data?.confirmed) return;
+          counter.textContent = sh.tickets.replace('{n}', String(d.data.tickets ?? 0));
         })
         .catch(() => {});
     }
@@ -356,4 +399,25 @@ function initSurvey(root: HTMLElement) {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !root.hidden) close();
   });
+
+  // --- E-posta onayı dönüşü (?confirmed=1&code=…&tt=…) ----------------------
+  // Onay linki siteye bu parametrelerle yönlendirir; kullanıcı en motive olduğu
+  // anda "biletin aktif 🎉" + kendi davet linkini görür (viral döngü).
+  function renderConfirmed() {
+    setProgress(false);
+    body.innerHTML = '';
+    body.append(el('h2', { class: 'survey__result-title' }, [ui.confirmed_title]));
+    body.append(el('p', { class: 'survey__result-confirm' }, [ui.confirmed_text]));
+    if (referralCode) body.append(renderShare(referralCode));
+  }
+
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('confirmed') === '1' && qs.get('code')) {
+    referralCode = qs.get('code')!;
+    ticketsToken = qs.get('tt') ?? undefined;
+    history.replaceState(null, '', location.pathname); // token URL'de/geçmişte kalmasın
+    root.hidden = false;
+    document.body.style.overflow = 'hidden';
+    renderConfirmed();
+  }
 }

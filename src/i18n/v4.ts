@@ -9,10 +9,10 @@ const no = {
 
   'nav.brand': 'Ata Sucuk',
 
-  'hero.badge': 'Kommer snart i Norge · Bli med på ventelisten',
-  'hero.title_pre': 'Ekte, fullfermentert sucuk — uten ',
-  'hero.title_accent': 'importprisen',
-  'hero.title_post': ' og uten tvilsomt innhold.',
+  'hero.badge': 'Kommer snart til Norge · Bli med på ventelisten',
+  'hero.title_pre': 'Ekte, fullfermentert sucuk — helt uten ',
+  'hero.title_accent': 'høy pris',
+  'hero.title_post': ' og tvilsomt innhold.',
   'hero.lead':
     'Sucuk i Norge betyr i dag dyr import eller grensehandel — og begrenset utvalg. Vi lager den skikkelig her hjemme: ekte fermentering, rene råvarer og smaken du savner.',
   'hero.email_label': 'E-postadresse',
@@ -28,17 +28,17 @@ const no = {
 
   'price.title': 'Hvorfor koster sucuk dobbelt så mye i Norge?',
   'price.lead':
-    'Sucuken du kjøper her har reist langt og byttet hender flere ganger. Toll, transport og to–tre mellomledd legges på prisen — lenge før den når deg. Mange gir opp og kjøper inn store mengder fra Sverige og Danmark i stedet.',
+    'Svaret er enkelt: Høy toll på kjøttvarer, dyr transport og mange mellomledd. Sucuken du kjøper i dag har reist langt og byttet hender flere ganger. Alt dette legges på prisen – lenge før den når deg. Vi mener du fortjener noe bedre.',
   'price.today_title': 'Slik er det i dag',
-  'price.today_1': 'Importert, med toll på toppen',
-  'price.today_2': 'To–tre mellomledd, hvert med påslag',
-  'price.today_3': 'Ukesvis på lager før den når butikk',
-  'price.today_4': 'Ofte halvfermentert eller varmebehandlet for å spare tid',
+  'price.today_1': 'Importert, med høy toll på toppen',
+  'price.today_2': 'To til tre mellomledd og lang transporttid',
+  'price.today_3': 'Mye tilsetningsstoffer og usikkert innhold',
+  'price.today_4': 'Hurtigproduksjon på bekostning av tradisjonell smak',
   'price.ata_title': 'Ata-måten',
-  'price.ata_1': 'Produsert lokalt — du kjøper rett fra oss',
-  'price.ata_2': 'Ingen toll, ingen unødvendige mellomledd',
-  'price.ata_3': 'Fersk, ikke lagret i ukevis',
-  'price.ata_4': 'Fullfermentert, slik den skal være',
+  'price.ata_1': 'Ingen toll og ingen unødige mellomledd',
+  'price.ata_2': 'Lokal produksjon = Rettferdig, tilgjengelig pris',
+  'price.ata_3': 'Du betaler kun for ferske, norske råvarer og god kvalitet',
+  'price.ata_4': 'Tradisjonell fermentering og autentisk krydderblanding',
   'price.bar_import_label': 'Importert sucuk',
   'price.bar_import_value': '~370 kr/kg',
   'price.bar_import_parts': 'råvare + toll + transport + mellomledd',
@@ -46,13 +46,14 @@ const no = {
   'price.bar_ata_value': 'importpris',
   'price.bar_ata_parts': 'råvare + lokal produksjon',
 
-  'clean.title': 'Hva står egentlig på baksiden?',
+  'clean.title': 'Stoler du på det du spiser?',
   'clean.lead':
-    'Mange sucuk-typer i Norge er fulle av tilsetninger — eller bare halvfermentert og varmebehandlet i hui og hast. Vi tar tiden ekte fermentering krever, og holder innholdslisten så kort som mulig.',
+    'Mange sucuk-typer i Norge er fulle av tilsetninger, fargestoffer — og hurtigproduksjon. Vi tar tiden ekte fermentering krever, og holder innholdslisten så kort som mulig.',
   'clean.import_title': 'Importert (typisk)',
   'clean.import_text': 'Lang innholdsliste, konserveringsmidler, fargestoffer, E-stoffer du ikke kjenner igjen.',
   'clean.ata_title': 'Ata Sucuk',
-  'clean.ata_text': 'Storfekjøtt, hvitløk, krydder, salt, starterkultur. Ingenting annet.',
+  'clean.ata_text': 'Storfekjøtt fra Norge, hvitløk, krydder, salt, starterkultur. Ingenting annet.',
+  'clean.img_alt': 'Ata Sucuk — kort innholdsliste: storfekjøtt, hvitløk, krydder, salt og starterkultur.',
 
   'offer.title': 'Premium kvalitet — til importpris.',
   'offer.text':
@@ -88,7 +89,7 @@ const no = {
   'whatis.text':
     'Sucuk er en krydret, fullfermentert tørrpølse av storfe — en klassiker fra det tyrkiske kjøkkenet. Stekt til kantene blir sprø, spises den til frokost: med egg, i brød eller rett fra pannen. Tenk chorizo, men med sitt eget krydderspråk — hvitløk, spisskummen og paprika.',
   'whatis.tag1': 'Til frokost',
-  'whatis.tag2': 'Stekt sprø',
+  'whatis.tag2': 'På tur',
   'whatis.tag3': 'Med egg',
 
   // Oppskrifter
@@ -139,7 +140,7 @@ const tr: Partial<Record<V4Key, string>> = {
 
   'price.title': 'Norveç’te sucuk neden iki katı pahalı?',
   'price.lead':
-    'Burada aldığın sucuk uzun yol kat etti ve birçok el değiştirdi. Gümrük, nakliye ve iki-üç aracı fiyata bineriyor — daha sana ulaşmadan. Çoğu kişi vazgeçip İsveç ve Danimarka’dan kasayla getiriyor.',
+    'Burada aldığın sucuk uzun yol kat etti ve birçok el değiştirdi. Gümrük, nakliye ve iki-üç aracı fiyata biniyor — daha sana ulaşmadan. Çoğu kişi vazgeçip İsveç ve Danimarka’dan kasayla getiriyor.',
   'price.today_title': 'Bugün durum böyle',
   'price.today_1': 'İthal, üstüne gümrük',
   'price.today_2': 'İki-üç aracı, her biri kâr koyuyor',
@@ -164,6 +165,7 @@ const tr: Partial<Record<V4Key, string>> = {
   'clean.import_text': 'Uzun içindekiler listesi, koruyucular, renklendiriciler, tanımadığın E-kodları.',
   'clean.ata_title': 'Ata Sucuk',
   'clean.ata_text': 'Dana eti, sarımsak, baharat, tuz, başlangıç kültürü. Başka hiçbir şey.',
+  'clean.img_alt': 'Ata Sucuk — kısa içindekiler listesi: dana eti, sarımsak, baharat, tuz ve başlangıç kültürü.',
 
   'offer.title': 'Premium kalite — ithal fiyatına.',
   'offer.text':

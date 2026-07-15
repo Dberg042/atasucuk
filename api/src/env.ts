@@ -4,6 +4,7 @@ export interface Bindings {
   // [vars]
   ALLOWED_ORIGIN: string;
   SITE_URL: string;
+  API_ORIGIN: string; // Worker'ın kendi origin'i — cron'da (request yokken) confirm linki kurmak için
   // secrets
   SUPABASE_URL: string;
   SUPABASE_SERVICE_ROLE_KEY: string;

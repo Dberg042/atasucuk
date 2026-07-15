@@ -1,8 +1,9 @@
 ---
-import V5Home from '../../components/V5Home.astro';
+import Home from '../../components/Home.astro';
 import { languages, defaultLang, type Lang } from '../../i18n/ui';
 
-// /tr/, /en/, /ar/, /fa/ — ana sayfa (v5). ar/fa içerik NO'ya düşer.
+// Varsayılan dışındaki diller için statik rotalar: /tr/, /en/, /ar/, /fa/
+// (en/ar/fa iskelet — NO'ya fallback; ar/fa RTL ile render olur.)
 export function getStaticPaths() {
   return (Object.keys(languages) as Lang[])
     .filter((l) => l !== defaultLang)
@@ -12,4 +13,4 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 ---
 
-<V5Home lang={lang} />
+<Home lang={lang} />

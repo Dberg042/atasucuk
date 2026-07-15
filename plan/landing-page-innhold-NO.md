@@ -65,19 +65,19 @@ Gıdada görsel = satışın kendisi. Render/jenerik bir sucuğu kimse yemek ist
 
 > **Overskrift:** Hvorfor koster sucuk dobbelt så mye i Norge?
 >
-> **Lead:** Sucuken du kjøper her har reist langt og byttet hender flere ganger. Toll, transport og to–tre mellomledd legges på prisen — lenge før den når deg. Mange gir opp og kjøper inn store mengder fra Sverige og Danmark i stedet.
+> **Lead:** Svaret er enkelt: Høy toll på kjøttvarer, dyr transport og mange mellomledd. Sucuken du kjøper i dag har reist langt og byttet hender flere ganger. Alt dette legges på prisen – lenge før den når deg. Vi mener du fortjener noe bedre.
 >
 > **Kolon A — Slik er det i dag:**
-> - Importert, med toll på toppen
-> - To–tre mellomledd, hvert med påslag
-> - Ukesvis på lager før den når butikk
-> - Ofte halvfermentert eller varmebehandlet for å spare tid
+> - Importert, med høy toll på toppen
+> - To til tre mellomledd og lang transporttid
+> - Mye tilsetningsstoffer og usikkert innhold
+> - Hurtigproduksjon på bekostning av tradisjonell smak.
 >
 > **Kolon B — Ata-måten:**
-> - Produsert lokalt — du kjøper rett fra oss
-> - Ingen toll, ingen unødvendige mellomledd
-> - Fersk, ikke lagret i ukevis
-> - Fullfermentert, slik den skal være
+> - Ingen toll og ingen unødige mellomledd
+> - Lokal produksjon = Rettferdig, tilgjengelig pris.
+> - Du betaler kun for ferske, norske råvarer og god kvalitet
+> - Tradisjonell fermentering og autentisk krydderblanding.
 
 **Görsel:**
 - **Fiyat kırılım grafiği** (en yüksek getirili görsel): yatay bar — "Importert sucuk: råvare + toll + transport + mellomledd 1 + mellomledd 2 = ~370 kr/kg" vs "Ata Sucuk: råvare + lokal produksjon = [hedef fiyat]". Aracıları görsel olarak göstermek argümanı tek bakışta anlatır.

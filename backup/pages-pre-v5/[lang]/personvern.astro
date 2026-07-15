@@ -1,8 +1,8 @@
 ---
-import V5Home from '../../components/V5Home.astro';
+import Personvern from '../../components/Personvern.astro';
 import { languages, defaultLang, type Lang } from '../../i18n/ui';
 
-// /tr/, /en/, /ar/, /fa/ — ana sayfa (v5). ar/fa içerik NO'ya düşer.
+// /tr/personvern, /en/personvern, …
 export function getStaticPaths() {
   return (Object.keys(languages) as Lang[])
     .filter((l) => l !== defaultLang)
@@ -12,4 +12,4 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 ---
 
-<V5Home lang={lang} />
+<Personvern lang={lang} />

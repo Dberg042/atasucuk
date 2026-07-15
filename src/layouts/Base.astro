@@ -50,12 +50,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <script is:inline>
       (function () {
         try {
-          if (location.pathname.indexOf('/v4') === 0) return; // v4 önizleme: yönlendirme yok
-          var active = ['no', 'tr'];
-          var seg = location.pathname.split('/')[1];
+          var active = ['no', 'tr', 'en'];
+          var path = location.pathname;
+          var seg = path.split('/')[1] || '';
+          // Yalnız ana sayfalarda yönlendir (/, /tr/, /en/) — blog, personvern vb. dokunulmaz.
+          var isHome = path === '/' || (active.indexOf(seg) >= 0 && /^\/[a-z]{2}\/?$/.test(path));
+          if (!isHome) return;
           var current = active.indexOf(seg) >= 0 ? seg : 'no';
           var to = function (l) {
-            return l === 'no' ? '/' : '/' + l + '/';
+            // Query korunur — ?confirmed=1&code=… onay dönüşü parametreleri kaybolmasın.
+            return (l === 'no' ? '/' : '/' + l + '/') + location.search;
           };
           var saved = localStorage.getItem('lang');
           if (saved && active.indexOf(saved) >= 0) {

@@ -1,0 +1,8 @@
+# Eski önizleme rotaları → kök (v5 ana sayfa oldu, 2026-07-15).
+# Dolaşımdaki /v5/?ref=… davet linkleri de köke taşınır (query otomatik korunur).
+/v5/ / 301
+/v5 / 301
+/v5/* /:splat 301
+/v4/ / 301
+/v4 / 301
+/v4/* / 301

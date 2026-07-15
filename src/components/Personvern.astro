@@ -1,0 +1,190 @@
+---
+import Base from '../layouts/Base.astro';
+import { dirFor, type Lang } from '../i18n/ui';
+
+// Personvernerklæring + konkurransevilkår. NO + TR; diğer diller NO'ya düşer.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const isTr = lang === 'tr';
+const isEn = lang === 'en';
+const homeHref = lang === 'no' ? '/' : `/${lang}/`;
+
+const title = isTr
+  ? 'Gizlilik Bildirimi · Ata Sucuk'
+  : isEn
+    ? 'Privacy Policy · Ata Sucuk'
+    : 'Personvernerklæring · Ata Sucuk';
+const description = isTr
+  ? 'Ata Sucuk — kişisel verilerin işlenmesi ve çekiliş şartları.'
+  : isEn
+    ? 'Ata Sucuk — how we handle personal data, and the terms of the prize draw.'
+    : 'Ata Sucuk — hvordan vi behandler personopplysninger, og vilkår for trekningen.';
+---
+
+<Base lang={lang} dir={dirFor(lang)} title={title} description={description}>
+  <article class="legal">
+    <div class="container container--narrow">
+      <a class="legal__back" href={homeHref}>{isTr ? '← Ana sayfa' : isEn ? '← Back' : '← Tilbake'}</a>
+
+      {isEn ? (
+        <>
+          <h1>Privacy Policy</h1>
+          <p class="legal__updated">Last updated: 14 July 2026</p>
+
+          <h2>Data controller</h2>
+          <p>
+            Ata Sucuk (company under establishment). Contact:{' '}
+            <a href="mailto:info@atasucuk.no">info@atasucuk.no</a> · <a href="tel:+4746125025">+47 461 25 025</a>
+          </p>
+
+          <h2>What we collect</h2>
+          <ul>
+            <li>Email address (waitlist sign-up)</li>
+            <li>Optional phone number (only used to contact winners and arrange delivery)</li>
+            <li>County (fylke) and optional postcode</li>
+            <li>Survey answers and language preference</li>
+            <li>Cloudflare Turnstile verification for bot protection</li>
+          </ul>
+
+          <h2>Why we collect it</h2>
+          <ul>
+            <li>To notify you about the launch and product news by email (based on your consent)</li>
+            <li>To develop the product — survey answers are used only anonymously and in aggregate</li>
+            <li>To run the prize draw and contact the winners</li>
+          </ul>
+
+          <h2>Storage and your rights</h2>
+          <p>
+            We store your data only for the purposes above, and delete it when you unsubscribe. You can request
+            access, correction or deletion at any time — just email{' '}
+            <a href="mailto:info@atasucuk.no">info@atasucuk.no</a>. You may also lodge a complaint with the
+            Norwegian Data Protection Authority (Datatilsynet).
+          </p>
+
+          <h2>Sharing</h2>
+          <p>
+            Your data is never sold or shared with third parties for marketing. We only use the data processors
+            needed to run the service (hosting, email delivery).
+          </p>
+
+          <h2 id="vilkar">Prize draw terms</h2>
+          <ul>
+            <li>Participation is free: everyone who completes the survey and confirms their email address is entered.</li>
+            <li>You can earn extra tickets by inviting friends.</li>
+            <li>Prize: four winners each receive a 500 kr gift card.</li>
+            <li>The draw takes place at random on 20 August 2026.</li>
+            <li>Winners are contacted by email; if there is no reply within 14 days, a new winner is drawn.</li>
+            <li>Organiser: Ata Sucuk.</li>
+          </ul>
+        </>
+      ) : isTr ? (
+        <>
+          <h1>Gizlilik Bildirimi</h1>
+          <p class="legal__updated">Son güncelleme: 14 Temmuz 2026</p>
+
+          <h2>Veri sorumlusu</h2>
+          <p>
+            Ata Sucuk (kuruluş aşamasında). İletişim:{' '}
+            <a href="mailto:info@atasucuk.no">info@atasucuk.no</a> · <a href="tel:+4746125025">+47 461 25 025</a>
+          </p>
+
+          <h2>Hangi verileri topluyoruz?</h2>
+          <ul>
+            <li>E-posta adresi (bekleme listesi kaydı)</li>
+            <li>İsteğe bağlı telefon numarası (yalnızca kazananlara ulaşmak ve teslimatı ayarlamak için)</li>
+            <li>Fylke (bölge) ve isteğe bağlı posta kodu</li>
+            <li>Anket yanıtları ve dil tercihi</li>
+            <li>Bot koruması için Cloudflare Turnstile doğrulaması</li>
+          </ul>
+
+          <h2>Neden topluyoruz?</h2>
+          <ul>
+            <li>Lansman ve ürün haberlerini e-postayla iletmek (onayına dayanır)</li>
+            <li>Ürünü geliştirmek — anket yanıtları yalnızca anonim/toplu olarak kullanılır</li>
+            <li>Çekilişi yürütmek ve kazananlara ulaşmak</li>
+          </ul>
+
+          <h2>Saklama ve haklar</h2>
+          <p>
+            Verilerini yalnızca yukarıdaki amaçlar için saklarız; listeden ayrıldığında sileriz. Dilediğin zaman
+            verilerine erişme, düzeltme ve silme hakkın var — <a href="mailto:info@atasucuk.no">info@atasucuk.no</a>
+            adresine yazman yeterli. Şikâyet için Datatilsynet'e başvurabilirsin.
+          </p>
+
+          <h2>Paylaşım</h2>
+          <p>
+            Verilerin satılmaz ve pazarlama amacıyla üçüncü taraflarla paylaşılmaz. Yalnızca hizmetin çalışması için
+            gereken veri işleyiciler (barındırma, e-posta gönderimi) kullanılır.
+          </p>
+
+          <h2 id="vilkar">Çekiliş şartları</h2>
+          <ul>
+            <li>Katılım ücretsizdir: anketi tamamlayıp e-posta adresini onaylayan herkes katılır.</li>
+            <li>Arkadaş davetiyle ek çekiliş bileti kazanılabilir.</li>
+            <li>Ödül: 4 kazanana birer adet 500 kr değerinde hediye çeki.</li>
+            <li>Çekiliş 20 Ağustos 2026'da rastgele yapılır.</li>
+            <li>Kazananlara e-postayla ulaşılır; 14 gün içinde yanıt alınamazsa yeni kazanan çekilir.</li>
+            <li>Düzenleyen: Ata Sucuk.</li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <h1>Personvernerklæring</h1>
+          <p class="legal__updated">Sist oppdatert: 14. juli 2026</p>
+
+          <h2>Behandlingsansvarlig</h2>
+          <p>
+            Ata Sucuk (under etablering). Kontakt:{' '}
+            <a href="mailto:info@atasucuk.no">info@atasucuk.no</a> · <a href="tel:+4746125025">+47 461 25 025</a>
+          </p>
+
+          <h2>Hvilke opplysninger samler vi inn?</h2>
+          <ul>
+            <li>E-postadresse (påmelding til ventelisten)</li>
+            <li>Valgfritt telefonnummer (brukes kun til å kontakte vinnere og avtale levering)</li>
+            <li>Fylke og valgfritt postnummer</li>
+            <li>Svar på spørreundersøkelsen og språkvalg</li>
+            <li>Cloudflare Turnstile-verifisering for beskyttelse mot roboter</li>
+          </ul>
+
+          <h2>Hvorfor samler vi dem inn?</h2>
+          <ul>
+            <li>Å varsle deg om lansering og produktnytt på e-post (basert på ditt samtykke)</li>
+            <li>Å utvikle produktet — svar fra undersøkelsen brukes kun anonymt og samlet</li>
+            <li>Å gjennomføre trekningen og kontakte vinnerne</li>
+          </ul>
+
+          <h2>Lagring og dine rettigheter</h2>
+          <p>
+            Vi lagrer opplysningene kun for formålene over, og sletter dem når du melder deg av. Du kan når som helst
+            be om innsyn, retting eller sletting — send en e-post til{' '}
+            <a href="mailto:info@atasucuk.no">info@atasucuk.no</a>. Du kan også klage til Datatilsynet.
+          </p>
+
+          <h2>Deling</h2>
+          <p>
+            Opplysningene dine selges ikke og deles ikke med tredjeparter for markedsføring. Vi bruker kun
+            databehandlere som trengs for driften (hosting, e-postutsending).
+          </p>
+
+          <h2 id="vilkar">Vilkår for trekningen</h2>
+          <ul>
+            <li>Deltakelse er gratis: alle som fullfører undersøkelsen og bekrefter e-postadressen sin, er med.</li>
+            <li>Du kan få ekstra lodd ved å invitere venner.</li>
+            <li>Premie: fire vinnere får hvert sitt gavekort på 500 kr.</li>
+            <li>Trekningen skjer tilfeldig 20. august 2026.</li>
+            <li>Vinnerne kontaktes på e-post; ved manglende svar innen 14 dager trekkes ny vinner.</li>
+            <li>Arrangør: Ata Sucuk.</li>
+          </ul>
+        </>
+      )}
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="brand__name brand__name--sm">Ata Sucuk</span>
+      <p class="footer__copy">© 2026 Ata Sucuk Norge.</p>
+    </div>
+  </footer>
+</Base>

@@ -42,6 +42,7 @@ export interface NewSubscriber {
   ua_hash: string | null;
   fylke: string | null;
   postnummer: string | null;
+  phone: string | null; // isteğe bağlı — ödül/teslimat iletişimi (kimlik değil)
   consent: boolean;
 }
 
@@ -100,6 +101,13 @@ export async function countRecentByIpHash(
   return count ?? 0;
 }
 
+// Bilet sayacı için abone durumu (confirmed/pending).
+export async function getSubscriberStatus(db: Db, id: string): Promise<string | null> {
+  const { data, error } = await db.from('subscribers').select('status').eq('id', id).maybeSingle();
+  if (error) throw error;
+  return data?.status ?? null;
+}
+
 // Fraud: self-referral için iki tarafın hash'leri.
 export async function getHashes(
   db: Db,
@@ -128,16 +136,50 @@ export async function insertSubscriber(db: Db, s: NewSubscriber): Promise<Subscr
 export async function markConfirmed(
   db: Db,
   id: string
-): Promise<{ id: string; referred_by: string | null } | null> {
+): Promise<{ id: string; referred_by: string | null; referral_code: string } | null> {
   const { data, error } = await db
     .from('subscribers')
     .update({ status: 'confirmed', confirmed_at: new Date().toISOString() })
     .eq('id', id)
     .eq('status', 'pending')
-    .select('id,referred_by')
+    .select('id,referred_by,referral_code')
     .maybeSingle();
   if (error) throw error;
   return data;
+}
+
+// Onay dönüş ekranı için (tekrar tıklamada markConfirmed null döner — kodu ayrıca çek).
+export async function getReferralCode(db: Db, id: string): Promise<string | null> {
+  const { data, error } = await db.from('subscribers').select('referral_code').eq('id', id).maybeSingle();
+  if (error) throw error;
+  return data?.referral_code ?? null;
+}
+
+// Hatırlatma cron'u: 24-72 saat önce kaydolmuş, pending ve henüz hatırlatılmamış aboneler.
+export async function findPendingForReminder(
+  db: Db,
+  fromIso: string,
+  toIso: string,
+  limit: number
+): Promise<{ id: string; email: string; locale: string | null }[]> {
+  const { data, error } = await db
+    .from('subscribers')
+    .select('id,email,locale')
+    .eq('status', 'pending')
+    .is('reminded_at', null)
+    .gte('created_at', fromIso)
+    .lte('created_at', toIso)
+    .limit(limit);
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function markReminded(db: Db, id: string): Promise<void> {
+  const { error } = await db
+    .from('subscribers')
+    .update({ reminded_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
 }
 
 // --- Survey (Faz 5: anket kısmi kayıt + bağlama) ---------------------------
