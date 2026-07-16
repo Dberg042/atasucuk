@@ -56,8 +56,14 @@ const ataSegs = [
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__badge"><span class="hero__badge-dot" aria-hidden="true"></span><span>{t('hero.badge')}</span></div>
-      <h1 class="hero__title">{t('hero.title_pre')}<span class="hero__title-accent hero__title-accent--gold">{t('hero.title_accent')}</span>{t('hero.title_post')}</h1>
-      <p class="hero__lead">{t('hero.lead')}</p>
+      <h1 class="hero__title hero__title--stack">
+        <span class="hero__title-line hero__title-line--main">{t('hero.title_top')}</span>
+        <span class="hero__title-line">{t('hero.title_pre')}</span>
+        <span class="hero__title-line hero__title-accent hero__title-accent--gold">{t('hero.title_accent')}</span>
+        <span class="hero__title-line hero__title-line--stamp">{t('hero.title_post')}</span>
+      </h1>
+
+      <!-- Başlığın hemen altında: anket + venteliste (dönüşüm önce) -->
       <button class="hero__survey-cta" type="button" data-survey-open>🎁 {t('hero.survey_trigger')}</button>
       <p class="hero__waitlist-heading">{t('hero.waitlist_heading')}</p>
       <div class="hero__form-panel">
@@ -66,10 +72,12 @@ const ataSegs = [
           <input class="signup__input" id="v5-hero-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('hero.email_placeholder')} />
           <button class="signup__btn signup__btn--primary" type="submit"><span>{t('hero.cta')}</span></button>
           {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible" data-appearance="interaction-only"></div>}
-          <p class="signup__note">{t('hero.note')}</p>
           <p class="signup__status" role="status" aria-live="polite"></p>
         </form>
       </div>
+
+      <!-- Lead metni en altta: merak eden okur (bold vurgular için set:html) -->
+      <p class="hero__lead hero__lead--after" set:html={t('hero.lead')}></p>
     </div>
   </header>
 
@@ -94,13 +102,32 @@ const ataSegs = [
       </div>
     </div>
 
-    <!-- Seksjon 3 — Pris + segmentli bar + karşılaştırma -->
+    <!-- Seksjon 3 — Problem: tek zincir (import → katkı VE fiyat) + pris + Ata-måten -->
     <section class="section problem">
       <div class="container">
         <div class="section-head" data-reveal>
-          <h2 class="section-head__title">{t('price.title')}</h2>
-          <p class="section-head__lead">{t('price.lead')}</p>
+          <h2 class="section-head__title">{t('problem.title')}</h2>
+          <p class="section-head__lead">{t('problem.lead')}</p>
         </div>
+
+        <div class="cards" data-reveal>
+          <div class="card">
+            <div class="card__icon card__icon--muted">
+              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <h3 class="card__title">{t('problem.p1_title')}</h3>
+            <p class="v5-problem__text">{t('problem.p1_text')}</p>
+          </div>
+          <div class="card">
+            <div class="card__icon card__icon--muted">
+              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+            <h3 class="card__title">{t('problem.p2_title')}</h3>
+            <p class="v5-problem__text">{t('problem.p2_text')}</p>
+          </div>
+        </div>
+
+        <p class="v5-punchline" data-reveal>{t('problem.punchline')}</p>
 
         <div class="pricebar" data-reveal>
           <div class="pricebar__row">
@@ -125,35 +152,24 @@ const ataSegs = [
           </div>
         </div>
 
-        <div class="cards">
-          <div class="card" data-reveal>
-            <div class="card__icon card__icon--muted">
-              <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
-            </div>
-            <h3 class="card__title">{t('price.today_title')}</h3>
-            <ul class="card__list">
-              {[1, 2, 3, 4].map((n) => (
-                <li class="card__item">
-                  <svg class="ico ico-5 card__bullet card__bullet--bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
-                  <span>{t(`price.today_${n}` as any)}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class="card card--dark" data-reveal>
+        <!-- Ata-måten — problemi kökünden çözen pozitif (yeşil) blok -->
+        <div class="v5-ata" data-reveal>
+          <div class="card card--dark card--positive">
             <div class="card__blob" aria-hidden="true"></div>
             <div class="card__icon card__icon--gold">
               <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
             </div>
-            <h3 class="card__title">{t('price.ata_title')}</h3>
+            <h3 class="card__title">{t('ata.title')}</h3>
+            <p class="v5-ata__intro">{t('ata.intro')}</p>
             <ul class="card__list">
-              {[1, 2, 3, 4].map((n) => (
+              {['ata.b1', 'ata.b2'].map((k) => (
                 <li class="card__item">
                   <svg class="ico ico-5 card__bullet card__bullet--good" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
-                  <span>{t(`price.ata_${n}` as any)}</span>
+                  <span>{t(k as any)}</span>
                 </li>
               ))}
             </ul>
+            <p class="v5-ata__outro">{t('ata.outro')}</p>
           </div>
         </div>
       </div>
@@ -202,16 +218,17 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 4 — İçerik/güven (koyu) -->
+    <!-- Seksjon 4 — İçindekiler: saf kanıt, tek cümle (koyu, v7 kurgusu) -->
     <section class="section trust-offer">
       <div class="container">
         <div class="section-head" data-reveal>
-          <h2 class="section-head__title">{t('clean.title')}</h2>
-          <p class="section-head__lead">{t('clean.lead')}</p>
+          <h2 class="section-head__title">{t('ing.title')}</h2>
+          <p class="v5-ing__sentence">{t('ing.sentence')}</p>
+          <p class="section-head__lead">{t('ing.text')}</p>
         </div>
 
         <div class="trust-offer__media" data-reveal>
-          <img src="/assets/middle.png" alt={t('clean.img_alt')} width="1536" height="1024" loading="lazy" />
+          <img src="/assets/middle.png" alt={t('ing.img_alt')} width="1536" height="1024" loading="lazy" />
         </div>
       </div>
     </section>
@@ -232,33 +249,18 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 6 — Hvorfor vi startet (foto + hikâye) -->
+    <!-- Seksjon 6 — Gründerne (foto + hikâye + iletişim) -->
     <section class="section founder">
       <div class="container container--narrow founder__inner" data-reveal>
         <img class="founder__photo" src="/assets/founders.jpeg" alt={t('founder.img_alt')} width="320" height="320" loading="lazy" />
         <h2 class="section-head__title">{t('founder.title')}</h2>
         <p class="founder__text">{t('founder.text')}</p>
+        <p class="founder__text">{t('founder.text2')}</p>
         <p class="founder__sign">{t('founder.sign')}</p>
       </div>
     </section>
 
-    <!-- Seksjon 7 — Proof -->
-    <section class="section proof">
-      <div class="container container--narrow" data-reveal>
-        <h2 class="section-head__title">{t('proof.title')}</h2>
-        <p class="proof__counter" hidden>{t('proof.counter_pre')} <strong data-count>—</strong> {t('proof.counter_post')}</p>
-        <ul class="proof__list">
-          {['proof.p1', 'proof.p2', 'proof.p3'].map((k) => (
-            <li>
-              <svg class="ico ico-5 proof__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
-              <span>{t(k as any)}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- Seksjon 8 — Motor (çekiliş) -->
+    <!-- Seksjon 7 — Anket + çekiliş: çerçeve katılım, gavekort "som takk" -->
     <section class="section engine">
       <div class="container container--narrow engine__inner" data-reveal>
         <div class="engine__icon">
@@ -266,7 +268,8 @@ const ataSegs = [
         </div>
         <h2 class="section-head__title">{t('engine.title')}</h2>
         <p class="engine__text">{t('engine.text')}</p>
-        <button class="hero__survey-cta engine__btn" type="button" data-survey-open>🎁 {t('hero.survey_trigger')}</button>
+        <p class="engine__text v5-engine__thanks">{t('engine.thanks')}</p>
+        <button class="hero__survey-cta engine__btn" type="button" data-survey-open>🎁 {t('engine.button')}</button>
         <p class="engine__terms">{t('engine.terms')} <a href={privacyHref}>{t('engine.terms_link')}</a></p>
       </div>
     </section>
@@ -314,21 +317,4 @@ const ataSegs = [
   import '../scripts/signup.ts';
   import '../scripts/survey.ts';
   import '../scripts/reveal.ts';
-  (async () => {
-    const el = document.querySelector<HTMLElement>('[data-count]');
-    const wrap = el?.closest<HTMLElement>('.proof__counter');
-    if (!el || !wrap) return;
-    try {
-      const r = await fetch(`${import.meta.env.PUBLIC_API_URL}/count`);
-      const d = await r.json();
-      const total = Number(d?.data?.total ?? 0);
-      // Küçük sayı ters sosyal kanıt olur — eşiğin altında sayaç gizli kalır.
-      if (total >= 25) {
-        el.textContent = String(total);
-        wrap.hidden = false;
-      }
-    } catch {
-      /* sayaç gizli kalır */
-    }
-  })();
 </script>

@@ -177,7 +177,7 @@ export const surveyUI: Record<string, SurveyUI> = {
   no: {
     trigger: 'Svar på 4 spørsmål + bli med i trekningen →',
     intro_title: 'Ekte sucuk kommer til Norge.',
-    intro_text: '30 sekunder, 4 spørsmål. Vær med å forme produktet — og bli med i trekningen av fire gavekort på 500 kr (trekning 20. august 2026).',
+    intro_text: '30 sekunder, 4 spørsmål. Vær med å forme produktet — og bli med i trekningen av tre gavekort på 500 kr (trekning 20. august 2026).',
     intro_start: 'Start →',
     progress: '{n}/{total}',
     hint_single: 'Velg ett alternativ',
@@ -209,7 +209,7 @@ export const surveyUI: Record<string, SurveyUI> = {
   tr: {
     trigger: '4 soruya cevap ver + çekilişe katıl →',
     intro_title: 'Gerçek sucuk Norveç’e geliyor.',
-    intro_text: '30 saniye, 4 soru. Sucuğu birlikte şekillendirelim — üstelik 500 kr değerinde dört hediye çekinden birini kazanma şansın var (çekiliş: 20 Ağustos 2026).',
+    intro_text: '30 saniye, 4 soru. Sucuğu birlikte şekillendirelim — üstelik 500 kr değerinde üç hediye çekinden birini kazanma şansın var (çekiliş: 20 Ağustos 2026).',
     intro_start: 'Başla →',
     progress: '{n}/{total}',
     hint_single: 'Bir seçenek işaretle',
@@ -241,7 +241,7 @@ export const surveyUI: Record<string, SurveyUI> = {
   en: {
     trigger: 'Answer 4 questions + join the draw →',
     intro_title: 'Real sucuk is coming to Norway.',
-    intro_text: '30 seconds, 4 questions. Help shape the product — and join the draw for one of four 500 kr gift cards (drawn 20 August 2026).',
+    intro_text: '30 seconds, 4 questions. Help shape the product — and join the draw for one of three 500 kr gift cards (drawn 20 August 2026).',
     intro_start: 'Start →',
     progress: '{n}/{total}',
     hint_single: 'Pick one option',

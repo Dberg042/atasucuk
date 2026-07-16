@@ -1,8 +1,11 @@
 ---
 import { activeLanguages, getLangFromUrl, type Lang } from '../i18n/ui';
 
+// page: dil değişiminde kalınacak alt sayfa ('' = ana sayfa, 'v7/' = v7 önizleme).
+interface Props { page?: string }
+const { page = '' } = Astro.props;
 const current = getLangFromUrl(Astro.url);
-const href = (l: Lang) => (l === 'no' ? '/' : `/${l}/`);
+const href = (l: Lang) => (l === 'no' ? `/${page}` : `/${l}/${page}`);
 ---
 
 <div class="langsel" role="navigation" aria-label="Språk / Dil">

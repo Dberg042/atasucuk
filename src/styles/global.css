@@ -18,6 +18,19 @@
   /* Type */
   --font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  /* Hero başlık fontları — v7/ana site ile aynı (Playfair Display).
+     Yalnız "Laget i Norge" damga satırı Oswald kalır. */
+  --font-hero-main: var(--font-serif);
+  --font-hero-sub: var(--font-serif);
+  /* "Laget i Norge" damga satırı — kondens etiket fontu. */
+  --font-stamp: "Oswald", "Inter", sans-serif;
+
+  /* Koyu hero üstünde okunur parlak altın (highlight). */
+  --gold-bright: #E8B84B;
+
+  /* Pozitif blok (Ata-måten) — palete uyan derin orman yeşili. */
+  --green-deep: #1E3A2B;
+  --green-deep-2: #16301F;
 
   /* Layout */
   --container: 1280px; /* max-w-7xl */
@@ -166,7 +179,13 @@ a { color: inherit; text-decoration: none; }
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6); /* bg-black/60 */
+  /* Alta doğru koyulaşan gradient — form/lead bölgesinde metin kontrastı artar. */
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.62) 45%,
+    rgba(0, 0, 0, 0.74) 100%
+  );
   z-index: 1;
 }
 .hero__blob {
@@ -303,15 +322,17 @@ a { color: inherit; text-decoration: none; }
   margin-top: 8px;
   min-height: 1em;     /* layout shift olmasın */
 }
-.signup__status:empty { margin-top: 0; }
+/* Boşken hiç yer kaplamasın (aksi halde formun altında boş beyaz alan kalır). */
+.signup__status:empty { margin-top: 0; min-height: 0; }
 
 /* Hero signup (dark glass input + red button) */
 .hero .signup__input {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(253, 251, 247, 0.2);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(253, 251, 247, 0.3);
   color: var(--cream);
 }
-.hero .signup__input::placeholder { color: rgba(253, 251, 247, 0.5); }
+/* Placeholder kontrastı yükseltildi — koyu cam alan üstünde net okunur. */
+.hero .signup__input::placeholder { color: rgba(253, 251, 247, 0.78); }
 
 .signup__btn--primary {
   display: flex;
@@ -988,6 +1009,132 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 12px;
 }
 
+/* v5 hero — stablet display-tittel (3 linjer, egen font) */
+.hero__title--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: none;
+  margin-bottom: 28px;
+}
+.hero__title-line {
+  /* Alt satırlar ("Rettferdig pris", "Kort innholdsliste") — Poppins. */
+  font-family: var(--font-hero-sub);
+  font-weight: 600;
+  font-size: clamp(24px, 5.5vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+  /* Kontrast: koyu/resimli hero üstünde her satır net okunur. */
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+/* Ana satır = "Ekte, fermentert sucuk" — en büyük, hiyerarşinin tepesi (Montserrat). */
+.hero__title-line--main {
+  font-family: var(--font-hero-main);
+  font-weight: 700;
+  font-size: clamp(40px, 9.5vw, 66px);
+  line-height: 1.02;
+  margin-bottom: 14px;
+}
+/* Orta satır = highlight (parlak altın). display:inline-block miras alınır;
+   flex sütununda ortalı kalması için genişliği içeriğe sabitliyoruz. */
+.hero__title--stack .hero__title-accent {
+  align-self: center;
+  color: var(--gold-bright);
+}
+/* "Laget i Norge" satırı = kondens damga (Oswald, büyük harf + tracking). */
+.hero__title-line--stamp {
+  font-family: var(--font-stamp);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: clamp(19px, 4.5vw, 30px);
+  letter-spacing: 0.09em;
+  line-height: 1.1;
+  margin-top: 6px;
+}
+
+/* Lead metni forma taşındı — üstteki boşluğu sıfırla, altta nefes payı ver. */
+.hero__lead--after {
+  margin: 40px auto 0;
+}
+/* Lead içindeki vurgular ("Tradisjonell fermentering", "koster den mindre"). */
+.hero__lead strong {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+/* --- v5 problem bölümü (v7 kurgusu) -------------------------------------- */
+/* İki problem kartındaki paragraf metni (madde listesi yerine düz metin). */
+.v5-problem__text {
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(28, 25, 23, 0.72);
+}
+/* Punchline: "Du betaler altså mer — for mindre." */
+.v5-punchline {
+  margin: 40px auto 8px;
+  max-width: 640px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  color: var(--dark);
+}
+/* Ata-måten sarma — pris barının altında tek geniş blok. */
+.v5-ata {
+  max-width: 760px;
+  margin: 48px auto 0;
+}
+/* Pozitif yeşil kart — card--dark'ın cream metin kurallarını miras alır,
+   yalnız arka plan/dekoru yeşile çevirir. */
+.card--positive {
+  background: linear-gradient(150deg, var(--green-deep) 0%, var(--green-deep-2) 100%);
+}
+.card--positive .card__blob {
+  background: var(--gold);
+  opacity: 0.16;
+}
+.card--positive .card__icon--gold {
+  background: rgba(232, 184, 75, 0.16);
+  color: var(--gold-bright);
+}
+.v5-ata__intro {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 16px;
+  color: rgba(253, 251, 247, 0.8);
+  line-height: 1.65;
+}
+.v5-ata__outro {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(253, 251, 247, 0.16);
+  font-style: italic;
+  color: rgba(253, 251, 247, 0.85);
+  line-height: 1.65;
+}
+
+/* Anket bölümü — gavekort "som takk" satırı (başlık/metin altında ikincil). */
+.v5-engine__thanks {
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+/* İçindekiler bölümü — tek cümlelik altın vurgu (koyu zeminde parlak altın). */
+.v5-ing__sentence {
+  margin: 20px auto 16px;
+  max-width: 720px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3.6vw, 34px);
+  font-weight: 600;
+  color: var(--gold-bright);
+  letter-spacing: 0.01em;
+}
+
 /* Fiyat kırılım barı (segmentli + scroll'da dolan animasyon) — v4 signature */
 .pricebar {
   max-width: 760px;
@@ -1371,9 +1518,9 @@ a { color: inherit; text-decoration: none; }
 .legal li { margin-bottom: 8px; line-height: 1.6; }
 .legal a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
 
-/* Son CTA — tur ateşi görseli öne çıksın: yüksek bölüm, degrade overlay
-   (üst koyu → orta neredeyse şeffaf → alt koyu). Başlık üstte, form altta;
-   aradaki boşlukta görsel net görünür. */
+/* Son CTA — görsel öne çıksın ama başlık+lead net okunsun: metnin olduğu üst
+   bölge koyu siyah, aşağı doğru şeffafa geçer (görsel ortada/altta görünür).
+   Başlık üstte, form altta (margin-top:auto). */
 .cta {
   display: flex;
   align-items: stretch;
@@ -1381,10 +1528,11 @@ a { color: inherit; text-decoration: none; }
 .cta__overlay {
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.66) 0%,
-    rgba(0, 0, 0, 0.32) 32%,
-    rgba(0, 0, 0, 0.08) 58%,
-    rgba(0, 0, 0, 0.52) 100%
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.8) 22%,
+    rgba(0, 0, 0, 0.4) 42%,
+    rgba(0, 0, 0, 0.06) 64%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
 .cta__inner {
