@@ -45,13 +45,13 @@ const ataSegs = [
         <svg class="ico ico-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12.5" cy="8.5" r="2.5"></circle><path d="M12.5 2a6.5 6.5 0 0 0-6.22 4.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3A6.5 6.5 0 0 0 12.5 2Z"></path><path d="m18.5 6 2.19 4.5a6.48 6.48 0 0 1 .31 2 6.49 6.49 0 0 1-2.6 5.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"></path></svg>
         <span class="brand__name">{t('nav.brand')}</span>
       </a>
-      <!-- Dil seçimi localStorage'a kaydedilir — Base'deki otomatik yönlendirme
-           kayıtlı seçime saygı duyar (kaydetmeyen özel seçici dil değişimini kilitliyordu). -->
+      {/* Dil seçimi localStorage'a kaydedilir — Base'deki otomatik yönlendirme
+           kayıtlı seçime saygı duyar (kaydetmeyen özel seçici dil değişimini kilitliyordu). */}
       <LanguageSwitcher />
     </div>
   </nav>
 
-  <!-- Seksjon 1 — Hero -->
+  {/* Seksjon 1 — Hero */}
   <header class="hero">
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="container hero__inner">
@@ -63,7 +63,7 @@ const ataSegs = [
         <span class="hero__title-line hero__title-line--stamp">{t('hero.title_post')}</span>
       </h1>
 
-      <!-- Başlığın hemen altında: anket + venteliste (dönüşüm önce) -->
+      {/* Başlığın hemen altında: anket + venteliste (dönüşüm önce) */}
       <button class="hero__survey-cta" type="button" data-survey-open>🎁 {t('hero.survey_trigger')}</button>
       <p class="hero__waitlist-heading">{t('hero.waitlist_heading')}</p>
       <div class="hero__form-panel">
@@ -76,13 +76,13 @@ const ataSegs = [
         </form>
       </div>
 
-      <!-- Lead metni en altta: merak eden okur (bold vurgular için set:html) -->
+      {/* Lead metni en altta: merak eden okur (bold vurgular için set:html) */}
       <p class="hero__lead hero__lead--after" set:html={t('hero.lead')}></p>
     </div>
   </header>
 
   <main>
-    <!-- Seksjon 2 — Trust-stripe -->
+    {/* Seksjon 2 — Trust-stripe */}
     <div class="trust">
       <div class="container">
         <div class="trust__grid">
@@ -102,7 +102,7 @@ const ataSegs = [
       </div>
     </div>
 
-    <!-- Seksjon 3 — Problem: tek zincir (import → katkı VE fiyat) + pris + Ata-måten -->
+    {/* Seksjon 3 — Problem: tek zincir (import → katkı VE fiyat) + pris + Ata-måten */}
     <section class="section problem">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -152,7 +152,7 @@ const ataSegs = [
           </div>
         </div>
 
-        <!-- Ata-måten — problemi kökünden çözen pozitif (yeşil) blok -->
+        {/* Ata-måten — problemi kökünden çözen pozitif (yeşil) blok */}
         <div class="v5-ata" data-reveal>
           <div class="card card--dark card--positive">
             <div class="card__blob" aria-hidden="true"></div>
@@ -175,7 +175,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Hva er sucuk? (resim + yazı) -->
+    {/* Hva er sucuk? (resim + yazı) */}
     <section class="section whatis">
       <div class="container whatis__grid" data-reveal>
         <div class="whatis__media">
@@ -193,7 +193,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Tarifler (3 kart → blog) -->
+    {/* Tarifler (3 kart → blog) */}
     <section class="section recipes">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -218,7 +218,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 4 — İçindekiler: saf kanıt, tek cümle (koyu, v7 kurgusu) -->
+    {/* Seksjon 4 — İçindekiler: saf kanıt, tek cümle (koyu, v7 kurgusu) */}
     <section class="section trust-offer">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -233,7 +233,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 5 — Lansering + levering (v4'teki offer'ın yerine) -->
+    {/* Seksjon 5 — Lansering + levering (v4'teki offer'ın yerine) */}
     <section class="section launch">
       <div class="container container--narrow launch__inner" data-reveal>
         <div class="launch__icon">
@@ -249,7 +249,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 6 — Gründerne (foto + hikâye + iletişim) -->
+    {/* Seksjon 6 — Gründerne (foto + hikâye + iletişim) */}
     <section class="section founder">
       <div class="container container--narrow founder__inner" data-reveal>
         <img class="founder__photo" src="/assets/founders.jpeg" alt={t('founder.img_alt')} width="320" height="320" loading="lazy" />
@@ -260,7 +260,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 7 — Anket + çekiliş: çerçeve katılım, gavekort "som takk" -->
+    {/* Seksjon 7 — Anket + çekiliş: çerçeve katılım, gavekort "som takk" */}
     <section class="section engine">
       <div class="container container--narrow engine__inner" data-reveal>
         <div class="engine__icon">
@@ -274,7 +274,7 @@ const ataSegs = [
       </div>
     </section>
 
-    <!-- Seksjon 9 — Son CTA -->
+    {/* Seksjon 9 — Son CTA */}
     <section class="cta">
       <div class="cta__overlay" aria-hidden="true"></div>
       <div class="container container--narrow cta__inner">
@@ -293,7 +293,7 @@ const ataSegs = [
     </section>
   </main>
 
-  <!-- Seksjon 10 — Footer (iletişim + personvern) -->
+  {/* Seksjon 10 — Footer (iletişim + personvern) */}
   <footer class="footer">
     <div class="container footer__inner">
       <a class="brand" href={v5href(lang)} aria-label={t('nav.brand')}>

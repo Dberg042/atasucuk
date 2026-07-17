@@ -31,18 +31,18 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Favicon (hero'daki marka et/but ikonu) -->
+    {/* Favicon (hero'daki marka et/but ikonu) */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="mask-icon" href="/favicon.svg" color="#711A1B" />
     <meta name="theme-color" content="#711A1B" />
 
-    <!-- Open Graph -->
+    {/* Open Graph */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:type" content="website" />
 
-    <!-- Fonts (Inter + Playfair Display, mevcut referansla aynı) -->
+    {/* Fonts (Inter + Playfair Display, mevcut referansla aynı) */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -50,8 +50,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       rel="stylesheet"
     />
 
-    <!-- Dil algılama (T1.7): ilk ziyarette tarayıcı diline, sonra kayıtlı manuel
-         seçime göre yönlendir. Aktif diller: no, tr. Diğerleri UI'da sunulmaz. -->
+    {/* Dil algılama (T1.7): ilk ziyarette tarayıcı diline, sonra kayıtlı manuel
+         seçime göre yönlendir. Aktif diller: no, tr. Diğerleri UI'da sunulmaz. */}
     <script is:inline>
       (function () {
         try {
