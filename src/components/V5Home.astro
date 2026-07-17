@@ -56,11 +56,11 @@ const ataSegs = [
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__badge"><span class="hero__badge-dot" aria-hidden="true"></span><span>{t('hero.badge')}</span></div>
-      <h1 class="hero__title hero__title--stack">
-        <span class="hero__title-line hero__title-line--main">{t('hero.title_top')}</span>
-        <span class="hero__title-line">{t('hero.title_pre')}</span>
-        <span class="hero__title-line hero__title-accent hero__title-accent--gold">{t('hero.title_accent')}</span>
-        <span class="hero__title-line hero__title-line--stamp">{t('hero.title_post')}</span>
+      {/* Akış başlık: üç parça tek cümle gibi, eşit boy/ağırlık (Inter);
+          highlight "Rettferdig pris"te. Damga satırı ayrı blok kalır. */}
+      <h1 class="hero__title hero__title--flow">
+        <span>{t('hero.title_top')}. <span class="hero__title-accent--gold">{t('hero.title_pre')}.</span> {t('hero.title_accent')}.</span>
+        <span class="hero__title-line--stamp">{t('hero.title_post')}</span>
       </h1>
 
       {/* Tek CTA: venteliste (çekiliş scroll popup'ına taşındı) — panel başlığı içeride */}

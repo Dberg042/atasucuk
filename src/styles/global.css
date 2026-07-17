@@ -1047,6 +1047,25 @@ a { color: inherit; text-decoration: none; }
   align-self: center;
   color: var(--gold-bright);
 }
+/* Akış başlık varyantı — tek cümle gibi, Inter, tüm parçalar eşit boy/ağırlık. */
+.hero__title--flow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(34px, 7vw, 58px);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--cream-warm);
+  max-width: 900px;
+  margin-bottom: 28px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+.hero__title--flow .hero__title-accent--gold { color: var(--gold-bright); }
+.hero__title--flow .hero__title-line--stamp {
+  display: block;
+  margin-top: 16px;
+  color: var(--cream-warm);
+}
+
 /* "Laget i Norge" satırı = kondens damga (Oswald, büyük harf + tracking). */
 .hero__title-line--stamp {
   font-family: var(--font-stamp);
