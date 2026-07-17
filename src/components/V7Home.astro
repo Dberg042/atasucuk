@@ -2,14 +2,16 @@
 import Base from '../layouts/Base.astro';
 import Survey from './Survey.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { useV5 } from '../i18n/v5';
+import { useV7 } from '../i18n/v7';
 import { recipes, recipeHref, pickL } from '../i18n/recipes';
 import { dirFor, type Lang } from '../i18n/ui';
 
+// v7 önizleme — plan/updatedstory.md kurgusu. Ana sayfa (v5) dokunulmadan
+// /v7/ altında yaşar; onaydan sonra index'e alınır.
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const t = useV5(lang);
-const v5href = (l: Lang) => (l === 'no' ? '/' : `/${l}/`);
+const t = useV7(lang);
+const v7href = (l: Lang) => (l === 'no' ? '/v7/' : `/${l}/v7/`);
 const privacyHref = lang === 'no' ? '/personvern' : `/${lang}/personvern`;
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const msgAttrs = {
@@ -19,17 +21,14 @@ const msgAttrs = {
   'data-msg-error': t('form.error'),
 };
 
-// Fiyat barı segmentleri: kırmızı = gerçek değer, gri = aracı/maliyet katmanı.
-// w = segmentin genişliği (bar yüzdesi) — buradan elle ayarlanır.
-// İthal barın toplamı 100 (tam genişlik); Ata barının toplamı ne kadar küçükse
-// bar o kadar kısa görünür (şu an 26+16 = 42 → ithalin ~%42'si).
+// Fiyat barı segmentleri (v5 ile aynı): kırmızı/altın = gerçek değer,
+// gri = aracı/maliyet katmanı. w = bar yüzdesi, elle ayarlanır.
 const importSegs = [
   { k: 'price.seg_ravare', w: 18, c: 'ravare' },
   { k: 'price.seg_produksjon', w: 14, c: 'produksjon' },
   { k: 'price.seg_transport', w: 11, c: 'extra' },
   { k: 'price.seg_toll', w: 29, c: 'extra' },
   { k: 'price.seg_mellomledd', w: 10, c: 'extra' },
-
   { k: 'price.seg_mellomledd', w: 18, c: 'extra' },
 ] as const;
 const ataSegs = [
@@ -41,47 +40,37 @@ const ataSegs = [
 <Base lang={lang} dir={dirFor(lang)} title={t('meta.title')} description={t('meta.description')}>
   <nav class="nav">
     <div class="container nav__inner">
-      <a class="brand" href={v5href(lang)} aria-label={t('nav.brand')}>
+      <a class="brand" href={v7href(lang)} aria-label={t('nav.brand')}>
         <svg class="ico ico-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12.5" cy="8.5" r="2.5"></circle><path d="M12.5 2a6.5 6.5 0 0 0-6.22 4.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3A6.5 6.5 0 0 0 12.5 2Z"></path><path d="m18.5 6 2.19 4.5a6.48 6.48 0 0 1 .31 2 6.49 6.49 0 0 1-2.6 5.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"></path></svg>
         <span class="brand__name">{t('nav.brand')}</span>
       </a>
-      {/* Dil seçimi localStorage'a kaydedilir — Base'deki otomatik yönlendirme
-           kayıtlı seçime saygı duyar (kaydetmeyen özel seçici dil değişimini kilitliyordu). */}
-      <LanguageSwitcher />
+      <!-- Önizlemede dil değişimi v7 varyantları arasında kalır (page="v7/") -->
+      <LanguageSwitcher page="v7/" />
     </div>
   </nav>
 
-  {/* Seksjon 1 — Hero */}
+  <!-- Seksjon 1 — Hero: tek CTA = venteliste (çekiliş hero'dan çıktı) -->
   <header class="hero">
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__badge"><span class="hero__badge-dot" aria-hidden="true"></span><span>{t('hero.badge')}</span></div>
-      <h1 class="hero__title hero__title--stack">
-        <span class="hero__title-line hero__title-line--main">{t('hero.title_top')}</span>
-        <span class="hero__title-line">{t('hero.title_pre')}</span>
-        <span class="hero__title-line hero__title-accent hero__title-accent--gold">{t('hero.title_accent')}</span>
-        <span class="hero__title-line hero__title-line--stamp">{t('hero.title_post')}</span>
-      </h1>
-
-      {/* Tek CTA: venteliste (çekiliş scroll popup'ına taşındı) — panel başlığı içeride */}
+      <h1 class="hero__title">{t('hero.title_pre')}<span class="hero__title-accent hero__title-accent--gold">{t('hero.title_accent')}</span>{t('hero.title_post')}</h1>
+      <p class="hero__lead">{t('hero.lead')}</p>
       <div class="hero__form-panel">
-        <p class="hero__panel-heading">{t('hero.waitlist_heading')}</p>
-        <form class="signup" data-signup data-source="v5_hero" {...msgAttrs}>
-          <label class="sr-only" for="v5-hero-email">{t('hero.email_label')}</label>
-          <input class="signup__input" id="v5-hero-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('hero.email_placeholder')} />
+        <form class="signup" data-signup data-source="v7_hero" {...msgAttrs}>
+          <label class="sr-only" for="v7-hero-email">{t('hero.email_label')}</label>
+          <input class="signup__input" id="v7-hero-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('hero.email_placeholder')} />
           <button class="signup__btn signup__btn--primary" type="submit"><span>{t('hero.cta')}</span></button>
           {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible" data-appearance="interaction-only"></div>}
+          <p class="signup__note">{t('hero.note')}</p>
           <p class="signup__status" role="status" aria-live="polite"></p>
         </form>
       </div>
-
-      {/* Lead metni en altta: merak eden okur (bold vurgular için set:html) */}
-      <p class="hero__lead hero__lead--after" set:html={t('hero.lead')}></p>
     </div>
   </header>
 
   <main>
-    {/* Seksjon 2 — Trust-stripe */}
+    <!-- Seksjon 2 — Trust-stripe -->
     <div class="trust">
       <div class="container">
         <div class="trust__grid">
@@ -101,7 +90,7 @@ const ataSegs = [
       </div>
     </div>
 
-    {/* Seksjon 3 — Problem: tek zincir (import → katkı VE fiyat) + pris + Ata-måten */}
+    <!-- Seksjon 3 — Problem: tek bölüm, tek zincir (import → katkı VE fiyat) -->
     <section class="section problem">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -115,18 +104,18 @@ const ataSegs = [
               <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             </div>
             <h3 class="card__title">{t('problem.p1_title')}</h3>
-            <p class="v5-problem__text">{t('problem.p1_text')}</p>
+            <p class="v7-problem__text">{t('problem.p1_text')}</p>
           </div>
           <div class="card">
             <div class="card__icon card__icon--muted">
               <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
             </div>
             <h3 class="card__title">{t('problem.p2_title')}</h3>
-            <p class="v5-problem__text">{t('problem.p2_text')}</p>
+            <p class="v7-problem__text">{t('problem.p2_text')}</p>
           </div>
         </div>
 
-        <p class="v5-punchline" data-reveal>{t('problem.punchline')}</p>
+        <p class="v7-punchline" data-reveal>{t('problem.punchline')}</p>
 
         <div class="pricebar" data-reveal>
           <div class="pricebar__row">
@@ -151,15 +140,15 @@ const ataSegs = [
           </div>
         </div>
 
-        {/* Ata-måten — problemi kökünden çözen pozitif (yeşil) blok */}
-        <div class="v5-ata" data-reveal>
-          <div class="card card--dark card--positive">
+        <!-- Ata-måten — problemi kökünden çözen tek koyu blok -->
+        <div class="v7-ata" data-reveal>
+          <div class="card card--dark">
             <div class="card__blob" aria-hidden="true"></div>
             <div class="card__icon card__icon--gold">
               <svg class="ico ico-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
             </div>
             <h3 class="card__title">{t('ata.title')}</h3>
-            <p class="v5-ata__intro">{t('ata.intro')}</p>
+            <p class="v7-ata__intro">{t('ata.intro')}</p>
             <ul class="card__list">
               {['ata.b1', 'ata.b2'].map((k) => (
                 <li class="card__item">
@@ -168,13 +157,13 @@ const ataSegs = [
                 </li>
               ))}
             </ul>
-            <p class="v5-ata__outro">{t('ata.outro')}</p>
+            <p class="v7-ata__outro">{t('ata.outro')}</p>
           </div>
         </div>
       </div>
     </section>
 
-    {/* Hva er sucuk? (resim + yazı) */}
+    <!-- Seksjon 4 — Hva er sucuk? (resim + yazı, aynen) -->
     <section class="section whatis">
       <div class="container whatis__grid" data-reveal>
         <div class="whatis__media">
@@ -192,7 +181,7 @@ const ataSegs = [
       </div>
     </section>
 
-    {/* Tarifler (3 kart → blog) */}
+    <!-- Seksjon 5 — Tarifler (3 kart → blog, aynen) -->
     <section class="section recipes">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -217,12 +206,12 @@ const ataSegs = [
       </div>
     </section>
 
-    {/* Seksjon 4 — İçindekiler: saf kanıt, tek cümle (koyu, v7 kurgusu) */}
+    <!-- Seksjon 6 — Innholdslisten: saf kanıt, tek cümle (koyu) -->
     <section class="section trust-offer">
       <div class="container">
         <div class="section-head" data-reveal>
           <h2 class="section-head__title">{t('ing.title')}</h2>
-          <p class="v5-ing__sentence">{t('ing.sentence')}</p>
+          <p class="v7-ing__sentence">{t('ing.sentence')}</p>
           <p class="section-head__lead">{t('ing.text')}</p>
         </div>
 
@@ -232,7 +221,18 @@ const ataSegs = [
       </div>
     </section>
 
-    {/* Seksjon 5 — Lansering + levering (v4'teki offer'ın yerine) */}
+    <!-- Seksjon 7 — Founder: isim + yüz + "ikke et kundesenter" -->
+    <section class="section founder">
+      <div class="container container--narrow founder__inner" data-reveal>
+        <img class="founder__photo" src="/assets/founders.jpeg" alt={t('founder.img_alt')} width="320" height="320" loading="lazy" />
+        <h2 class="section-head__title">{t('founder.title')}</h2>
+        <p class="founder__text">{t('founder.text')}</p>
+        <p class="founder__text">{t('founder.text2')}</p>
+        <p class="founder__sign">{t('founder.sign')}</p>
+      </div>
+    </section>
+
+    <!-- Seksjon 8 — Lansering & levering -->
     <section class="section launch">
       <div class="container container--narrow launch__inner" data-reveal>
         <div class="launch__icon">
@@ -248,18 +248,7 @@ const ataSegs = [
       </div>
     </section>
 
-    {/* Seksjon 6 — Gründerne (foto + hikâye + iletişim) */}
-    <section class="section founder">
-      <div class="container container--narrow founder__inner" data-reveal>
-        <img class="founder__photo" src="/assets/founders.jpeg" alt={t('founder.img_alt')} width="320" height="320" loading="lazy" />
-        <h2 class="section-head__title">{t('founder.title')}</h2>
-        <p class="founder__text">{t('founder.text')}</p>
-        <p class="founder__text">{t('founder.text2')}</p>
-        <p class="founder__sign">{t('founder.sign')}</p>
-      </div>
-    </section>
-
-    {/* Seksjon 7 — Anket + çekiliş: çerçeve katılım, gavekort "som takk" */}
+    <!-- Seksjon 9 — Anket + çekiliş: çerçeve katılım, gavekort "som takk" -->
     <section class="section engine">
       <div class="container container--narrow engine__inner" data-reveal>
         <div class="engine__icon">
@@ -267,22 +256,22 @@ const ataSegs = [
         </div>
         <h2 class="section-head__title">{t('engine.title')}</h2>
         <p class="engine__text">{t('engine.text')}</p>
-        <p class="engine__text v5-engine__thanks">{t('engine.thanks')}</p>
+        <p class="engine__text v7-engine__thanks">{t('engine.thanks')}</p>
         <button class="hero__survey-cta engine__btn" type="button" data-survey-open>🎁 {t('engine.button')}</button>
         <p class="engine__terms">{t('engine.terms')} <a href={privacyHref}>{t('engine.terms_link')}</a></p>
       </div>
     </section>
 
-    {/* Seksjon 9 — Son CTA */}
+    <!-- Seksjon 10 — Kapanış CTA -->
     <section class="cta">
       <div class="cta__overlay" aria-hidden="true"></div>
       <div class="container container--narrow cta__inner">
         <h2 class="cta__title">{t('cta.title')}</h2>
         <p class="cta__lead">{t('cta.lead')}</p>
         <div class="cta__form-panel">
-          <form class="signup signup--row" data-signup data-source="v5_footer" {...msgAttrs}>
-            <label class="sr-only" for="v5-cta-email">{t('cta.email_label')}</label>
-            <input class="signup__input" id="v5-cta-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('cta.email_placeholder')} />
+          <form class="signup signup--row" data-signup data-source="v7_footer" {...msgAttrs}>
+            <label class="sr-only" for="v7-cta-email">{t('cta.email_label')}</label>
+            <input class="signup__input" id="v7-cta-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder={t('cta.email_placeholder')} />
             <button class="signup__btn signup__btn--dark" type="submit">{t('cta.button')}</button>
             {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="flexible" data-appearance="interaction-only"></div>}
             <p class="signup__status" role="status" aria-live="polite"></p>
@@ -292,10 +281,10 @@ const ataSegs = [
     </section>
   </main>
 
-  {/* Seksjon 10 — Footer (iletişim + personvern) */}
+  <!-- Footer (iletişim + personvern) -->
   <footer class="footer">
     <div class="container footer__inner">
-      <a class="brand" href={v5href(lang)} aria-label={t('nav.brand')}>
+      <a class="brand" href={v7href(lang)} aria-label={t('nav.brand')}>
         <span class="brand__name brand__name--sm">{t('nav.brand')}</span>
       </a>
       <div class="footer__contact">
@@ -309,49 +298,61 @@ const ataSegs = [
     </div>
   </footer>
 
-  {/* Scroll'da beliren anket daveti — çekiliş hero'dan buraya taşındı */}
-  <aside class="survey-pop" data-survey-pop hidden>
-    <button class="survey-pop__close" type="button" data-survey-pop-close aria-label={t('popup.dismiss')}>&times;</button>
-    <p class="survey-pop__title">🎁 {t('popup.title')}</p>
-    <p class="survey-pop__text">{t('popup.text')}</p>
-    <button class="survey-pop__btn" type="button" data-survey-open>{t('popup.button')}</button>
-  </aside>
-
   <Survey lang={lang} />
 </Base>
+
+<style>
+  /* v7'ye özgü küçük eklentiler — global.css'e dokunmadan, aynı ton/tipografi. */
+  .v7-problem__text {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(28, 25, 23, 0.72);
+  }
+  .v7-punchline {
+    margin: 40px auto 8px;
+    max-width: 640px;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 600;
+    color: var(--dark);
+  }
+  .v7-ata {
+    max-width: 760px;
+    margin: 48px auto 0;
+  }
+  .v7-ata__intro {
+    margin: 8px 0 16px;
+    color: rgba(253, 251, 247, 0.8);
+    line-height: 1.65;
+  }
+  .v7-ata__outro {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(253, 251, 247, 0.16);
+    font-style: italic;
+    color: rgba(253, 251, 247, 0.85);
+    line-height: 1.65;
+  }
+  .v7-ing__sentence {
+    margin: 20px auto 16px;
+    max-width: 720px;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 3.6vw, 34px);
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.01em;
+  }
+  .v7-engine__thanks {
+    margin-top: 12px;
+    font-size: 16px;
+  }
+</style>
 
 <script>
   import '../scripts/signup.ts';
   import '../scripts/survey.ts';
   import '../scripts/reveal.ts';
-
-  // Anket popup'ı: ilk ekranı geçince bir kez belirir; kapatınca o oturumda
-  // bir daha çıkmaz. Butonu Survey modalını açar (data-survey-open).
-  (() => {
-    const pop = document.querySelector<HTMLElement>('[data-survey-pop]');
-    if (!pop) return;
-    const KEY = 'surveyPopSeen';
-    const seen = (() => {
-      try { return sessionStorage.getItem(KEY); } catch { return null; }
-    })();
-    const hide = () => {
-      pop.classList.remove('is-in');
-      pop.hidden = true;
-      try { sessionStorage.setItem(KEY, '1'); } catch { /* yoksay */ }
-    };
-    pop.querySelector('[data-survey-pop-close]')?.addEventListener('click', hide);
-    pop.querySelector('[data-survey-open]')?.addEventListener('click', hide);
-    if (seen) return;
-    let shown = false;
-    const onScroll = () => {
-      if (shown) return;
-      if (window.scrollY > window.innerHeight * 0.7) {
-        shown = true;
-        pop.hidden = false;
-        requestAnimationFrame(() => pop.classList.add('is-in'));
-        window.removeEventListener('scroll', onScroll);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-  })();
 </script>

@@ -24,7 +24,13 @@ const no = {
   'hero.cta': 'Sikre deg de første smaksbitene',
   'hero.note': 'Ingen spam — vi varsler deg kun når vi er klare.',
   'hero.survey_trigger': 'Svar på 4 spørsmål — vinn gavekort på 500 kr',
-  'hero.waitlist_heading': 'Eller — bli med på ventelisten',
+  'hero.waitlist_heading': 'Bli med på ventelisten — først i køen, første smakebit',
+
+  // Scroll'da çıkan anket popup'ı (çekiliş hero'dan buraya taşındı)
+  'popup.title': 'Vil du være med og bestemme?',
+  'popup.text': 'Fire spørsmål — 30 sekunder. Som takk: trekning av tre gavekort à 500 kr.',
+  'popup.button': 'Svar på 4 spørsmål',
+  'popup.dismiss': 'Lukk',
 
   'trust.halal': '100% Halal',
   'trust.local': 'Produsert i Norge',
@@ -169,7 +175,7 @@ const tr: Partial<Record<V5Key, string>> = {
   'hero.title_top': 'Gerçek, fermente sucuk',
   'hero.title_pre': 'Adil fiyat',
   'hero.title_accent': 'Sade içerik',
-  'hero.title_post': 'Norveç’te üretiliyor',
+  'hero.title_post': 'Norveç’te Üretim',
   'hero.lead':
     'Dana eti, sarımsak, baharat, tuz ve maya. Gerçek usulle, <strong>geleneksel fermantasyonla</strong> burada, Norveç’te üretiliyor. Sınır aşmadığı, aracı dolaşmadığı için de ithal sucuğa göre <strong>daha uygun fiyatlı</strong>.',
   'hero.email_label': 'E-posta adresi',
@@ -177,7 +183,12 @@ const tr: Partial<Record<V5Key, string>> = {
   'hero.cta': 'İlk tadanlardan ol',
   'hero.note': 'Spam yok. Sadece hazır olduğumuzda haber veririz.',
   'hero.survey_trigger': '4 soruyu cevapla, 500 kr hediye çeki kazanma şansı yakala',
-  'hero.waitlist_heading': 'Ya da bekleme listesine katıl',
+  'hero.waitlist_heading': 'Bekleme listesine katıl — öncelikli sıra, ilk tadım',
+
+  'popup.title': 'Sucuğu sen de şekillendir!',
+  'popup.text': 'Dört soru — 30 saniye. Teşekkür olarak üç adet 500 kr hediye çeki çekilişi.',
+  'popup.button': '4 soruyu yanıtla',
+  'popup.dismiss': 'Kapat',
 
   'trust.halal': '%100 Helal',
   'trust.local': 'Norveç’te Üretim',
@@ -322,7 +333,12 @@ const en: Partial<Record<V5Key, string>> = {
   'hero.cta': 'Be among the first to taste',
   'hero.note': 'No spam — we only email you when we are ready.',
   'hero.survey_trigger': 'Answer 4 questions — win a 500 kr gift card',
-  'hero.waitlist_heading': 'Or just join the waitlist',
+  'hero.waitlist_heading': 'Join the waitlist — first in line, first to taste',
+
+  'popup.title': 'Help shape the sucuk!',
+  'popup.text': 'Four questions — 30 seconds. As a thank you: a draw for three 500 kr gift cards.',
+  'popup.button': 'Answer 4 questions',
+  'popup.dismiss': 'Close',
 
   'trust.halal': '100% Halal',
   'trust.local': 'Made in Norway',
