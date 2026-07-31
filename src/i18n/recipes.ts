@@ -117,7 +117,7 @@ export const recipes: Recipe[] = [
     slug: 'sucuk-polsebrod',
     emoji: '🌭',
     tone: 'tur',
-    image: '/assets/outdoorsucuk.jpg',
+    image: '/assets/outdoor.webp',
     time: { no: '10 min', tr: '10 dk', en: '10 min' },
     title: { no: 'Sucuk i pølsebrød', tr: 'Doğada sucuklu ekmek', en: 'Sucuk in a hot dog bun' },
     excerpt: {
@@ -157,3 +157,4 @@ export const recipeBySlug = (slug: string) => recipes.find((r) => r.slug === slu
 // Blog kökte yaşar (v5 ana sayfa oldu): /blog/… ve /tr/blog/…
 export const recipeHref = (lang: Lang, slug: string) =>
   lang === defaultLang ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
+export const blogHref = (lang: Lang) => (lang === defaultLang ? '/blog' : `/${lang}/blog`);

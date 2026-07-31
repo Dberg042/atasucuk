@@ -1,13 +1,27 @@
 ---
 import BlogPost from '../../../components/BlogPost.astro';
+import ArticlePost from '../../../components/ArticlePost.astro';
 import { recipes } from '../../../i18n/recipes';
-import { languages, defaultLang, type Lang } from '../../../i18n/ui';
+import { activeLanguages, defaultLang, type Lang } from '../../../i18n/ui';
+import { getCollection } from 'astro:content';
 
-export function getStaticPaths() {
-  const langs = (Object.keys(languages) as Lang[]).filter((l) => l !== defaultLang);
-  return langs.flatMap((lang) => recipes.map((r) => ({ params: { lang, slug: r.slug } })));
+// activeLanguages (no/tr/en) kullanılıyor — ar/fa'nın blog sayfası içeriği
+// boş sözlükten NO'ya düştüğü için lang="ar"/"fa" etiketiyle Norveççe içerik
+// servis ediyordu (duplicate-content riski). Blog kapsamı NO+TR+EN.
+export async function getStaticPaths() {
+  const langs = activeLanguages.filter((l) => l !== defaultLang);
+  const recipePaths = langs.flatMap((lang) =>
+    recipes.map((r) => ({ params: { lang, slug: r.slug }, props: { kind: 'recipe' as const } }))
+  );
+  const articles = await getCollection('blog', (e) => (langs as string[]).includes(e.data.lang));
+  const articlePaths = articles.map((a) => ({
+    params: { lang: a.data.lang, slug: a.data.postSlug },
+    props: { kind: 'article' as const },
+  }));
+  return [...recipePaths, ...articlePaths];
 }
 const { lang, slug } = Astro.params as { lang: Lang; slug: string };
+const { kind } = Astro.props as { kind: 'recipe' | 'article' };
 ---
 
-<BlogPost lang={lang} slug={slug} />
+{kind === 'recipe' ? <BlogPost lang={lang} slug={slug} /> : <ArticlePost lang={lang} slug={slug} />}

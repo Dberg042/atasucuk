@@ -1,11 +1,24 @@
 ---
 import BlogPost from '../../components/BlogPost.astro';
+import ArticlePost from '../../components/ArticlePost.astro';
 import { recipes } from '../../i18n/recipes';
+import { defaultLang } from '../../i18n/ui';
+import { getCollection } from 'astro:content';
 
-export function getStaticPaths() {
-  return recipes.map((r) => ({ params: { slug: r.slug } }));
+export async function getStaticPaths() {
+  const recipePaths = recipes.map((r) => ({
+    params: { slug: r.slug },
+    props: { kind: 'recipe' as const },
+  }));
+  const articles = await getCollection('blog', (e) => e.data.lang === defaultLang);
+  const articlePaths = articles.map((a) => ({
+    params: { slug: a.data.postSlug },
+    props: { kind: 'article' as const },
+  }));
+  return [...recipePaths, ...articlePaths];
 }
 const { slug } = Astro.params as { slug: string };
+const { kind } = Astro.props as { kind: 'recipe' | 'article' };
 ---
 
-<BlogPost lang="no" slug={slug} />
+{kind === 'recipe' ? <BlogPost lang="no" slug={slug} /> : <ArticlePost lang="no" slug={slug} />}

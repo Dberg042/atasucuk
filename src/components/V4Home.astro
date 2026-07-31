@@ -314,7 +314,9 @@ const ataSegs = [
     try {
       const r = await fetch(`${import.meta.env.PUBLIC_API_URL}/count`);
       const d = await r.json();
-      const total = Number(d?.data?.total ?? 0);
+      // v4 metni "på ventelisten" diyor → onaylı sayı. (v5 ana sayfası toplamı
+      // gösteriyor, metni de "kaydoldu" olduğu için.)
+      const total = Number(d?.data?.confirmed ?? d?.data?.total ?? 0);
       // Küçük sayı ters sosyal kanıt olur — eşiğin altında sayaç gizli kalır.
       if (total >= 25) {
         el.textContent = String(total);

@@ -22,6 +22,22 @@ export function dirFor(lang: Lang): 'ltr' | 'rtl' {
   return isRtl(lang) ? 'rtl' : 'ltr';
 }
 
+// Verilen path'in dil önekini soyup her aktif dil için karşılık gelen path'i
+// üretir — canonical/hreflang etiketleri için (Base.astro). ar/fa dahil
+// edilmez: içerikleri NO'ya düştüğü için ayrı bir dil olarak reklam edilmemeli.
+export function alternatePaths(pathname: string): { lang: Lang; href: string }[] {
+  const segments = pathname.split('/').filter(Boolean);
+  const hasLangPrefix = segments[0] in languages && segments[0] !== defaultLang;
+  const rest = hasLangPrefix ? segments.slice(1) : segments;
+  return activeLanguages.map((lang) => {
+    const prefix = lang === defaultLang ? '' : `/${lang}`;
+    // Sondaki slash Astro'nun statik build çıktısıyla (dizin + index.html) eşleşir —
+    // Astro.url.pathname da aynı biçimi üretir, self-canonical ile hreflang örtüşsün.
+    const suffix = rest.length ? `/${rest.join('/')}/` : '/';
+    return { lang, href: `${prefix}${suffix}` };
+  });
+}
+
 const no = {
   'meta.title': 'Ata Sucuk | Norges første autentiske, lokalproduserte halal sucuk',
   'meta.description':

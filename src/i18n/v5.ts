@@ -11,6 +11,7 @@ const no = {
     'Ekte, fullfermentert sucuk laget i Norge — rene råvarer og en rettferdig pris. Bli med på ventelisten og vær med å forme produktet.',
 
   'nav.brand': 'Ata Sucuk',
+  'nav.blog': 'Blogg',
 
   'hero.badge': 'Lansering høsten 2026 · Bli med på ventelisten',
   'hero.title_top': 'Ekte, fermentert sucuk',
@@ -108,8 +109,8 @@ const no = {
   'founder.img_alt': 'Familien bak Ata Sucuk',
 
   'proof.title': 'Vi er i oppstartsfasen — og vi mener alvor',
-  'proof.counter_pre': 'Allerede',
-  'proof.counter_post': 'på ventelisten — og listen vokser hver uke.',
+  'proof.counter_pre': 'Så langt har',
+  'proof.counter_post': 'meldt seg på. Listen vokser hver uke.',
   'proof.p1': 'Vi spør før vi lager. Fire spørsmål former oppskriften, prisen og produktet.',
   'proof.p2': 'Full åpenhet. Du ser innholdet og prosessen — ingenting skjult.',
   'proof.p3': 'Vi gjør grundige undersøkelser, snakker med erfarne produsenter og ønsker å lage Europas beste sucuk her i Norge.',
@@ -142,6 +143,13 @@ const no = {
   'recipes.title': 'Slik bruker du den',
   'recipes.lead': 'Tre enkle måter å nyte sucuk på. Klikk for hele oppskriften.',
   'recipes.cta': 'Les oppskriften →',
+  'recipes.see_all': 'Se alle oppskrifter →',
+
+  'blog.title': 'Blogg',
+  'blog.lead': 'Historier om tyrkiske mattradisjoner, og enkle måter å bruke Ata Sucuk på.',
+  'blog.back': '← Tilbake',
+  'blog.articles_title': 'Artikler',
+  'blog.recipes_title': 'Oppskrifter',
 
   'cta.title': 'Ekte sucuk er på vei. Vær blant de første.',
   'cta.lead':
@@ -170,6 +178,7 @@ const tr: Partial<Record<V5Key, string>> = {
     'Norveç’te üretilen gerçek, tam fermente sucuk: sade içerik, adil fiyat. Bekleme listesine katıl, ürünü birlikte şekillendirelim.',
 
   'nav.brand': 'Ata Sucuk',
+  'nav.blog': 'Blog',
 
   'hero.badge': '2026 sonbaharında çıkıyor · Bekleme listesine katıl',
   'hero.title_top': 'Gerçek, fermente sucuk',
@@ -263,8 +272,8 @@ const tr: Partial<Record<V5Key, string>> = {
   'founder.img_alt': 'Ata Sucuk’un arkasındaki aile',
 
   'proof.title': 'Daha yolun başındayız, ama niyetimiz ciddi',
-  'proof.counter_pre': 'Şimdiden',
-  'proof.counter_post': 'kişi listede. Liste her hafta büyüyor.',
+  'proof.counter_pre': 'Şimdiye kadar',
+  'proof.counter_post': 'kişi kaydoldu. Liste her hafta büyüyor.',
   'proof.p1': 'Üretmeden önce soruyoruz. Dört soru; tarifi, fiyatı ve ürünü şekillendiriyor.',
   'proof.p2': 'Tam şeffaflık. İçeriği ve süreci göreceksin, saklı bir şey yok.',
   'proof.p3': 'Detaylı araştırma yapıyor, deneyimli üreticilerle görüşüyor ve Avrupa’nın en iyi sucuğunu burada, Norveç’te üretmek istiyoruz.',
@@ -294,6 +303,13 @@ const tr: Partial<Record<V5Key, string>> = {
   'recipes.title': 'Nasıl yenir?',
   'recipes.lead': 'Sucuğun tadını çıkarmanın üç kolay yolu. Tarifin tamamı için karta tıkla.',
   'recipes.cta': 'Tarifi oku →',
+  'recipes.see_all': 'Tüm tarifleri gör →',
+
+  'blog.title': 'Blog',
+  'blog.lead': 'Türk mutfak geleneği üzerine yazılar ve Ata Sucuk’u sofraya getirmenin kolay yolları.',
+  'blog.back': '← Geri',
+  'blog.articles_title': 'Yazılar',
+  'blog.recipes_title': 'Tarifler',
 
   'cta.title': 'Gerçek sucuk yolda. İlk tadanlardan ol.',
   'cta.lead':
@@ -320,6 +336,7 @@ const en: Partial<Record<V5Key, string>> = {
     'Real, fully fermented sucuk made in Norway — clean ingredients and a fair price. Join the waitlist and help shape the product.',
 
   'nav.brand': 'Ata Sucuk',
+  'nav.blog': 'Blog',
 
   'hero.badge': 'Launching autumn 2026 · Join the waitlist',
   'hero.title_top': 'Real, fermented sucuk',
@@ -413,8 +430,8 @@ const en: Partial<Record<V5Key, string>> = {
   'founder.img_alt': 'The family behind Ata Sucuk',
 
   'proof.title': 'We are just getting started — and we mean it',
-  'proof.counter_pre': 'Already',
-  'proof.counter_post': 'on the waitlist — and it grows every week.',
+  'proof.counter_pre': 'So far',
+  'proof.counter_post': 'people have signed up. The list grows every week.',
   'proof.p1': 'We ask before we make. Four questions shape the recipe, the price and the product.',
   'proof.p2': 'Full transparency. You see the ingredients and the process — nothing hidden.',
   'proof.p3': 'We are conducting deep research, consulting with experienced producers, and aiming to produce Europe’s best sucuk right here in Norway.',
@@ -444,6 +461,13 @@ const en: Partial<Record<V5Key, string>> = {
   'recipes.title': 'How to enjoy it',
   'recipes.lead': 'Three easy ways to enjoy sucuk. Click for the full recipe.',
   'recipes.cta': 'Read the recipe →',
+  'recipes.see_all': 'See all recipes →',
+
+  'blog.title': 'Blog',
+  'blog.lead': 'Stories about Turkish food traditions, and easy ways to bring Ata Sucuk to the table.',
+  'blog.back': '← Back',
+  'blog.articles_title': 'Articles',
+  'blog.recipes_title': 'Recipes',
 
   'cta.title': 'Real sucuk is on its way. Be among the first.',
   'cta.lead':

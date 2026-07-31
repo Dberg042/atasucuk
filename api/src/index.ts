@@ -30,7 +30,7 @@ import {
   isSelfReferral,
   verifyTurnstile,
 } from './fraud';
-import { countRecentByIpHash, getHashes, countConfirmed } from './db';
+import { countRecentByIpHash, getHashes, countConfirmed, countAll } from './db';
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -77,10 +77,14 @@ app.get('/health', async (c) => {
   return ok(c, { status: dbOk ? 'ok' : 'degraded', db: dbOk });
 });
 
-// Public waitlist sayacı (SPEC-10 proof). Yalnız onaylı toplam.
+// Public waitlist sayacı (SPEC-10 proof). Yalnız sayı döner, kişisel veri yok.
+//   total     = tüm kayıtlar (pending + confirmed) — ana sayfadaki "N kişi kaydoldu"
+//   confirmed = double opt-in tamamlayanlar — e-posta gönderilebilecek gerçek liste
+// DİKKAT: 'total' eskiden onaylı sayıyı döndürüyordu, artık toplamı döndürüyor.
 app.get('/count', async (c) => {
-  const total = await countConfirmed(createDb(c.env));
-  return ok(c, { total });
+  const db = createDb(c.env);
+  const [total, confirmed] = await Promise.all([countAll(db), countConfirmed(db)]);
+  return ok(c, { total, confirmed });
 });
 
 // --- Waitlist (T4.1) -------------------------------------------------------

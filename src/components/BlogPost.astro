@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import { recipeBySlug, pickL, pickA, recipeHref } from '../i18n/recipes';
+import SiteNav from './SiteNav.astro';
+import { recipeBySlug, pickL, pickA, blogHref } from '../i18n/recipes';
 import { useV5 } from '../i18n/v5';
 import { dirFor, type Lang } from '../i18n/ui';
 
@@ -13,9 +14,23 @@ const backHref = lang === 'no' ? '/' : `/${lang}/`;
 const labelIng = lang === 'tr' ? 'Malzemeler' : lang === 'en' ? 'Ingredients' : 'Ingredienser';
 const labelStep = lang === 'tr' ? 'Hazırlanışı' : lang === 'en' ? 'How to make it' : 'Slik gjør du';
 const back = lang === 'tr' ? '← Ana sayfa' : lang === 'en' ? '← Back' : '← Tilbake';
+
+const imageUrl = new URL(r.image, Astro.site ?? 'https://atasucuk.no').href;
+const recipeJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: pickL(r.title, lang),
+  description: pickL(r.excerpt, lang),
+  image: [imageUrl],
+  inLanguage: lang,
+  recipeIngredient: pickA(r.ingredients, lang),
+  recipeInstructions: pickA(r.steps, lang).map((step) => ({ '@type': 'HowToStep', text: step })),
+};
 ---
 
 <Base lang={lang} dir={dirFor(lang)} title={`${pickL(r.title, lang)} · Ata Sucuk`} description={pickL(r.excerpt, lang)}>
+  <script type="application/ld+json" set:html={JSON.stringify(recipeJsonLd)} />
+  <SiteNav lang={lang} variant="solid" />
   <article class="post">
     <div class={`post__hero post__hero--${r.tone}`}><img class="post__hero-img" src={r.image} alt={pickL(r.title, lang)} /></div>
     <div class="container container--narrow post__body">
@@ -33,8 +48,14 @@ const back = lang === 'tr' ? '← Ana sayfa' : lang === 'en' ? '← Back' : '←
       <ol class="post__steps">
         {pickA(r.steps, lang).map((s) => <li>{s}</li>)}
       </ol>
+
+      <a class="post__back post__back--more" href={blogHref(lang)}>{t('recipes.see_all')}</a>
     </div>
   </article>
+
+  <style>
+    .post__back--more { display: block; margin-top: 32px; }
+  </style>
 
   <footer class="footer">
     <div class="container footer__inner">

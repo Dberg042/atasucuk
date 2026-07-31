@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { alternatePaths, defaultLang } from '../i18n/ui';
 
 // T1.2 — temel layout. lang/dir prop'larıyla i18n + RTL'e hazır (T1.7/T1.9).
 // Varsayılan değerler mevcut index.html ile birebir (NO).
@@ -21,6 +22,11 @@ const {
 
 const ogImageUrl = new URL(ogImage, Astro.site ?? 'https://atasucuk.no').href;
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
+const siteOrigin = Astro.site ?? new URL('https://atasucuk.no');
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).href;
+const alternates = alternatePaths(Astro.url.pathname);
+const xDefaultHref = new URL(alternates.find((a) => a.lang === defaultLang)!.href, siteOrigin).href;
 ---
 
 <!doctype html>
@@ -30,6 +36,23 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    {/* Google tag (gtag.js) */}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E07JD0Q7Q8"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-E07JD0Q7Q8');
+    </script>
+
+    {/* Canonical + hreflang (NO/TR/EN) — dil varyantları arasında duplicate-content sinyalini önler */}
+    <link rel="canonical" href={canonicalUrl} />
+    {alternates.map((a) => (
+      <link rel="alternate" hreflang={a.lang} href={new URL(a.href, siteOrigin).href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
     {/* Favicon (hero'daki marka et/but ikonu) */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -81,6 +104,15 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     {turnstileSiteKey && (
       <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     )}
+
+    {/* JSON-LD: Organization (sitewide) */}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Ata Sucuk',
+      url: String(siteOrigin),
+      logo: new URL('/favicon.svg', siteOrigin).href,
+    })} />
   </head>
   <body>
     <slot />

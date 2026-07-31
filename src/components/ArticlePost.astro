@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteNav from './SiteNav.astro';
+import { getCollection, render } from 'astro:content';
+import { blogHref } from '../i18n/recipes';
+import { useV5 } from '../i18n/v5';
+import { dirFor, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = useV5(lang);
+const homeHref = lang === 'no' ? '/' : `/${lang}/`;
+
+const posts = await getCollection('blog');
+const entry = posts.find((p) => p.data.postSlug === slug && p.data.lang === lang)!;
+const { Content } = await render(entry);
+
+const imageUrl = new URL(entry.data.image, Astro.site ?? 'https://atasucuk.no').href;
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: entry.data.title,
+  description: entry.data.description,
+  image: [imageUrl],
+  datePublished: entry.data.date.toISOString(),
+  inLanguage: lang,
+  author: { '@type': 'Organization', name: 'Ata Sucuk' },
+  publisher: { '@type': 'Organization', name: 'Ata Sucuk' },
+};
+---
+
+<Base lang={lang} dir={dirFor(lang)} title={`${entry.data.title} · Ata Sucuk`} description={entry.data.description} ogImage={entry.data.image}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+  <SiteNav lang={lang} variant="solid" />
+  <article class="post">
+    <div class="post__hero"><img class="post__hero-img" src={entry.data.image} alt={entry.data.title} /></div>
+    <div class="container container--narrow post__body">
+      <a class="post__back" href={homeHref}>{t('blog.back')}</a>
+      <h1 class="post__title">{entry.data.title}</h1>
+      <p class="post__excerpt">{entry.data.description}</p>
+
+      <div class="article__content">
+        <Content />
+      </div>
+
+      <a class="post__back post__back--more" href={blogHref(lang)}>{t('recipes.see_all')}</a>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="brand__name brand__name--sm">{t('nav.brand')}</span>
+      <p class="footer__copy">{t('footer.copy')}</p>
+    </div>
+  </footer>
+
+  <style>
+    .post__back--more { display: block; margin-top: 32px; }
+    .article__content { margin-top: 24px; }
+    .article__content :global(h2) {
+      font-family: var(--font-serif); font-size: 26px; font-weight: 700; color: var(--dark); margin: 40px 0 16px;
+    }
+    .article__content :global(h3) {
+      font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--dark); margin: 28px 0 10px;
+    }
+    .article__content :global(p) { margin-bottom: 16px; line-height: 1.75; color: rgba(28, 25, 23, 0.82); }
+    .article__content :global(ul),
+    .article__content :global(ol) {
+      margin: 0 0 16px; padding-inline-start: 22px; color: rgba(28, 25, 23, 0.82); line-height: 1.7;
+    }
+    .article__content :global(li) { margin-bottom: 6px; }
+    .article__content :global(blockquote) {
+      margin: 0 0 24px; padding: 16px 20px; border-inline-start: 3px solid var(--gold);
+      background: var(--sand); font-style: italic; color: rgba(28, 25, 23, 0.75);
+    }
+    .article__content :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 15px; }
+    .article__content :global(th),
+    .article__content :global(td) {
+      text-align: start; padding: 8px 12px; border-bottom: 1px solid rgba(28, 25, 23, 0.12);
+    }
+    .article__content :global(th) { font-weight: 700; color: var(--dark); }
+    .article__content :global(img) { width: 100%; height: auto; border-radius: 16px; margin: 8px 0 28px; display: block; }
+    .article__content :global(a) { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+    .article__content :global(hr) { border: none; border-top: 1px solid rgba(28, 25, 23, 0.12); margin: 32px 0; }
+  </style>
+</Base>

@@ -31,6 +31,17 @@ export async function countConfirmed(db: Db): Promise<number> {
   return count ?? 0;
 }
 
+// Toplam kayıt (pending + confirmed). Ana sayfadaki sayaç bunu gösteriyor:
+// "şimdiye kadar N kişi kaydoldu". E-posta gönderimi için DEĞİL — oraya yalnız
+// countConfirmed() girer (double opt-in tamamlanmayana e-posta atılmaz).
+export async function countAll(db: Db): Promise<number> {
+  const { count, error } = await db
+    .from('subscribers')
+    .select('id', { count: 'exact', head: true });
+  if (error) throw error;
+  return count ?? 0;
+}
+
 // --- Subscribers (Faz 4: waitlist + double opt-in) -------------------------
 
 export interface NewSubscriber {

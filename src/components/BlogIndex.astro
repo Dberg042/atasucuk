@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteNav from './SiteNav.astro';
+import { getCollection } from 'astro:content';
+import { recipes, recipeHref, pickL } from '../i18n/recipes';
+import { useV5 } from '../i18n/v5';
+import { dirFor, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useV5(lang);
+const articleBadge = lang === 'tr' ? '📖 Yazı' : lang === 'en' ? '📖 Article' : '📖 Artikkel';
+
+const articles = (await getCollection('blog', (e) => e.data.lang === lang)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Base lang={lang} dir={dirFor(lang)} title={`${t('blog.title')} · Ata Sucuk`} description={t('blog.lead')}>
+  <SiteNav lang={lang} variant="solid" />
+
+  <main>
+    <div class="container blog-head">
+      <h1 class="section-head__title">{t('blog.title')}</h1>
+      <p class="section-head__lead">{t('blog.lead')}</p>
+    </div>
+
+    {/* Yazılar ve tarifler ayrı bölümler — kart tipleri karışmasın. */}
+    {articles.length > 0 && (
+      <section class="section blog-section">
+        <div class="container">
+          <h2 class="blog-section__title">{t('blog.articles_title')}</h2>
+          <div class="recipes__grid">
+            {articles.map((a) => (
+              <a class="recipe" href={recipeHref(lang, a.data.postSlug)}>
+                <div class="recipe__media">
+                  <img class="recipe__img" src={a.data.image} alt={a.data.title} loading="lazy" />
+                  <span class="recipe__time">{articleBadge}</span>
+                </div>
+                <div class="recipe__body">
+                  <h3 class="recipe__title">{a.data.title}</h3>
+                  <p class="recipe__excerpt">{a.data.description}</p>
+                  <span class="recipe__cta">{t('recipes.cta')}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="section blog-section blog-section--recipes">
+      <div class="container">
+        <h2 class="blog-section__title">{t('blog.recipes_title')}</h2>
+        <div class="recipes__grid">
+          {recipes.map((r) => (
+            <a class="recipe" href={recipeHref(lang, r.slug)}>
+              <div class={`recipe__media recipe__media--${r.tone}`}>
+                <img class="recipe__img" src={r.image} alt={pickL(r.title, lang)} loading="lazy" />
+                <span class="recipe__time">⏱ {pickL(r.time, lang)}</span>
+              </div>
+              <div class="recipe__body">
+                <h3 class="recipe__title">{pickL(r.title, lang)}</h3>
+                <p class="recipe__excerpt">{pickL(r.excerpt, lang)}</p>
+                <span class="recipe__cta">{t('recipes.cta')}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="brand__name brand__name--sm">{t('nav.brand')}</span>
+      <p class="footer__copy">{t('footer.copy')}</p>
+    </div>
+  </footer>
+
+  <style>
+    .blog-head { padding: 56px 0 8px; text-align: center; }
+    .blog-section { padding: 40px 0; background: var(--cream); }
+    .blog-section--recipes { background: var(--sand); padding-bottom: 88px; }
+    .blog-section__title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 28px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(28, 25, 23, 0.12);
+    }
+  </style>
+</Base>
