@@ -6,9 +6,9 @@
 import { defaultLang, type Lang } from './ui';
 
 const no = {
-  'meta.title': 'Ata Sucuk | Ekte, fullfermentert halal sucuk — laget i Norge',
+  'meta.title': 'Ata Sucuk | Ekte, fullfermentert halal sucuk, laget i Norge',
   'meta.description':
-    'Ekte, fullfermentert sucuk laget i Norge — rene råvarer og en rettferdig pris. Bli med på ventelisten og vær med å forme produktet.',
+    'Ekte, fullfermentert sucuk laget i Norge, rene råvarer og en rettferdig pris. Bli med på ventelisten og vær med å forme produktet.',
 
   'nav.brand': 'Ata Sucuk',
   'nav.blog': 'Blogg',
@@ -19,17 +19,17 @@ const no = {
   'hero.title_accent': 'Kort innholdsliste',
   'hero.title_post': '-Laget i Norge-',
   'hero.lead':
-    'Storfekjøtt, hvitløk, krydder, salt og starterkultur. <strong>Tradisjonell fermentering</strong> på ekte vis, her hjemme. Og fordi den ikke krysser grenser og mellomledd, <strong>koster den mindre</strong> enn importert.',
+    'Storfekjøtt, hvitløk, krydder, salt og starterkultur. <strong>Tradisjonell fermentering</strong> på ekte vis, her hjemme. Og fordi den ikke krysser grenser og har få mellomledd, <strong>koster den mindre</strong> enn importert.',
   'hero.email_label': 'E-postadresse',
   'hero.email_placeholder': 'Din e-postadresse',
   'hero.cta': 'Sikre deg de første smaksbitene',
-  'hero.note': 'Ingen spam — vi varsler deg kun når vi er klare.',
-  'hero.survey_trigger': 'Svar på 4 spørsmål — vinn gavekort på 500 kr',
-  'hero.waitlist_heading': 'Bli med på ventelisten — først i køen, første smakebit',
+  'hero.note': 'Ingen spam. Vi varsler deg kun når vi er klare.',
+  'hero.survey_trigger': 'Svar på 4 spørsmål og vinn gavekort på 500 kr',
+  'hero.waitlist_heading': 'Bli med på ventelisten. Først i køen, første smakebit',
 
   // Scroll'da çıkan anket popup'ı (çekiliş hero'dan buraya taşındı)
   'popup.title': 'Vil du være med og bestemme?',
-  'popup.text': 'Fire spørsmål — 30 sekunder. Som takk: trekning av tre gavekort à 500 kr.',
+  'popup.text': 'Fire spørsmål, 30 sekunder. Som takk: trekning av tre gavekort à 500 kr.',
   'popup.button': 'Svar på 4 spørsmål',
   'popup.dismiss': 'Lukk',
 
@@ -39,19 +39,19 @@ const no = {
 
   'price.title': 'Hvorfor er sucuk så dyr i Norge?',
   'price.lead':
-    'Sucuken du kjøper i dag har reist langt og byttet hender flere ganger. Toll, transport og to–tre mellomledd legges på prisen — lenge før den når deg. Vi mener du fortjener noe bedre.',
+    'Sucuken du kjøper i dag har reist langt og byttet hender flere ganger. Toll, transport og to-tre mellomledd legges på prisen, lenge før den når deg. Vi mener du fortjener noe bedre.',
   'price.today_title': 'Slik er det i dag',
   'price.today_1': 'Importert, med høy toll på toppen',
-  'price.today_2': 'To–tre mellomledd som alle skal tjene',
+  'price.today_2': 'To-tre mellomledd som alle skal tjene',
   'price.today_3': 'Ukesvis på lager før den når butikken',
   'price.today_4': 'Hurtigproduksjon på bekostning av smaken',
   'price.ata_title': 'Ata-måten',
-  'price.ata_1': 'Laget i Norge — ingen toll, ingen mellomledd',
-  'price.ata_2': 'Fersk — rett fra oss til deg',
+  'price.ata_1': 'Laget i Norge, ingen toll, ingen eller få mellomledd',
+  'price.ata_2': 'Fersk, rett fra oss til deg',
   'price.ata_3': 'Du betaler for råvarer og håndverk, ikke fordyrende ledd',
-  'price.ata_4': 'Tid og tradisjon — aldri snarveier',
+  'price.ata_4': 'Tid og tradisjon, aldri snarveier',
   'price.bar_import_label': 'Importert sucuk',
-  'price.bar_import_value': '~375 kr/kg',
+  'price.bar_import_value': '~400 kr/kg',
   'price.bar_import_parts': 'råvare + toll + transport + mellomledd',
   'price.bar_ata_label': 'Ata Sucuk',
   'price.bar_ata_value': 'rettferdig pris',
@@ -62,35 +62,35 @@ const no = {
   'problem.lead': 'Nesten all sucuk i Norge er importert. Og import former produktet:',
   'problem.p1_title': 'Lang reise krever holdbarhet',
   'problem.p1_text':
-    'Derfor får du konserveringsmidler, fargestoffer og hurtigproduksjon i stedet for ekte fermentering. Ikke fordi det smaker bedre — men fordi pølsa må tåle uker på lager og landeveien.',
+    'Derfor får du konserveringsmidler, fargestoffer og hurtigproduksjon i stedet for ekte fermentering. Ikke fordi det smaker bedre, men fordi pølsa må tåle uker på lager og landeveien.',
   'problem.p2_title': 'Lang reise koster penger',
   'problem.p2_text':
-    'Toll, transport og to–tre mellomledd som alle skal tjene. Regningen havner hos deg: opp mot 375 kr/kg for en pølse som ble laget på hurtigmetoden.',
-  'problem.punchline': 'Du betaler altså mer — for mindre.',
+    'Toll, transport og to-tre mellomledd som alle skal tjene. Regningen havner hos deg: opp mot 400 kr/kg for en pølse som ble laget på hurtigmetoden.',
+  'problem.punchline': 'Du betaler altså mer for mindre.',
   'ata.title': 'Ata-måten',
   'ata.intro': 'Vi lager sucuken her i Agder. Da forsvinner hele problemet ved roten:',
   'ata.b1':
-    'Ingen lang reise → ingen grunn til tilsetninger. Kort innholdsliste, ekte fermentering og tiden håndverket krever.',
+    'Ingen lang reise → ingen grunn til unødvendige tilsetninger. Kort innholdsliste, ekte fermentering og tiden håndverket krever.',
   'ata.b2':
-    'Ingen toll, ingen mellomledd → du betaler for råvarer og håndverk, ikke for fordyrende ledd.',
+    'Ingen toll, ingen eller få mellomledd → du betaler for råvarer og håndverk, ikke for fordyrende ledd.',
   'ata.outro':
     'Renere og rimeligere er ikke et markedsføringstriks. Det er det som skjer når pølsa lages der den spises.',
 
   'clean.title': 'Stoler du på det du spiser?',
   'clean.lead':
-    'Mange sucuk-typer i Norge er fulle av tilsetninger, fargestoffer — og hurtigproduksjon. Vi tar tiden ekte fermentering krever, og holder innholdslisten så kort som mulig.',
+    'Mange sucuk-typer i Norge er fulle av tilsetninger, fargestoffer og hurtigproduksjon. Vi tar tiden ekte fermentering krever, og holder innholdslisten så kort som mulig.',
   'clean.import_title': 'Importert (typisk)',
   'clean.import_text': 'Lang innholdsliste, konserveringsmidler, fargestoffer, E-stoffer du ikke kjenner igjen.',
   'clean.ata_title': 'Ata Sucuk',
   'clean.ata_text': 'Storfekjøtt fra Norge, hvitløk, krydder, salt, starterkultur. Ingenting annet.',
-  'clean.img_alt': 'Ata Sucuk — kort innholdsliste: storfekjøtt, hvitløk, krydder, salt og starterkultur.',
+  'clean.img_alt': 'Ata Sucuk, kort innholdsliste: storfekjøtt, hvitløk, krydder, salt og starterkultur.',
 
   // İçindekiler — saf kanıt, tek cümle (v7 kurgusu)
   'ing.title': 'Hele innholdslisten vår får plass i én setning.',
   'ing.sentence': 'Storfekjøtt. Hvitløk. Krydder. Salt. Starterkultur.',
   'ing.text':
-    'Det er alt. Ingen E-numre du må google, ingen fargestoffer, ingen snarveier. Sammenlign gjerne med pakken du har i kjøleskapet.',
-  'ing.img_alt': 'Ata Sucuk — kort innholdsliste: storfekjøtt, hvitløk, krydder, salt og starterkultur.',
+    'Det er alt. Ingen unødvendige tilsetninger, ingen fargestoffer, ingen snarveier. Sammenlign gjerne med pakken du har i kjøleskapet.',
+  'ing.img_alt': 'Ata Sucuk, kort innholdsliste: storfekjøtt, hvitløk, krydder, salt og starterkultur.',
 
   // Lansman + teslimat (v4'teki offer bölümünün yerine — tekrar yerine yeni bilgi)
   'launch.title': 'Lansering høsten 2026',
@@ -108,16 +108,16 @@ const no = {
   'founder.sign': 'Familien bak Ata Sucuk, Kristiansand',
   'founder.img_alt': 'Familien bak Ata Sucuk',
 
-  'proof.title': 'Vi er i oppstartsfasen — og vi mener alvor',
+  'proof.title': 'Vi er i oppstartsfasen, og vi mener alvor',
   'proof.counter_pre': 'Så langt har',
   'proof.counter_post': 'meldt seg på. Listen vokser hver uke.',
   'proof.p1': 'Vi spør før vi lager. Fire spørsmål former oppskriften, prisen og produktet.',
-  'proof.p2': 'Full åpenhet. Du ser innholdet og prosessen — ingenting skjult.',
+  'proof.p2': 'Full åpenhet. Du ser innholdet og prosessen. Ingenting skjult.',
   'proof.p3': 'Vi gjør grundige undersøkelser, snakker med erfarne produsenter og ønsker å lage Europas beste sucuk her i Norge.',
 
   'engine.title': 'Sucuken er ikke ferdig. Du er med og bestemmer.',
   'engine.text':
-    'Hvor sterk? Hvor stor pakke? Hva er en riktig pris? Fire spørsmål —30 sekunder. Svarene dine former oppskriften og produktet vi lanserer.',
+    'Hvor sterk? Hvor stor pakke? Hva er en riktig pris? Fire spørsmål, 30 sekunder. Svarene dine former oppskriften og produktet vi lanserer.',
   'engine.thanks':
     'Som takk trekker vi tre gavekort à 500 kr blant alle som svarer, 20. august.',
   'engine.button': 'Svar på 4 spørsmål',
@@ -134,7 +134,7 @@ const no = {
   // Hva er sucuk?
   'whatis.title': 'Hva er sucuk?',
   'whatis.text':
-    'Sucuk er en krydret, fermentert tørrpølse av storfe — en klassiker fra det tyrkiske kjøkkenet. Stekt til kantene blir sprø, spises den til frokost: med egg, i brød eller rett fra pannen. Tenk chorizo, men med sitt eget krydderspråk — hvitløk, spisskummen og paprika.',
+    'Sucuk er en krydret, fermentert tørrpølse av storfe, en klassiker fra det tyrkiske kjøkkenet. Stekt til kantene blir sprø, spises den til frokost: med egg, i brød eller rett fra pannen. Tenk chorizo, men med sitt eget krydderspråk: hvitløk, spisskummen og paprika.',
   'whatis.tag1': 'Til frokost',
   'whatis.tag2': 'På tur',
   'whatis.tag3': 'Med egg',
@@ -153,7 +153,7 @@ const no = {
 
   'cta.title': 'Ekte sucuk er på vei. Vær blant de første.',
   'cta.lead':
-    'Meld deg på — helt uforpliktende. Du hører fra oss når det er noe å smake.',
+    'Meld deg på, helt uforpliktende. Du hører fra oss når det er noe å smake.',
   'cta.email_label': 'E-postadresse',
   'cta.email_placeholder': 'Skriv inn e-postadressen din',
   'cta.button': 'Bli med på listen',
@@ -186,16 +186,16 @@ const tr: Partial<Record<V5Key, string>> = {
   'hero.title_accent': 'Sade içerik',
   'hero.title_post': 'Norveç’te Üretim',
   'hero.lead':
-    'Dana eti, sarımsak, baharat, tuz ve maya. Gerçek usulle, <strong>geleneksel fermantasyonla</strong> burada, Norveç’te üretiliyor. Sınır aşmadığı, aracı dolaşmadığı için de ithal sucuğa göre <strong>daha uygun fiyatlı</strong>.',
+    'Dana eti, sarımsak, baharat, tuz ve maya. Gerçek usulle, <strong>geleneksel fermantasyonla</strong> burada, Norveç’te üretiliyor. Sınır aşmadığı, çok az aracıdan geçtiği için de ithal sucuğa göre <strong>daha uygun fiyatlı</strong>.',
   'hero.email_label': 'E-posta adresi',
   'hero.email_placeholder': 'E-posta adresin',
   'hero.cta': 'İlk tadanlardan ol',
   'hero.note': 'Spam yok. Sadece hazır olduğumuzda haber veririz.',
   'hero.survey_trigger': '4 soruyu cevapla, 500 kr hediye çeki kazanma şansı yakala',
-  'hero.waitlist_heading': 'Bekleme listesine katıl — öncelikli sıra, ilk tadım',
+  'hero.waitlist_heading': 'Bekleme listesine katıl. Öncelikli sıra, ilk tadım',
 
   'popup.title': 'Sucuğu sen de şekillendir!',
-  'popup.text': 'Dört soru — 30 saniye. Teşekkür olarak üç adet 500 kr hediye çeki çekilişi.',
+  'popup.text': 'Dört soru, 30 saniye. Teşekkür olarak üç adet 500 kr hediye çeki çekilişi.',
   'popup.button': '4 soruyu yanıtla',
   'popup.dismiss': 'Kapat',
 
@@ -212,12 +212,12 @@ const tr: Partial<Record<V5Key, string>> = {
   'price.today_3': 'Markete gelmeden önce haftalarca depoda bekliyor',
   'price.today_4': 'Lezzetten ödün veren hızlı üretim tercih ediliyor',
   'price.ata_title': 'Ata yöntemi',
-  'price.ata_1': 'Norveç’te üretiliyor. Gümrük yok, aracı yok',
+  'price.ata_1': 'Norveç’te üretiliyor. Gümrük yok, aracı yok ya da çok az',
   'price.ata_2': 'Taze. Doğrudan bizden sana',
   'price.ata_3': 'Paran şişen maliyetlere değil, malzemeye ve emeğe gidiyor',
   'price.ata_4': 'Zaman ve gelenek. Kestirme yol yok',
   'price.bar_import_label': 'İthal sucuk',
-  'price.bar_import_value': '~375 kr/kg',
+  'price.bar_import_value': '~400 kr/kg',
   'price.bar_import_parts': 'hammadde + gümrük + nakliye + aracılar',
   'price.bar_ata_label': 'Ata Sucuk',
   'price.bar_ata_value': 'adil fiyat',
@@ -230,14 +230,14 @@ const tr: Partial<Record<V5Key, string>> = {
     'Bu yüzden gerçek fermantasyonun yerini koruyucular, renklendiriciler ve hızlı üretim alıyor. Daha lezzetli olduğu için değil, sucuk haftalarca depoya ve yola dayanmak zorunda olduğu için.',
   'problem.p2_title': 'Uzun yol, yüksek maliyet demek',
   'problem.p2_text':
-    'Gümrük, nakliye ve iki-üç aracı, hepsi fiyata ekleniyor. Son hesap sana kalıyor: hızlı yöntemle üretilmiş bir sucuk için kilosu 375 kr’a varan fiyatlar.',
+    'Gümrük, nakliye ve iki-üç aracı, hepsi fiyata ekleniyor. Son hesap sana kalıyor: hızlı yöntemle üretilmiş bir sucuk için kilosu 400 kr’a varan fiyatlar.',
   'problem.punchline': 'Kısacası: daha azına daha çok ödüyorsun.',
   'ata.title': 'Ata yöntemi',
   'ata.intro': 'Biz sucuğu burada, Agder’de üretiyoruz. Böylece sorun kökünden çözülüyor:',
   'ata.b1':
-    'Uzun yol yok → katkı için sebep yok. Sade içerik, gerçek fermantasyon ve zaman.',
+    'Uzun yol yok → gereksiz katkıya sebep yok. Sade içerik, gerçek fermantasyon ve zaman.',
   'ata.b2':
-    'Gümrük yok, aracı yok → paran malzemeye ve emeğe gidiyor; fiyatı şişiren halkalara değil.',
+    'Gümrük yok, aracı yok ya da çok az → paran malzemeye ve emeğe gidiyor; fiyatı şişiren halkalara değil.',
   'ata.outro':
     'Daha sade ve daha uygun fiyatlı olması bir pazarlama numarası değil. Sucuk yenildiği yerde üretilince sonuç bu oluyor.',
 
@@ -253,7 +253,7 @@ const tr: Partial<Record<V5Key, string>> = {
   'ing.title': 'İçindekiler listemizin tamamı tek cümleye sığıyor.',
   'ing.sentence': 'Dana eti. Sarımsak. Baharat. Tuz. Maya.',
   'ing.text':
-    'Hepsi bu. Google’da araman gereken E-kodları yok, renklendirici yok, kestirme yol yok. İstersen buzdolabındaki paketle karşılaştır.',
+    'Hepsi bu. Gereksiz katkı yok, renklendirici yok, kestirme yol yok. İstersen buzdolabındaki paketle karşılaştır.',
   'ing.img_alt': 'Ata Sucuk: sade içerik listesi, dana eti, sarımsak, baharat, tuz ve maya.',
 
   'launch.title': '2026 sonbaharında çıkıyor',
@@ -331,9 +331,9 @@ const tr: Partial<Record<V5Key, string>> = {
 };
 
 const en: Partial<Record<V5Key, string>> = {
-  'meta.title': 'Ata Sucuk | Real, fully fermented halal sucuk — made in Norway',
+  'meta.title': 'Ata Sucuk | Real, fully fermented halal sucuk, made in Norway',
   'meta.description':
-    'Real, fully fermented sucuk made in Norway — clean ingredients and a fair price. Join the waitlist and help shape the product.',
+    'Real, fully fermented sucuk made in Norway, clean ingredients and a fair price. Join the waitlist and help shape the product.',
 
   'nav.brand': 'Ata Sucuk',
   'nav.blog': 'Blog',
@@ -344,16 +344,16 @@ const en: Partial<Record<V5Key, string>> = {
   'hero.title_accent': 'A short ingredient list',
   'hero.title_post': 'Made in Norway',
   'hero.lead':
-    'Beef, garlic, spices, salt and starter culture. <strong>Truly fermented</strong> the real way, right here at home. And because it never crosses borders or middlemen, it <strong>costs less</strong> than the imported kind.',
+    'Beef, garlic, spices, salt and starter culture. <strong>Truly fermented</strong> the real way, right here at home. And because it never crosses borders and has few middlemen, it <strong>costs less</strong> than the imported kind.',
   'hero.email_label': 'Email address',
   'hero.email_placeholder': 'Your email address',
   'hero.cta': 'Be among the first to taste',
-  'hero.note': 'No spam — we only email you when we are ready.',
-  'hero.survey_trigger': 'Answer 4 questions — win a 500 kr gift card',
-  'hero.waitlist_heading': 'Join the waitlist — first in line, first to taste',
+  'hero.note': 'No spam. We only email you when we are ready.',
+  'hero.survey_trigger': 'Answer 4 questions and win a 500 kr gift card',
+  'hero.waitlist_heading': 'Join the waitlist. First in line, first to taste',
 
   'popup.title': 'Help shape the sucuk!',
-  'popup.text': 'Four questions — 30 seconds. As a thank you: a draw for three 500 kr gift cards.',
+  'popup.text': 'Four questions, 30 seconds. As a thank you: a draw for three 500 kr gift cards.',
   'popup.button': 'Answer 4 questions',
   'popup.dismiss': 'Close',
 
@@ -363,56 +363,56 @@ const en: Partial<Record<V5Key, string>> = {
 
   'price.title': 'Why is sucuk so expensive in Norway?',
   'price.lead':
-    'The sucuk you buy today has travelled far and changed hands many times. Customs duties, transport and two or three middlemen are added to the price — long before it reaches you. We think you deserve better.',
+    'The sucuk you buy today has travelled far and changed hands many times. Customs duties, transport and two or three middlemen are added to the price, long before it reaches you. We think you deserve better.',
   'price.today_title': 'How it is today',
   'price.today_1': 'Imported, with high customs duty on top',
   'price.today_2': 'Two or three middlemen, each taking their cut',
   'price.today_3': 'Weeks in storage before it reaches the shop',
   'price.today_4': 'Rushed production at the expense of flavour',
   'price.ata_title': 'The Ata way',
-  'price.ata_1': 'Made in Norway — no customs, no middlemen',
-  'price.ata_2': 'Fresh — straight from us to you',
+  'price.ata_1': 'Made in Norway, no customs, no or few middlemen',
+  'price.ata_2': 'Fresh, straight from us to you',
   'price.ata_3': 'You pay for ingredients and craft, not extra links in the chain',
-  'price.ata_4': 'Time and tradition — never shortcuts',
+  'price.ata_4': 'Time and tradition, never shortcuts',
   'price.bar_import_label': 'Imported sucuk',
-  'price.bar_import_value': '~375 kr/kg',
+  'price.bar_import_value': '~400 kr/kg',
   'price.bar_import_parts': 'ingredients + customs + transport + middlemen',
   'price.bar_ata_label': 'Ata Sucuk',
   'price.bar_ata_value': 'a fair price',
   'price.bar_ata_parts': 'ingredients + local production',
 
-  'problem.title': 'The sucuk in the shop has travelled far. You can tell — from the ingredient list and the price.',
+  'problem.title': 'The sucuk in the shop has travelled far. You can tell from the ingredient list and the price.',
   'problem.lead': 'Almost all sucuk in Norway is imported. And import shapes the product:',
   'problem.p1_title': 'A long journey demands shelf life',
   'problem.p1_text':
-    'That is why you get preservatives, colourings and rushed production instead of real fermentation. Not because it tastes better — but because the sausage has to survive weeks in storage and on the road.',
+    'That is why you get preservatives, colourings and rushed production instead of real fermentation. Not because it tastes better, but because the sausage has to survive weeks in storage and on the road.',
   'problem.p2_title': 'A long journey costs money',
   'problem.p2_text':
-    'Customs, transport and two or three middlemen who all take their cut. The bill lands on you: up to 375 kr/kg for a sausage made the fast way.',
-  'problem.punchline': 'So you pay more — for less.',
+    'Customs, transport and two or three middlemen who all take their cut. The bill lands on you: up to 400 kr/kg for a sausage made the fast way.',
+  'problem.punchline': 'So you pay more for less.',
   'ata.title': 'The Ata way',
   'ata.intro': 'We make our sucuk here in Agder. That removes the whole problem at the root:',
   'ata.b1':
-    'No long journey → no reason for additives. A short ingredient list, real fermentation and the time the craft requires.',
+    'No long journey → no reason for unnecessary additives. A short ingredient list, real fermentation and the time the craft requires.',
   'ata.b2':
-    'No customs, no middlemen → you pay for ingredients and craftsmanship, not for extra links in the chain.',
+    'No customs, no or few middlemen → you pay for ingredients and craftsmanship, not for extra links in the chain.',
   'ata.outro':
     'Cleaner and cheaper is not a marketing trick. It is what happens when the sausage is made where it is eaten.',
 
   'clean.title': 'Do you trust what you eat?',
   'clean.lead':
-    'Much of the sucuk sold in Norway is full of additives and colourings — and made in a hurry. We give real fermentation the time it needs, and keep the ingredient list as short as possible.',
+    'Much of the sucuk sold in Norway is full of additives and colourings, and made in a hurry. We give real fermentation the time it needs, and keep the ingredient list as short as possible.',
   'clean.import_title': 'Imported (typical)',
   'clean.import_text': 'A long ingredient list: preservatives, colourings, E-numbers you do not recognise.',
   'clean.ata_title': 'Ata Sucuk',
   'clean.ata_text': 'Norwegian beef, garlic, spices, salt, starter culture. Nothing else.',
-  'clean.img_alt': 'Ata Sucuk — a short ingredient list: beef, garlic, spices, salt and starter culture.',
+  'clean.img_alt': 'Ata Sucuk, a short ingredient list: beef, garlic, spices, salt and starter culture.',
 
   'ing.title': 'Our entire ingredient list fits in one sentence.',
   'ing.sentence': 'Beef. Garlic. Spices. Salt. Starter culture.',
   'ing.text':
-    'That is all. No E-numbers to google, no colourings, no shortcuts. Feel free to compare with the pack in your fridge.',
-  'ing.img_alt': 'Ata Sucuk — a short ingredient list: beef, garlic, spices, salt and starter culture.',
+    'That is all. No unnecessary additives, no colourings, no shortcuts. Feel free to compare with the pack in your fridge.',
+  'ing.img_alt': 'Ata Sucuk, a short ingredient list: beef, garlic, spices, salt and starter culture.',
 
   'launch.title': 'Launching autumn 2026',
   'launch.text':
@@ -429,16 +429,16 @@ const en: Partial<Record<V5Key, string>> = {
   'founder.sign': 'David and Ashley, the family behind Ata Sucuk, Kristiansand',
   'founder.img_alt': 'The family behind Ata Sucuk',
 
-  'proof.title': 'We are just getting started — and we mean it',
+  'proof.title': 'We are just getting started, and we mean it',
   'proof.counter_pre': 'So far',
   'proof.counter_post': 'people have signed up. The list grows every week.',
   'proof.p1': 'We ask before we make. Four questions shape the recipe, the price and the product.',
-  'proof.p2': 'Full transparency. You see the ingredients and the process — nothing hidden.',
+  'proof.p2': 'Full transparency. You see the ingredients and the process. Nothing hidden.',
   'proof.p3': 'We are conducting deep research, consulting with experienced producers, and aiming to produce Europe’s best sucuk right here in Norway.',
 
   'engine.title': 'The sucuk is not finished yet. You help decide.',
   'engine.text':
-    'How spicy? What pack size? What is a fair price? Four questions — tw minutes. Your answers shape the recipe and the product we launch.',
+    'How spicy? What pack size? What is a fair price? Four questions, two minutes. Your answers shape the recipe and the product we launch.',
   'engine.thanks':
     'As a thank you, we draw three 500 kr gift cards among everyone who answers, on 20 August.',
   'engine.button': 'Answer 4 questions',
@@ -453,7 +453,7 @@ const en: Partial<Record<V5Key, string>> = {
 
   'whatis.title': 'What is sucuk?',
   'whatis.text':
-    'Sucuk is a spiced, fermented dry sausage made from beef — a classic of Turkish cuisine. Fried until the edges turn crispy, it is eaten for breakfast: with eggs, in bread, or straight from the pan. Think chorizo, but with its own language of spices — garlic, cumin and paprika.',
+    'Sucuk is a spiced, fermented dry sausage made from beef, a classic of Turkish cuisine. Fried until the edges turn crispy, it is eaten for breakfast: with eggs, in bread, or straight from the pan. Think chorizo, but with its own language of spices: garlic, cumin and paprika.',
   'whatis.tag1': 'For breakfast',
   'whatis.tag2': 'On a hike',
   'whatis.tag3': 'With eggs',
@@ -471,7 +471,7 @@ const en: Partial<Record<V5Key, string>> = {
 
   'cta.title': 'Real sucuk is on its way. Be among the first.',
   'cta.lead':
-    'Sign up — no strings attached. You will hear from us when there is something to taste.',
+    'Sign up, no strings attached. You will hear from us when there is something to taste.',
   'cta.email_label': 'Email address',
   'cta.email_placeholder': 'Enter your email address',
   'cta.button': 'Join the list',

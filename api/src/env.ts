@@ -12,4 +12,5 @@ export interface Bindings {
   RESEND_API_KEY: string;
   MAIL_FROM: string;
   CONFIRM_TOKEN_SECRET: string;
+  ADMIN_TOKEN: string; // son çağrı / çekiliş uçları — operatör anahtarı
 }

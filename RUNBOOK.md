@@ -142,3 +142,70 @@ Canlı test bittikten sonra tüm katılımcı verisini temizleyip kampanyaya sı
 truncate raffle_tickets, survey_responses, subscribers cascade;
 ```
 `posts` tablosuna dokunmaz. Şema/migration'lar yerinde kalır.
+
+---
+
+## Çekiliş operasyonu (20 Ağustos 2026)
+
+Mantığın tamamı: **`docs/cekilis-mantigi.md`**. Burada yalnız çalıştırma sırası var.
+
+### Ön koşullar (bir kez)
+
+```bash
+# 1) ADMIN_TOKEN üret ve .env'e yaz
+openssl rand -hex 32          # → .env içine ADMIN_TOKEN=...
+
+# 2) Migration'ı prod'a uygula (last_call_at + çekiliş tabloları)
+supabase db push              # veya SQL'i Supabase SQL Editor'e yapıştır
+
+# 3) Secret'ları ve Worker'ı güncelle
+bash scripts/set-prod-secrets.sh
+cd api && npx wrangler deploy --env production && cd ..
+```
+
+### Adım 1 — Çekilişten önce: son çağrı maili
+
+Onaylamayan **herkese** (yaş sınırı yok) tek seferlik "biletin aktif değil, çekiliş yarın" maili.
+Otomatik hatırlatma cron'u yalnız 24-72 saatlik pencereye bakar; ondan eski kayıtlara bu uç olmadan ulaşılamaz.
+`last_call_at` damgası sayesinde tekrar çağrılırsa kimseye ikinci kez gitmez.
+
+```bash
+API=https://api.atasucuk.no
+ADMIN=$(grep '^ADMIN_TOKEN=' .env | cut -d= -f2-)
+
+# Kaç kişiye gidecek? (hiçbir şey göndermez)
+curl -s -X POST $API/admin/last-call \
+  -H "Authorization: Bearer $ADMIN" -H 'Content-Type: application/json' \
+  -d '{"dry_run":true}' | jq
+
+# Gönder — 100'lük partiler hâlinde. remaining 0 olana dek tekrarla.
+curl -s -X POST $API/admin/last-call \
+  -H "Authorization: Bearer $ADMIN" -H 'Content-Type: application/json' \
+  -d '{"limit":100}' | jq
+```
+
+> Gönderim başarısız olan kayda damga vurulmaz → bir sonraki koşuda yeniden denenir.
+> Son çağrının **çekilişten en az 12-24 saat önce** gitmesi gerekir; insanların onaylamaya vakti olsun.
+
+### Adım 2 — Çekiliş
+
+`docs/cekilis-mantigi.md` §6'daki komutlar. Özet:
+
+```bash
+SEED=$(curl -s https://api.drand.sh/public/6392966 | jq -r .randomness)   # seed'i KAYDET
+curl -s -X POST $API/admin/raffle/draw -H "Authorization: Bearer $ADMIN" \
+  -H 'Content-Type: application/json' -d "{\"seed\":\"$SEED\",\"dry_run\":true}" | jq   # prova
+curl -s -X POST $API/admin/raffle/draw -H "Authorization: Bearer $ADMIN" \
+  -H 'Content-Type: application/json' \
+  -d "{\"seed\":\"$SEED\",\"notes\":\"20.08.2026 · drand 6392966\"}" | jq              # gerçek
+```
+
+### Adım 3 — Şeffaflık
+
+seed + `entries_hash` + `subscriber_id,bilet` listesini yayımla (e-posta yok).
+Katılımcı `node scripts/verify_draw.mjs --entries entries.csv --seed "<seed>"` ile sonucu kendi doğrular.
+
+### Adım 4 — Ödül teslimi
+
+`GET /admin/raffle/draws/:id` kazananları e-posta/telefonuyla döndürür.
+Yanıtlayan → `claimed_at`. 14 gün dolan → `forfeited_at`, sıradaki yedek (`is_reserve`) geçer. **Yeni çekiliş yapılmaz.**

@@ -17,7 +17,7 @@ const COPY: Record<string, MailCopy> = {
   no: {
     subject: 'Ett klikk igjen: bekreft plassen din 🎟️',
     heading: 'Bekreft e-posten din',
-    body: 'Klikk for å bekrefte. Da er loddet ditt i trekningen av fire gavekort på 500 kr offisielt — og du står på ventelisten.',
+    body: 'Klikk for å bekrefte. Da er loddet ditt i trekningen av tre gavekort på 500 kr offisielt — og du står på ventelisten.',
     button: 'Bekreft plassen min',
     footer: 'Hvis du ikke meldte deg på, kan du se bort fra denne e-posten.',
     ref_heading: 'Din personlige invitasjonslenke',
@@ -26,7 +26,7 @@ const COPY: Record<string, MailCopy> = {
   tr: {
     subject: 'Tek tık kaldı: yerini onayla 🎟️',
     heading: 'E-postanı onayla',
-    body: 'Onaylamak için tıkla. Onaylayınca 500 kr değerinde dört hediye çeki çekilişindeki biletin kesinleşir — bekleme listesine de resmen girmiş olursun.',
+    body: 'Onaylamak için tıkla. Onaylayınca 500 kr değerinde üç hediye çeki çekilişindeki biletin kesinleşir — bekleme listesine de resmen girmiş olursun.',
     button: 'Yerimi onayla',
     footer: 'Eğer kayıt olmadıysan bu e-postayı yok sayabilirsin.',
     ref_heading: 'Kişisel davet linkin',
@@ -35,7 +35,7 @@ const COPY: Record<string, MailCopy> = {
   en: {
     subject: 'One click left: confirm your spot 🎟️',
     heading: 'Confirm your email',
-    body: 'Click to confirm. That makes your ticket in the draw for four 500 kr gift cards official — and puts you on the waitlist.',
+    body: 'Click to confirm. That makes your ticket in the draw for three 500 kr gift cards official — and puts you on the waitlist.',
     button: 'Confirm my spot',
     footer: 'If you did not sign up, you can ignore this email.',
     ref_heading: 'Your personal invite link',
@@ -49,21 +49,21 @@ const REMINDER_COPY: Record<string, ReminderCopy> = {
   no: {
     subject: 'Loddet ditt venter fortsatt 🎟️',
     heading: 'Bare ett klikk igjen',
-    body: 'Du meldte deg på trekningen av fire gavekort på 500 kr — men plassen din er ikke bekreftet ennå. Bekreft nå, så er loddet ditt aktivt.',
+    body: 'Du meldte deg på trekningen av tre gavekort på 500 kr — men plassen din er ikke bekreftet ennå. Bekreft nå, så er loddet ditt aktivt.',
     button: 'Bekreft nå',
     footer: 'Dette er den eneste påminnelsen vi sender. Hvis du ikke meldte deg på, kan du se bort fra denne e-posten.',
   },
   tr: {
     subject: 'Biletin seni bekliyor 🎟️',
     heading: 'Sadece tek tık kaldı',
-    body: '500 kr değerinde dört hediye çeki çekilişine kaydoldun ama yerin henüz onaylı değil. Şimdi onayla, biletin aktifleşsin.',
+    body: '500 kr değerinde üç hediye çeki çekilişine kaydoldun ama yerin henüz onaylı değil. Şimdi onayla, biletin aktifleşsin.',
     button: 'Şimdi onayla',
     footer: 'Bu göndereceğimiz tek hatırlatma. Eğer kayıt olmadıysan bu e-postayı yok sayabilirsin.',
   },
   en: {
     subject: 'Your ticket is still waiting 🎟️',
     heading: 'Just one click left',
-    body: 'You signed up for the draw for four 500 kr gift cards — but your spot is not confirmed yet. Confirm now to activate your ticket.',
+    body: 'You signed up for the draw for three 500 kr gift cards — but your spot is not confirmed yet. Confirm now to activate your ticket.',
     button: 'Confirm now',
     footer: 'This is the only reminder we send. If you did not sign up, you can ignore this email.',
   },
@@ -136,5 +136,42 @@ export async function sendReminderEmail(
   args: { to: string; locale: string | null; confirmUrl: string }
 ): Promise<{ sent: boolean; dev?: boolean }> {
   const copy = REMINDER_COPY[args.locale ?? 'no'] ?? REMINDER_COPY.no;
+  return deliver(env, args.to, copy.subject, renderHtml(copy, args.confirmUrl));
+}
+
+// --- Son çağrı (çekiliş arifesi) -------------------------------------------
+// Hatırlatmadan farkı: tarih verir ve aciliyet taşır ("yarın çekiliyor").
+// Yalnız pending kayıtlara, kişi başına BİR kez gider (last_call_at damgası).
+type LastCallCopy = { subject: string; heading: string; body: string; button: string; footer: string };
+
+const LAST_CALL_COPY: Record<string, LastCallCopy> = {
+  no: {
+    subject: 'Siste sjanse: trekningen er i morgen 🎟️',
+    heading: 'Loddet ditt er ikke aktivt ennå',
+    body: 'I morgen trekker vi tre gavekort på 500 kr. Du meldte deg på, men e-postadressen din er fortsatt ikke bekreftet — og kun bekreftede lodd er med i trekningen. Ett klikk, så er du med.',
+    button: 'Bekreft e-posten min',
+    footer: 'Etter trekningen sender vi ikke flere påminnelser. Hvis du ikke meldte deg på, kan du se bort fra denne e-posten.',
+  },
+  tr: {
+    subject: 'Son şans: çekiliş yarın 🎟️',
+    heading: 'Biletin henüz aktif değil',
+    body: 'Yarın 500 kr değerinde üç hediye çeki çekiyoruz. Kaydoldun ama e-posta adresin hâlâ onaylı değil — çekilişe yalnızca onaylanmış biletler giriyor. Tek tık, hakkın korunur.',
+    button: 'E-postamı onayla',
+    footer: 'Çekilişten sonra başka hatırlatma göndermiyoruz. Eğer kayıt olmadıysan bu e-postayı yok sayabilirsin.',
+  },
+  en: {
+    subject: 'Last chance: the draw is tomorrow 🎟️',
+    heading: 'Your ticket is not active yet',
+    body: 'Tomorrow we draw three 500 kr gift cards. You signed up, but your email is still unconfirmed — and only confirmed tickets go into the draw. One click keeps you in.',
+    button: 'Confirm my email',
+    footer: 'We send no further reminders after the draw. If you did not sign up, you can ignore this email.',
+  },
+};
+
+export async function sendLastCallEmail(
+  env: Bindings,
+  args: { to: string; locale: string | null; confirmUrl: string }
+): Promise<{ sent: boolean; dev?: boolean }> {
+  const copy = LAST_CALL_COPY[args.locale ?? 'no'] ?? LAST_CALL_COPY.no;
   return deliver(env, args.to, copy.subject, renderHtml(copy, args.confirmUrl));
 }

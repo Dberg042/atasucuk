@@ -5,13 +5,16 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-ENV_FILE="$ROOT/.env"
-[ -f "$ENV_FILE" ] || { echo ".env bulunamadı"; exit 1; }
+# Dosya adı bu repoda `env` (nokta yok); `.env` de destekleniyor.
+if   [ -f "$ROOT/.env" ]; then ENV_FILE="$ROOT/.env"
+elif [ -f "$ROOT/env"  ]; then ENV_FILE="$ROOT/env"
+else echo "env / .env bulunamadı"; exit 1; fi
+echo "secret kaynağı: $ENV_FILE"
 
 # .env'den değer çek
 val() { grep "^$1=" "$ENV_FILE" | head -1 | cut -d= -f2-; }
 
-SECRETS=(SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY TURNSTILE_SECRET_KEY RESEND_API_KEY MAIL_FROM CONFIRM_TOKEN_SECRET)
+SECRETS=(SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY TURNSTILE_SECRET_KEY RESEND_API_KEY MAIL_FROM CONFIRM_TOKEN_SECRET ADMIN_TOKEN)
 
 cd "$ROOT/api"
 for name in "${SECRETS[@]}"; do

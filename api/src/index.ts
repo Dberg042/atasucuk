@@ -21,7 +21,17 @@ import {
   getReferralCode,
   findPendingForReminder,
   markReminded,
+  findPendingForLastCall,
+  markLastCall,
+  countPendingForLastCall,
+  loadRaffleEntries,
+  insertDraw,
+  insertDrawEntries,
+  insertDrawWinners,
+  getDrawWithWinners,
+  listDraws,
 } from './db';
+import { drawWinners } from './raffle';
 import { ok, fail, parseBody, localeSchema } from './lib';
 import { sha256Hex, signToken, verifyToken, genReferralCode } from './crypto';
 import {
@@ -266,6 +276,127 @@ app.get('/tickets', async (c) => {
   const confirmed = (await getSubscriberStatus(db, payload!.sid)) === 'confirmed';
   const referral = confirmed ? await countTickets(db, payload!.sid) : 0;
   return ok(c, { tickets: confirmed ? 1 + referral : 0, confirmed });
+});
+
+// --- Admin: son çağrı + çekiliş (SPEC ek: docs/cekilis-mantigi.md) ---------
+// Operatör uçları. ADMIN_TOKEN secret'ı ile korunur; tarayıcıdan çağrılmaz
+// (CORS yalnız kendi origin'imize açık, bu uçlar curl ile kullanılır).
+
+// Sabit zamanlı karşılaştırma — token uzunluğu/önekini timing ile sızdırma.
+async function adminOk(c: any): Promise<boolean> {
+  const header = c.req.header('Authorization') ?? '';
+  const given = header.startsWith('Bearer ') ? header.slice(7) : '';
+  const expected = c.env.ADMIN_TOKEN ?? '';
+  if (!expected || !given) return false;
+  const [a, b] = await Promise.all([sha256Hex(given), sha256Hex(expected)]);
+  return a === b;
+}
+
+const requireAdmin = async (c: any) => {
+  if (!(await adminOk(c))) fail('unauthorized', 'Yetkisiz.', 401);
+};
+
+const lastCallSchema = z.object({
+  dry_run: z.boolean().optional().default(false),
+  limit: z.number().int().min(1).max(200).optional().default(100),
+});
+
+// Çekiliş öncesi son çağrı: onaylamamış HERKESE (yaş sınırı yok) tek bir mail.
+// Otomatik hatırlatma cron'u yalnız 24-72 saatlik pencereye bakıyor; ondan
+// eski kayıtlar ve hatırlatmayı zaten almış olanlar bu uç olmadan hiç ulaşılamaz.
+// Kişi başına last_call_at damgası → tekrar çağrılırsa kimseye ikinci kez gitmez.
+// Batch'ler hâlinde çalışır: remaining 0 olana dek tekrar çağır.
+app.post('/admin/last-call', async (c) => {
+  await requireAdmin(c);
+  const body = await parseBody(c, lastCallSchema);
+  const db = createDb(c.env);
+
+  const pendingTotal = await countPendingForLastCall(db);
+  if (body.dry_run) return ok(c, { dry_run: true, would_send: Math.min(pendingTotal, body.limit), remaining: pendingTotal });
+
+  const batch = await findPendingForLastCall(db, body.limit);
+  const { sendLastCallEmail } = await import('./mail');
+
+  let sent = 0;
+  const failed: string[] = [];
+  for (const s of batch) {
+    try {
+      const confirmUrl = await buildConfirmUrl(c, s.id);
+      await sendLastCallEmail(c.env, { to: s.email, locale: s.locale, confirmUrl });
+      await markLastCall(db, s.id); // damga yalnız gönderim BAŞARILIYSA → hata alan tekrar denenir
+      sent++;
+    } catch (e) {
+      console.error('last-call failed', s.id, e); // tek kayıt düşerse batch devam
+      failed.push(s.id);
+    }
+  }
+  return ok(c, { sent, failed: failed.length, remaining: pendingTotal - sent });
+});
+
+const drawSchema = z.object({
+  // Seed çekilişten önce kimsenin bilemeyeceği, sonradan herkesin
+  // doğrulayabileceği herkese açık bir değer olmalı (docs/cekilis-mantigi.md §2).
+  seed: z.string().min(8).max(200),
+  prize_count: z.number().int().min(1).max(20).optional().default(3),
+  reserve_count: z.number().int().min(0).max(20).optional().default(3),
+  dry_run: z.boolean().optional().default(false),
+  notes: z.string().max(500).optional(),
+});
+
+// Çekilişi yürüt. dry_run=true ile önce prova et (hiçbir şey yazılmaz),
+// sonuç beğenilmediği için seed değiştirmek HİLEDİR — prova yalnız katılımcı
+// sayısı/bilet toplamı doğru mu diye bakmak içindir.
+app.post('/admin/raffle/draw', async (c) => {
+  await requireAdmin(c);
+  const body = await parseBody(c, drawSchema);
+  const db = createDb(c.env);
+
+  const entries = await loadRaffleEntries(db);
+  if (entries.length < body.prize_count) {
+    fail('not_enough_entrants', 'Katılımcı sayısı ödül sayısından az.', 422);
+  }
+
+  const result = await drawWinners(entries, body.seed, body.prize_count, body.reserve_count);
+
+  if (body.dry_run) {
+    return ok(c, {
+      dry_run: true,
+      entrant_count: result.entrant_count,
+      ticket_total: result.ticket_total,
+      entries_hash: result.entries_hash,
+      winners: result.winners,
+    });
+  }
+
+  const draw = await insertDraw(db, {
+    seed: body.seed,
+    prize_count: body.prize_count,
+    reserve_count: body.reserve_count,
+    entrant_count: result.entrant_count,
+    ticket_total: result.ticket_total,
+    entries_hash: result.entries_hash,
+    notes: body.notes ?? null,
+  });
+  // Donmuş katılımcı listesi ÖNCE yazılır: kazanan kaydı varken liste yoksa
+  // çekiliş doğrulanamaz hâle gelir.
+  await insertDrawEntries(db, draw.id, result.entries);
+  await insertDrawWinners(db, draw.id, result.winners);
+
+  const full = await getDrawWithWinners(db, draw.id);
+  return ok(c, full, 201);
+});
+
+app.get('/admin/raffle/draws', async (c) => {
+  await requireAdmin(c);
+  return ok(c, { draws: await listDraws(createDb(c.env)) });
+});
+
+// Kazananlar + iletişim bilgisi (ödül teslimi). Kişisel veri → yalnız admin.
+app.get('/admin/raffle/draws/:id', async (c) => {
+  await requireAdmin(c);
+  const full = await getDrawWithWinners(createDb(c.env), c.req.param('id'));
+  if (!full) fail('not_found', 'Çekiliş bulunamadı.', 404);
+  return ok(c, full);
 });
 
 // --- Hata yönetimi ---------------------------------------------------------
