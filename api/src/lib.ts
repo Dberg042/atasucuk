@@ -42,3 +42,17 @@ export async function parseBody<S extends z.ZodTypeAny>(
   }
   return result.data;
 }
+
+// --- E-posta maskeleme (public çekiliş ekranı) -----------------------------
+// Kazananı kendi tanısın ama üçüncü kişi kimliğini çözemesin.
+//   davidberg@gmail.com -> da*****rg@gmail.com
+// GÜVENLİK FRENİ: kısa yerel adlarda ilk2+son2 neredeyse tamamını açar
+// (ali@ -> al*i@ gibi saçmalık). 5 karakterden kısaysa tamamen kapatılır.
+export function maskEmail(email: string): string {
+  const at = email.lastIndexOf('@');
+  if (at < 1) return '***';
+  const local = email.slice(0, at);
+  const domain = email.slice(at); // '@gmail.com'
+  if (local.length < 5) return '*'.repeat(Math.max(local.length, 3)) + domain;
+  return local.slice(0, 2) + '*'.repeat(local.length - 4) + local.slice(-2) + domain;
+}

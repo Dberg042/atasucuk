@@ -17,7 +17,7 @@ if (root) initSurvey(root);
 function initSurvey(root: HTMLElement) {
   const lang = (document.documentElement.lang || 'no') as Lang;
   const ui = surveyUIFor(lang);
-  const API = import.meta.env.PUBLIC_API_URL;
+  const API = import.meta.env.PUBLIC_API_URL ?? 'https://api.atasucuk.no';
   const ref = new URLSearchParams(location.search).get('ref') || undefined;
 
   const body = root.querySelector<HTMLElement>('.survey__body')!;

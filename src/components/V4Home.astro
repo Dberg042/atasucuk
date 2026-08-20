@@ -312,7 +312,7 @@ const ataSegs = [
     const wrap = el?.closest<HTMLElement>('.proof__counter');
     if (!el || !wrap) return;
     try {
-      const r = await fetch(`${import.meta.env.PUBLIC_API_URL}/count`);
+      const r = await fetch(`${import.meta.env.PUBLIC_API_URL ?? 'https://api.atasucuk.no'}/count`);
       const d = await r.json();
       // v4 metni "på ventelisten" diyor → onaylı sayı. (v5 ana sayfası toplamı
       // gösteriyor, metni de "kaydoldu" olduğu için.)

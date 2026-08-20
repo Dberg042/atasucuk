@@ -1,0 +1,268 @@
+---
+// Çekiliş operatör konsolu — YAYINA GİRMEZ, /trekning ile karıştırılmasın.
+// Base layout kullanılmıyor: analytics/nav/hreflang burada işi yok.
+// GÜVENLİK: site statik. Bu sayfanın gizliliği yol belirsizliğine DAYANMAZ —
+// gerçek koruma Worker'daki ADMIN_TOKEN'dır. Token sayfaya GÖMÜLMEZ;
+// operatör her oturumda yapıştırır, sessionStorage'da kalır (sekme kapanınca gider).
+const API = import.meta.env.PUBLIC_API_URL ?? 'https://api.atasucuk.no';
+const ROUND = 6393926; // drand · 20:00 Oslo · 20.08.2026
+---
+
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Çekiliş konsolu · Ata Sucuk</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#14100F; --panel:#1E1817; --panel2:#2A2220; --line:#332A27;
+    --ink:#F8F3E9; --soft:#C3B6A9; --faint:#8A7C70;
+    --red:#C4413C; --gold:#C8A161; --ok:#5FA463; --warn:#D08A3C;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.55}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 20px 80px;display:flex;flex-direction:column;gap:24px}
+  .lab{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  h1{font-family:Oswald,sans-serif;font-weight:600;font-size:22px;letter-spacing:.06em;text-transform:uppercase;margin:0}
+  header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+  header a{color:var(--gold);font-size:13px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .fld{display:flex;flex-direction:column;gap:5px;flex:1 1 300px;min-width:0}
+  input{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:10px 11px;width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:3px}
+  input:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  button{font-family:Oswald,sans-serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;padding:11px 18px;border-radius:3px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer;white-space:nowrap}
+  button:hover:not(:disabled){border-color:var(--gold)}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  .b-go{background:var(--red);border-color:var(--red);color:#fff}
+  .b-go:hover:not(:disabled){background:#A9332F;border-color:#A9332F}
+  .b-real{background:var(--gold);border-color:var(--gold);color:#221A0A;font-weight:600}
+  .b-real:hover:not(:disabled){background:#D8B473;border-color:#D8B473}
+  .note{margin:0;font-size:13px;color:var(--faint)}
+  .note code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--panel2);padding:2px 6px;border-radius:3px;word-break:break-all}
+  .msg{margin:0;padding:11px 14px;border-radius:3px;font-size:13.5px;display:none}
+  .msg.on{display:block}
+  .msg.err{background:rgba(196,65,60,.16);border:1px solid var(--red);color:#F3B6B3}
+  .msg.ok{background:rgba(95,164,99,.14);border:1px solid var(--ok);color:#B8DDBA}
+  .msg.warn{background:rgba(208,138,60,.14);border:1px solid var(--warn);color:#EBC393}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .cell{background:var(--panel);padding:14px 16px;display:flex;flex-direction:column;gap:1px}
+  .cell b{font-size:1.7rem;font-weight:500;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",monospace}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tbl-wrap{overflow-x:auto;max-height:420px;overflow-y:auto;border:1px solid var(--line);border-radius:3px}
+  th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{position:sticky;top:0;background:var(--panel2);font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);z-index:1}
+  td.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",monospace}
+  tr.top td{color:var(--gold)}
+  .win{display:grid;gap:10px}
+  .wcard{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gold);padding:14px 18px;border-radius:3px}
+  .wcard.res{border-left-color:var(--faint);opacity:.82}
+  .wcard b{font-size:1.6rem;font-family:"IBM Plex Mono",monospace;color:var(--gold)}
+  .wcard.res b{color:var(--faint);font-size:1.2rem}
+  .wcard .em{font-family:"IBM Plex Mono",monospace;font-size:14px;word-break:break-all}
+  .wcard .ph{font-size:12.5px;color:var(--soft)}
+  dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0;font-size:12.5px}
+  dt{font-family:Oswald,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding-top:2px}
+  dd{margin:0;font-family:"IBM Plex Mono",monospace;word-break:break-all}
+  @media(max-width:620px){.wcard{grid-template-columns:auto 1fr}.wcard .tk{grid-column:2}dl{grid-template-columns:1fr;gap:2px 0}dt{padding-top:8px}}
+</style>
+</head>
+<body data-api={API} data-round={ROUND}>
+<div class="wrap">
+  <header>
+    <div><p class="lab">Ata Sucuk · operatör</p><h1>Çekiliş konsolu</h1></div>
+    <a href="/trekning" target="_blank" rel="noopener">İzleyici ekranı ↗</a>
+  </header>
+
+  <section class="panel">
+    <p class="lab">1 · Yetki</p>
+    <div class="row">
+      <div class="fld">
+        <label class="lab" for="tok">ADMIN_TOKEN</label>
+        <input id="tok" type="password" placeholder="env dosyasındaki ADMIN_TOKEN" autocomplete="off" spellcheck="false">
+      </div>
+      <button id="load">Listeyi yükle</button>
+      <button id="forget">Unut</button>
+    </div>
+    <p class="msg" id="m-auth"></p>
+  </section>
+
+  <section class="panel" id="p-list" hidden>
+    <p class="lab">2 · Canlı havuz</p>
+    <div class="grid">
+      <div class="cell"><span class="lab">Katılımcı</span><b id="c-ent">—</b></div>
+      <div class="cell"><span class="lab">Toplam bilet</span><b id="c-tick">—</b></div>
+      <div class="cell"><span class="lab">Ortalama</span><b id="c-avg">—</b></div>
+      <div class="cell"><span class="lab">En yüksek</span><b id="c-max">—</b></div>
+    </div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>#</th><th>E-posta</th><th style="text-align:right">Bilet</th><th>Şans</th></tr></thead>
+      <tbody id="tb"></tbody></table>
+    </div>
+    <div class="row">
+      <button id="reveal">E-postaları göster</button>
+      <p class="note" style="flex:1 1 260px">Adresler varsayılan olarak maskeli. Ekran paylaşımı açıkken açma.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="p-draw" hidden>
+    <p class="lab">3 · Çekiliş</p>
+    <p class="note">Terminalde: <code id="cmd"></code> — çıkan değeri aşağıya yapıştır.</p>
+    <div class="row">
+      <div class="fld">
+        <label class="lab" for="seed">Seed (drand randomness)</label>
+        <input id="seed" type="text" placeholder="be40dcbb50371001b83563d8b575b516…" autocomplete="off" spellcheck="false">
+      </div>
+      <button class="b-go" id="dry">Prova</button>
+      <button class="b-real" id="real">Gerçek çekiliş</button>
+    </div>
+    <p class="msg warn" id="m-warn"></p>
+    <p class="msg" id="m-draw"></p>
+  </section>
+
+  <section class="panel" id="p-res" hidden>
+    <p class="lab" id="res-lab">Sonuç</p>
+    <div class="win" id="win"></div>
+    <dl>
+      <dt>Seed</dt><dd id="r-seed">—</dd>
+      <dt>Liste hash</dt><dd id="r-hash">—</dd>
+      <dt>Katılımcı / bilet</dt><dd id="r-cnt">—</dd>
+      <dt>Çekiliş id</dt><dd id="r-id">—</dd>
+    </dl>
+    <p class="note">Şeffaflık için yayımlanacaklar: seed, liste hash'i ve <code>subscriber_id,bilet</code> listesi. Kazananları duyururken maskeli e-posta kullan.</p>
+  </section>
+</div>
+
+<script is:inline>
+(function(){
+  const API = document.body.dataset.api, ROUND = document.body.dataset.round;
+  const $ = (id) => document.getElementById(id);
+  $('cmd').textContent = `curl -s https://api.drand.sh/public/${ROUND} | jq -r .randomness`;
+
+  const saved = sessionStorage.getItem('atasucuk_admin');
+  if (saved) $('tok').value = saved;
+
+  function msg(el, text, kind){ el.textContent = text; el.className = 'msg on ' + (kind||''); }
+  function hide(el){ el.className = 'msg'; }
+  const tok = () => $('tok').value.trim();
+
+  async function api(path, opts){
+    const res = await fetch(API + path, Object.assign({
+      headers: { 'Authorization': 'Bearer ' + tok(), 'Content-Type': 'application/json' }
+    }, opts||{}));
+    const body = await res.json().catch(()=>({}));
+    if (!res.ok) throw new Error(body?.error?.message || ('HTTP ' + res.status));
+    return body.data;
+  }
+
+  let ENTRIES = [], TOTAL = 0, REVEAL = false;
+
+  // innerHTML'e giden her şey kaçışlanır. zod kayıt anında '<' içeren adresi
+  // reddediyor (yani sömürülebilir değil), ama tek savunma katmanına güvenme.
+  function esc(s){ return String(s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // Ekran paylaşımı/omuz üstü riski: e-postalar VARSAYILAN OLARAK maskeli.
+  // Kazananlara ulaşırken "Göster"e basılır — o an yayın kapalıdır.
+  function mask(email){
+    const at = String(email).lastIndexOf('@');
+    if (at < 1) return '***';
+    const l = email.slice(0,at), d = email.slice(at);
+    if (l.length < 5) return '*'.repeat(Math.max(l.length,3)) + d;
+    return l.slice(0,2) + '*'.repeat(l.length-4) + l.slice(-2) + d;
+  }
+  const show = (email) => esc(REVEAL ? email : mask(email));
+
+  $('load').onclick = async () => {
+    if (!tok()) { msg($('m-auth'), 'Token gerekli.', 'err'); return; }
+    $('load').disabled = true;
+    try {
+      const d = await api('/admin/raffle/entries');
+      sessionStorage.setItem('atasucuk_admin', tok());
+      ENTRIES = d.entries; TOTAL = d.ticket_total;
+      msg($('m-auth'), `Yetki tamam · ${d.entrant_count} katılımcı yüklendi.`, 'ok');
+      $('c-ent').textContent = d.entrant_count;
+      $('c-tick').textContent = d.ticket_total;
+      $('c-avg').textContent = (d.ticket_total / d.entrant_count).toFixed(2);
+      $('c-max').textContent = Math.max.apply(null, ENTRIES.map(e=>e.tickets));
+      const rows = ENTRIES.slice().sort((a,b)=>b.tickets-a.tickets);
+      renderTable();
+      $('p-list').hidden = false; $('p-draw').hidden = false;
+      const pub = await fetch(API + '/raffle/public').then(r=>r.json()).then(r=>r.data);
+      if (pub.drawn) msg($('m-warn'), 'DİKKAT: bu havuzda zaten bir çekiliş kaydı var. Yeni çekiliş ikinci bir kayıt oluşturur.', 'warn');
+    } catch (e) { msg($('m-auth'), 'Hata: ' + e.message, 'err'); }
+    $('load').disabled = false;
+  };
+
+  function renderTable(){
+    const rows = ENTRIES.slice().sort((a,b)=>b.tickets-a.tickets);
+    $('tb').innerHTML = rows.map((e,i)=>
+      `<tr class="${e.tickets>=5?'top':''}"><td class="num">${i+1}</td><td class="mono">${show(e.email)}</td>`+
+      `<td class="num">${e.tickets}</td><td class="num">${(e.tickets/TOTAL*100).toFixed(2)}%</td></tr>`).join('');
+  }
+
+  $('reveal').onclick = () => {
+    REVEAL = !REVEAL;
+    $('reveal').textContent = REVEAL ? 'E-postaları gizle' : 'E-postaları göster';
+    $('reveal').classList.toggle('b-go', REVEAL);
+    renderTable();
+    if (LAST) render(LAST.d, LAST.dry, LAST.id);
+  };
+
+  $('forget').onclick = () => { sessionStorage.removeItem('atasucuk_admin'); $('tok').value=''; hide($('m-auth')); };
+
+  let LAST = null;
+  function render(d, isDry, drawId){
+    LAST = { d, dry: isDry, id: drawId };
+    $('res-lab').textContent = isDry ? 'Sonuç · PROVA (kaydedilmedi)' : 'Sonuç · RESMİ ÇEKİLİŞ';
+    const ws = d.winners || [];
+    $('win').innerHTML = ws.map(w=>{
+      const email = w.email ? show(w.email) : '(yok)';
+      const phone = w.phone ? `<span class="ph">${show(w.phone)}</span>` : '';
+      return `<div class="wcard ${w.is_reserve?'res':''}"><b>${w.rank}</b>`+
+        `<div><div class="lab">${w.is_reserve?'Yedek':'Kazanan'}</div><div class="em">${email}</div>${phone}</div>`+
+        `<div class="tk num">${w.tickets} bilet</div></div>`;
+    }).join('');
+    $('r-seed').textContent = d.seed || $('seed').value.trim();
+    $('r-hash').textContent = d.entries_hash || '—';
+    $('r-cnt').textContent = (d.entrant_count ?? '—') + ' / ' + (d.ticket_total ?? '—');
+    $('r-id').textContent = drawId || '— (prova)';
+    $('p-res').hidden = false;
+    $('p-res').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  async function draw(isDry){
+    const seed = $('seed').value.trim();
+    if (seed.length < 8) { msg($('m-draw'), 'Seed en az 8 karakter olmalı.', 'err'); return; }
+    if (!isDry) {
+      const ok = confirm('RESMİ ÇEKİLİŞ yapılacak ve veritabanına KALICI olarak yazılacak.\n\nSeed:\n' + seed + '\n\nDevam?');
+      if (!ok) return;
+    }
+    $('dry').disabled = $('real').disabled = true;
+    msg($('m-draw'), isDry ? 'Prova çalışıyor…' : 'Resmi çekiliş yapılıyor…', '');
+    try {
+      const body = JSON.stringify({ seed, prize_count: 3, reserve_count: 3, dry_run: isDry,
+        notes: isDry ? undefined : `20.08.2026 · drand ${ROUND} · 20:00 Oslo` });
+      const d = await api('/admin/raffle/draw', { method: 'POST', body });
+      if (isDry) { render(d, true, null); msg($('m-draw'), 'Prova tamam — hiçbir şey kaydedilmedi.', 'ok'); }
+      else {
+        const merged = Object.assign({}, d.draw, { winners: d.winners });
+        render(merged, false, d.draw.id);
+        msg($('m-draw'), 'Çekiliş kaydedildi. İzleyici ekranı birkaç saniye içinde kendiliğinden güncellenecek.', 'ok');
+      }
+    } catch (e) { msg($('m-draw'), 'Hata: ' + e.message, 'err'); }
+    $('dry').disabled = $('real').disabled = false;
+  }
+  $('dry').onclick = () => draw(true);
+  $('real').onclick = () => draw(false);
+})();
+</script>
+</body>
+</html>

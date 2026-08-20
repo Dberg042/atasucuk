@@ -30,9 +30,12 @@ import {
   insertDrawWinners,
   getDrawWithWinners,
   listDraws,
+  getLatestDraw,
+  getDrawEntriesOrdered,
+  loadEntriesWithEmail,
 } from './db';
 import { drawWinners } from './raffle';
-import { ok, fail, parseBody, localeSchema } from './lib';
+import { ok, fail, parseBody, localeSchema, maskEmail } from './lib';
 import { sha256Hex, signToken, verifyToken, genReferralCode } from './crypto';
 import {
   isDisposableEmail,
@@ -95,6 +98,51 @@ app.get('/count', async (c) => {
   const db = createDb(c.env);
   const [total, confirmed] = await Promise.all([countAll(db), countConfirmed(db)]);
   return ok(c, { total, confirmed });
+});
+
+// --- Public çekiliş ekranı (/trekning) -------------------------------------
+// KİŞİSEL VERİ YOK. Şerit isimsiz bilet dizisi olarak gider; yalnız KAZANANLAR
+// maskeli e-postayla döner. 164 katılımcının maskeli adresini yayımlamak
+// kısmi abone listesi ifşası olurdu — küçük toplulukta maskeli adres bile
+// tanınabilir. Kazananın maskesi ise kendini tanıması için gerekli.
+app.get('/raffle/public', async (c) => {
+  const db = createDb(c.env);
+  const latest = await getLatestDraw(db);
+
+  if (!latest) {
+    // Henüz çekilmedi → canlı havuz. Sıra çekilişteki ile AYNI olmalı
+    // (subscriber_id artan), yoksa çekiliş sonrası pozisyonlar kayar.
+    const live = (await loadRaffleEntries(db)).sort((a, b) =>
+      a.subscriber_id < b.subscriber_id ? -1 : 1
+    );
+    return ok(c, {
+      drawn: false,
+      entrant_count: live.length,
+      ticket_total: live.reduce((n, e) => n + e.tickets, 0),
+      tickets: live.map((e) => e.tickets),
+    });
+  }
+
+  const frozen = await getDrawEntriesOrdered(db, latest.id);
+  const posById = new Map(frozen.map((e) => [e.subscriber_id, e.position]));
+  const full = await getDrawWithWinners(db, latest.id);
+  const winners = (full?.winners ?? []).map((w: any) => ({
+    rank: w.rank,
+    tickets: w.tickets,
+    is_reserve: w.is_reserve,
+    position: posById.get(w.subscriber_id) ?? 0,
+    masked: maskEmail(String(w.email ?? '')),
+  }));
+
+  return ok(c, {
+    drawn: true,
+    seed: latest.seed,
+    drawn_at: latest.drawn_at,
+    entrant_count: latest.entrant_count,
+    ticket_total: latest.ticket_total,
+    tickets: frozen.map((e) => e.tickets),
+    winners,
+  });
 });
 
 // --- Waitlist (T4.1) -------------------------------------------------------
@@ -384,6 +432,16 @@ app.post('/admin/raffle/draw', async (c) => {
 
   const full = await getDrawWithWinners(db, draw.id);
   return ok(c, full, 201);
+});
+
+app.get('/admin/raffle/entries', async (c) => {
+  await requireAdmin(c);
+  const rows = await loadEntriesWithEmail(createDb(c.env));
+  return ok(c, {
+    entrant_count: rows.length,
+    ticket_total: rows.reduce((n, r) => n + r.tickets, 0),
+    entries: rows,
+  });
 });
 
 app.get('/admin/raffle/draws', async (c) => {

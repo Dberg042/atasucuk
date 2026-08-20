@@ -391,3 +391,63 @@ export async function listDraws(db: Db): Promise<Record<string, unknown>[]> {
   if (error) throw error;
   return data ?? [];
 }
+
+// --- Public çekiliş ekranı --------------------------------------------------
+// En son çekiliş (yoksa null). Public ekran buna bakıp "çekildi mi" karar verir.
+export async function getLatestDraw(db: Db): Promise<{
+  id: string; seed: string; prize_count: number; entrant_count: number;
+  ticket_total: number; drawn_at: string;
+} | null> {
+  const { data, error } = await db
+    .from('raffle_draws')
+    .select('id,seed,prize_count,entrant_count,ticket_total,drawn_at')
+    .order('drawn_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+// Çekiliş anındaki DONMUŞ katılımcı listesi, position sırasında.
+// Public ekran şeridi bundan çizer — canlı veriden değil; yoksa animasyon
+// resmi kayıtla ayrışır (çekilişten sonra biri onaylarsa şerit kayardı).
+export async function getDrawEntriesOrdered(
+  db: Db,
+  drawId: string
+): Promise<{ subscriber_id: string; tickets: number; position: number }[]> {
+  const out: { subscriber_id: string; tickets: number; position: number }[] = [];
+  const PAGE = 1000;
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await db
+      .from('raffle_draw_entries')
+      .select('subscriber_id,tickets,position')
+      .eq('draw_id', drawId)
+      .order('position', { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) throw error;
+    out.push(...(data ?? []));
+    if (!data || data.length < PAGE) break;
+  }
+  return out;
+}
+
+// Admin ekranı: tam liste (e-posta dahil). Yalnız token'lı erişim.
+export async function loadEntriesWithEmail(
+  db: Db
+): Promise<{ subscriber_id: string; email: string; tickets: number }[]> {
+  const { data: t, error: e1 } = await db.from('subscriber_tickets').select('id,tickets');
+  if (e1) throw e1;
+  const { data: s, error: e2 } = await db
+    .from('subscribers')
+    .select('id,email')
+    .eq('status', 'confirmed');
+  if (e2) throw e2;
+  const byId = new Map((s ?? []).map((r: { id: string; email: string }) => [r.id, r.email]));
+  return (t ?? [])
+    .map((r: { id: string; tickets: number }) => ({
+      subscriber_id: r.id,
+      email: byId.get(r.id) ?? '',
+      tickets: 1 + (r.tickets ?? 0),
+    }))
+    .sort((a, b) => (a.subscriber_id < b.subscriber_id ? -1 : 1));
+}

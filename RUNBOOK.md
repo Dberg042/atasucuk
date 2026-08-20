@@ -192,12 +192,12 @@ curl -s -X POST $API/admin/last-call \
 `docs/cekilis-mantigi.md` §6'daki komutlar. Özet:
 
 ```bash
-SEED=$(curl -s https://api.drand.sh/public/6392966 | jq -r .randomness)   # seed'i KAYDET
+SEED=$(curl -s https://api.drand.sh/public/6393926 | jq -r .randomness)   # seed'i KAYDET
 curl -s -X POST $API/admin/raffle/draw -H "Authorization: Bearer $ADMIN" \
   -H 'Content-Type: application/json' -d "{\"seed\":\"$SEED\",\"dry_run\":true}" | jq   # prova
 curl -s -X POST $API/admin/raffle/draw -H "Authorization: Bearer $ADMIN" \
   -H 'Content-Type: application/json' \
-  -d "{\"seed\":\"$SEED\",\"notes\":\"20.08.2026 · drand 6392966\"}" | jq              # gerçek
+  -d "{\"seed\":\"$SEED\",\"notes\":\"20.08.2026 · drand 6393926\"}" | jq              # gerçek
 ```
 
 ### Adım 3 — Şeffaflık

@@ -47,11 +47,13 @@ Seed'in tek şartı: **çekilişten önce kimse bilemeyecek, çekilişten sonra 
 **Önerilen — drand (League of Entropy) beacon.** Hazırlık gerektirmez, tarafsız, herkese açık:
 
 ```bash
-# 20 Ağustos 2026, 12:00 Oslo saatine denk gelen tur:
-curl -s https://api.drand.sh/public/6392966 | jq -r .randomness
+# 20 Ağustos 2026, 20:00 Oslo saatine denk gelen tur (çekiliş bu saatten sonra yapılır):
+curl -s https://api.drand.sh/public/6393926 | jq -r .randomness
 ```
 
 Tur numarası zamandan hesaplanır (`genesis_time=1595431050`, `period=30s`), yani **çekiliş tarihi önceden ilan edildiği için tur da önceden bellidir; değeri ise o an gelene kadar üretilmez.** Sonradan aynı URL'den tekrar okunabilir.
+
+> **Turu ÖNCEDEN ilan et.** Çekilişi 20:00'den sonra yapacaksan bile seed, 20:00 turudur. Turu önceden duyurmazsan, sonucu görüp beğenmeyip bir sonraki tura geçme ihtimali doğar — doğrulanabilirliğin dayandığı tek şey budur. Turu duyurduktan sonra çekilişi istediğin saatte yürütebilirsin; sonuç zaten seed'e bağlıdır, gecikme değiştirmez.
 
 Alternatif (Norveçli katılımcıya daha okunaklı): o haftanın **Norsk Tipping Lotto** kazanan sayıları, `2026-08-20:04-11-19-23-28-31-33` gibi tek satıra yazılır.
 
@@ -99,7 +101,7 @@ API=https://api.atasucuk.no
 ADMIN=$ADMIN_TOKEN
 
 # 1) Seed'i al ve KAYDET (aynısını sonra yayımlayacaksın)
-SEED=$(curl -s https://api.drand.sh/public/6392966 | jq -r .randomness)
+SEED=$(curl -s https://api.drand.sh/public/6393926 | jq -r .randomness)
 echo "$SEED"
 
 # 2) PROVA — hiçbir şey yazılmaz. Katılımcı/bilet sayısı doğru mu bak.
@@ -110,7 +112,7 @@ curl -s -X POST $API/admin/raffle/draw \
 # 3) GERÇEK çekiliş (kaydeder, kazananları e-postalarıyla döndürür)
 curl -s -X POST $API/admin/raffle/draw \
   -H "Authorization: Bearer $ADMIN" -H 'Content-Type: application/json' \
-  -d "{\"seed\":\"$SEED\",\"prize_count\":3,\"reserve_count\":3,\"notes\":\"20.08.2026 · drand round 6392966\"}" | jq
+  -d "{\"seed\":\"$SEED\",\"prize_count\":3,\"reserve_count\":3,\"notes\":\"20.08.2026 · drand round 6393926 · 20:00 Oslo\"}" | jq
 
 # 4) Sonucu sonradan görüntüle
 curl -s $API/admin/raffle/draws -H "Authorization: Bearer $ADMIN" | jq

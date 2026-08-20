@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /cekilis-admin
 
 Sitemap: https://atasucuk.no/sitemap-index.xml

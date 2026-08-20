@@ -1,0 +1,346 @@
+---
+import Base from '../layouts/Base.astro';
+import { dirFor, type Lang } from '../i18n/ui';
+
+// Public çekiliş ekranı (/trekning). YAYINA GİRER — burada teknik hiçbir şey
+// görünmez: seed kutusu, hash, curl, algoritma adı, uuid yok. Meraklısı için
+// "nasıl çalışır" katlanmış <details> içinde durur, kapalı açılır.
+// Veri: GET /raffle/public (kişisel veri yok; yalnız kazananlar maskeli).
+export interface Props { lang: Lang }
+const { lang } = Astro.props;
+const API = import.meta.env.PUBLIC_API_URL ?? 'https://api.atasucuk.no';
+
+const T = {
+  no: {
+    title: 'Trekningen · Ata Sucuk',
+    desc: 'Live trekning av tre gavekort på 500 kr blant alle som har bekreftet påmeldingen.',
+    eyebrow: 'Trekning · 20. august 2026',
+    h1: 'Tre gavekort på 500 kr',
+    lede: 'Alle som har bekreftet påmeldingen er med. Hver venn du har vervet ga dere begge ett lodd ekstra.',
+    until: 'Trekningen starter om',
+    live: 'Trekningen pågår',
+    done: 'Trekningen er fullført',
+    d: 'd', h: 't', m: 'min', s: 'sek',
+    deltakere: 'Deltakere', lodd: 'Lodd i potten',
+    stripH: 'Loddpotten', stripP: 'Hver blokk er én deltaker. Bredden er antall lodd.',
+    winner: 'Vinner', reserve: 'Reserve', tickets: 'lodd',
+    waitingMsg: 'Vinnerne vises her så snart trekningen er gjort.',
+    trust: 'Trekningen gjøres med offentlig tilfeldighet fra drand — ingen hos oss velger vinnerne.',
+    howH: 'Slik foregår trekningen',
+    how: [
+      'Alle bekreftede påmeldinger får ett lodd. Hver venn som ble vervet og bekreftet ga ett lodd ekstra til begge.',
+      'Selve tilfeldigheten hentes fra drand, en offentlig kilde som publiserer et nytt tilfeldig tall hvert 30. sekund. Runden vi bruker ble kunngjort på forhånd, og tallet finnes ikke før klokken slår 20:00.',
+      'Vinneren kan ikke vinne to ganger — alle loddene til en vinner tas ut av potten før neste trekning.',
+      'Vi trekker tre vinnere og tre reserver samtidig. Svarer ikke en vinner innen 14 dager, går premien til neste reserve.',
+      'Vinnerne kontaktes på e-post. Av hensyn til personvern viser vi bare deler av adressen.',
+    ],
+    backHome: '← Til forsiden',
+  },
+  tr: {
+    title: 'Çekiliş · Ata Sucuk',
+    desc: '500 kr değerinde üç hediye çekinin canlı çekilişi.',
+    eyebrow: 'Çekiliş · 20 Ağustos 2026',
+    h1: '500 kr’lik üç hediye çeki',
+    lede: 'Kaydını onaylayan herkes çekilişte. Davet ettiğin ve onaylayan her arkadaş ikinize de birer bilet kazandırdı.',
+    until: 'Çekilişe kalan',
+    live: 'Çekiliş sürüyor',
+    done: 'Çekiliş tamamlandı',
+    d: 'g', h: 'sa', m: 'dk', s: 'sn',
+    deltakere: 'Katılımcı', lodd: 'Havuzdaki bilet',
+    stripH: 'Bilet havuzu', stripP: 'Her blok bir katılımcı. Genişlik, bilet sayısı.',
+    winner: 'Kazanan', reserve: 'Yedek', tickets: 'bilet',
+    waitingMsg: 'Çekiliş yapılır yapılmaz kazananlar burada görünecek.',
+    trust: 'Çekiliş, drand adlı herkese açık rastgelelik kaynağıyla yapılıyor — kazananı bizden kimse seçmiyor.',
+    howH: 'Çekiliş nasıl yapılıyor',
+    how: [
+      'Kaydını onaylayan herkes bir bilet alır. Davet edilip onaylayan her arkadaş, ikisine de birer bilet daha kazandırır.',
+      'Rastgelelik drand’dan geliyor: her 30 saniyede bir yeni rastgele sayı yayımlayan herkese açık bir kaynak. Kullanacağımız tur önceden duyuruldu ve o sayı saat 20:00 gelmeden var olmuyor.',
+      'Aynı kişi iki kez kazanamaz — kazananın tüm biletleri, sıradaki çekilişten önce havuzdan çıkarılır.',
+      'Üç kazanan ve üç yedek aynı anda çekiliyor. Kazanan 14 gün içinde yanıt vermezse ödül sıradaki yedeğe geçer.',
+      'Kazananlara e-postayla ulaşılır. Kişisel verinin korunması için adresin yalnızca bir kısmını gösteriyoruz.',
+    ],
+    backHome: '← Ana sayfa',
+  },
+  en: {
+    title: 'The draw · Ata Sucuk',
+    desc: 'Live draw for three 500 kr gift cards among everyone who confirmed their sign-up.',
+    eyebrow: 'Draw · 20 August 2026',
+    h1: 'Three 500 kr gift cards',
+    lede: 'Everyone who confirmed their sign-up is in. Every friend you brought in earned you both an extra ticket.',
+    until: 'The draw starts in',
+    live: 'Draw in progress',
+    done: 'The draw is complete',
+    d: 'd', h: 'h', m: 'min', s: 'sec',
+    deltakere: 'Entrants', lodd: 'Tickets in the pot',
+    stripH: 'The ticket pot', stripP: 'Each block is one entrant. Width is their ticket count.',
+    winner: 'Winner', reserve: 'Reserve', tickets: 'tickets',
+    waitingMsg: 'Winners will appear here as soon as the draw is made.',
+    trust: 'The draw uses public randomness from drand — nobody here picks the winners.',
+    howH: 'How the draw works',
+    how: [
+      'Everyone who confirmed gets one ticket. Every friend who joined and confirmed earned an extra ticket for both of you.',
+      'The randomness comes from drand, a public source that publishes a new random number every 30 seconds. The round we use was announced in advance, and the number does not exist until 20:00.',
+      'Nobody can win twice — a winner’s tickets are removed from the pot before the next pick.',
+      'Three winners and three reserves are drawn in the same run. If a winner does not reply within 14 days, the prize passes to the next reserve.',
+      'Winners are contacted by email. For privacy we show only part of the address.',
+    ],
+    backHome: '← Back to home',
+  },
+} as const;
+
+const t = (T as any)[lang] ?? T.no;
+const homeHref = lang === 'no' ? '/' : `/${lang}/`;
+---
+
+<Base lang={lang} dir={dirFor(lang)} title={t.title} description={t.desc}>
+  <main class="tr" data-api={API}>
+    <div class="tr__wrap">
+      <a class="tr__back" href={homeHref}>{t.backHome}</a>
+
+      <header class="tr__head">
+        <p class="tr__eyebrow">{t.eyebrow}</p>
+        <h1 class="tr__h1">{t.h1}</h1>
+        <p class="tr__lede">{t.lede}</p>
+      </header>
+
+      <section class="tr__clock" id="tr-clock">
+        <p class="tr__clock-lab" id="tr-state">{t.until}</p>
+        <div class="tr__cd" id="tr-cd">
+          <div class="cd"><span class="cd__n" id="cd-h">–</span><span class="cd__u">{t.h}</span></div>
+          <div class="cd"><span class="cd__n" id="cd-m">–</span><span class="cd__u">{t.m}</span></div>
+          <div class="cd"><span class="cd__n" id="cd-s">–</span><span class="cd__u">{t.s}</span></div>
+        </div>
+      </section>
+
+      <section class="tr__stats">
+        <div class="tr__stat"><span class="tr__stat-k">{t.deltakere}</span><span class="tr__stat-v" id="tr-entrants">—</span></div>
+        <div class="tr__stat"><span class="tr__stat-k">{t.lodd}</span><span class="tr__stat-v" id="tr-tickets">—</span></div>
+      </section>
+
+      <section class="tr__strip-sec">
+        <div class="tr__sec-head">
+          <h2>{t.stripH}</h2><p>{t.stripP}</p>
+        </div>
+        <div class="tr__strip-outer">
+          <div class="tr__strip" id="tr-strip"></div>
+          <div class="tr__marker" id="tr-marker"></div>
+        </div>
+      </section>
+
+      <section class="tr__winners" id="tr-winners" aria-live="polite">
+        <p class="tr__waiting" id="tr-waiting">{t.waitingMsg}</p>
+      </section>
+
+      <p class="tr__trust">{t.trust}</p>
+
+      <details class="tr__how">
+        <summary>{t.howH}</summary>
+        <ol>{t.how.map((line: string) => <li>{line}</li>)}</ol>
+      </details>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ API, LBL: { winner: t.winner, reserve: t.reserve, tickets: t.tickets, live: t.live, done: t.done, until: t.until } }}>
+    (function () {
+      const TARGET = Date.parse('2026-08-20T18:00:00Z'); // 20:00 Oslo
+      const strip = document.getElementById('tr-strip');
+      const marker = document.getElementById('tr-marker');
+      const winnersEl = document.getElementById('tr-winners');
+      const waitingEl = document.getElementById('tr-waiting');
+      const stateEl = document.getElementById('tr-state');
+      const cdEl = document.getElementById('tr-cd');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      let played = false;
+      let blocks = [];
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function tick() {
+        const left = TARGET - Date.now();
+        if (left <= 0) { cdEl.classList.add('is-done'); return; }
+        const h = Math.floor(left / 3600000), m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+        document.getElementById('cd-h').textContent = pad(h);
+        document.getElementById('cd-m').textContent = pad(m);
+        document.getElementById('cd-s').textContent = pad(s);
+      }
+      tick(); setInterval(tick, 1000);
+
+      function drawStrip(tickets) {
+        strip.innerHTML = '';
+        blocks = tickets.map((t) => {
+          const d = document.createElement('div');
+          d.className = 'blk';
+          d.style.flexGrow = t;
+          d.style.setProperty('--t', t);
+          strip.appendChild(d);
+          return d;
+        });
+      }
+
+      function stub(w) {
+        const el = document.createElement('article');
+        el.className = 'stub ' + (w.is_reserve ? 'stub--res' : 'stub--win');
+        el.innerHTML =
+          '<span class="stub__rank">' + w.rank + '</span>' +
+          '<span class="stub__body"><span class="stub__lab">' + (w.is_reserve ? LBL.reserve : LBL.winner) + '</span>' +
+          '<span class="stub__id">' + w.masked + '</span></span>' +
+          '<span class="stub__t">' + w.tickets + '<small>' + LBL.tickets + '</small></span>';
+        return el;
+      }
+
+      async function play(data) {
+        played = true;
+        stateEl.textContent = LBL.live;
+        cdEl.classList.add('is-done');
+        if (waitingEl) waitingEl.remove();
+        winnersEl.innerHTML = '';
+
+        const tickets = data.tickets.slice();
+        const total = tickets.reduce((a, b) => a + b, 0);
+        let remaining = total;
+        const alive = tickets.map((t, i) => ({ t, i }));
+
+        for (const w of data.winners) {
+          const idx = alive.findIndex((e) => e.i === w.position);
+          if (idx < 0) continue;
+          let acc = 0;
+          for (let j = 0; j <= idx; j++) acc += alive[j].t;
+          const pct = ((acc - alive[idx].t / 2) / remaining) * 100;
+
+          marker.classList.add('on');
+          if (!reduce) {
+            marker.animate(
+              [{ left: '0%' }, { left: '100%' }, { left: '0%' }, { left: '100%' }, { left: pct + '%' }],
+              { duration: 2200, easing: 'cubic-bezier(.16,.84,.28,1)', fill: 'forwards' }
+            );
+            await sleep(2300);
+          } else { marker.style.left = pct + '%'; }
+
+          const blk = blocks[w.position];
+          blk.classList.add('hit');
+          await sleep(reduce ? 0 : 650);
+
+          const el = stub(w);
+          winnersEl.appendChild(el);
+          requestAnimationFrame(() => el.classList.add('in'));
+
+          remaining -= alive[idx].t;
+          alive.splice(idx, 1);
+          await sleep(reduce ? 0 : 400);
+          blk.classList.remove('hit');
+          blk.classList.add('gone');
+          marker.classList.remove('on');
+          await sleep(reduce ? 0 : 500);
+        }
+        stateEl.textContent = LBL.done;
+      }
+
+      function showFinal(data) {
+        played = true;
+        stateEl.textContent = LBL.done;
+        cdEl.classList.add('is-done');
+        if (waitingEl) waitingEl.remove();
+        winnersEl.innerHTML = '';
+        data.winners.forEach((w) => {
+          const el = stub(w);
+          winnersEl.appendChild(el);
+          el.classList.add('in');
+          if (blocks[w.position]) blocks[w.position].classList.add('gone');
+        });
+      }
+
+      let firstLoad = true;
+      async function poll() {
+        try {
+          const res = await fetch(API + '/raffle/public', { cache: 'no-store' });
+          const { data } = await res.json();
+          document.getElementById('tr-entrants').textContent = data.entrant_count;
+          document.getElementById('tr-tickets').textContent = data.ticket_total;
+          if (!blocks.length || (!data.drawn && blocks.length !== data.tickets.length)) drawStrip(data.tickets);
+
+          if (data.drawn && !played) {
+            drawStrip(data.tickets);
+            // Sayfa çekilişten SONRA açıldıysa animasyon oynatma — sonucu doğrudan göster.
+            // Yalnız çekiliş biz bakarken olduysa canlı oynat.
+            if (firstLoad) showFinal(data); else await play(data);
+          }
+        } catch (e) { /* ağ hatası: bir sonraki turda yeniden dener */ }
+        firstLoad = false;
+      }
+      poll();
+      setInterval(poll, 5000);
+    })();
+  </script>
+</Base>
+
+<style>
+  .tr { background: var(--cream); color: var(--dark); padding: 40px 0 100px; }
+  .tr__wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 40px; }
+  .tr__back { font-size: 14px; color: var(--red); text-decoration: none; align-self: flex-start; }
+  .tr__back:hover { text-decoration: underline; }
+
+  .tr__head { display: flex; flex-direction: column; gap: 12px; }
+  .tr__eyebrow { font-family: var(--font-stamp); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--red); margin: 0; }
+  .tr__h1 { font-family: var(--font-serif); font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .tr__lede { margin: 0; max-width: 58ch; color: #57534e; font-size: 1.05rem; }
+
+  .tr__clock { display: flex; flex-direction: column; gap: 10px; align-items: center; padding: 28px 20px; background: var(--sand); border-radius: 6px; }
+  .tr__clock-lab { margin: 0; font-family: var(--font-stamp); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #78716c; }
+  .tr__cd { display: flex; gap: 26px; font-variant-numeric: tabular-nums; }
+  .tr__cd.is-done { display: none; }
+  .cd { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .cd__n { font-family: var(--font-serif); font-size: clamp(2.4rem, 8vw, 3.6rem); line-height: 1; }
+  .cd__u { font-family: var(--font-stamp); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #78716c; }
+
+  .tr__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #E3DACA; border: 1px solid #E3DACA; border-radius: 6px; overflow: hidden; }
+  .tr__stat { background: var(--cream); padding: 18px 20px; display: flex; flex-direction: column; gap: 2px; }
+  .tr__stat-k { font-family: var(--font-stamp); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #78716c; }
+  .tr__stat-v { font-family: var(--font-serif); font-size: 2.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+
+  .tr__sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tr__sec-head h2 { font-family: var(--font-stamp); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; margin: 0; color: #78716c; font-weight: 600; }
+  .tr__sec-head p { margin: 0; font-size: 13px; color: #a8a29e; }
+  .tr__strip-outer { position: relative; padding-top: 20px; }
+  .tr__strip { position: relative; display: flex; gap: 1px; height: 84px; border: 1px solid #E3DACA; border-radius: 3px; overflow: hidden; background: #E3DACA; }
+  .tr__strip :global(.blk) { position: relative; min-width: 0; background: #CBBEA8; transition: flex-grow .55s cubic-bezier(.4,0,.2,1), opacity .45s, background .3s; }
+  .tr__strip :global(.blk:nth-child(even)) { background: #BFAE93; }
+  .tr__strip :global(.blk.hit) { background: var(--gold); box-shadow: 0 0 0 2px var(--gold), 0 0 28px 6px rgba(184,134,11,.5); z-index: 3; }
+  .tr__strip :global(.blk.gone) { flex-grow: 0 !important; opacity: 0; }
+  .tr__marker { position: absolute; top: 12px; bottom: 0; width: 2px; background: var(--red); left: 0; z-index: 4; opacity: 0; transition: opacity .25s; pointer-events: none; }
+  .tr__marker::before { content: "▼"; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); color: var(--red); font-size: 13px; line-height: 1; }
+  .tr__marker.on { opacity: 1; }
+
+  .tr__winners { display: grid; gap: 14px; }
+  .tr__waiting { margin: 0; padding: 28px; text-align: center; color: #a8a29e; border: 1px dashed #DDD2C2; border-radius: 6px; }
+  .tr__winners :global(.stub) {
+    --notch: 11px;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center;
+    background: var(--sand); border: 1px solid #E3DACA; padding: 20px 26px;
+    opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s cubic-bezier(.2,.8,.3,1);
+    -webkit-mask-image: radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000 100%), radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000 100%), radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000 100%);
+    mask-composite: intersect;
+  }
+  .tr__winners :global(.stub.in) { opacity: 1; transform: translateY(0); }
+  .tr__winners :global(.stub--win) { border-color: var(--gold); background: #FBF4E2; }
+  .tr__winners :global(.stub__rank) { font-family: var(--font-serif); font-size: 2.5rem; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .tr__winners :global(.stub--res .stub__rank) { color: #a8a29e; font-size: 1.7rem; }
+  .tr__winners :global(.stub__body) { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .tr__winners :global(.stub__lab) { font-family: var(--font-stamp); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: #a8a29e; }
+  .tr__winners :global(.stub__id) { font-size: 1.15rem; font-weight: 600; word-break: break-all; }
+  .tr__winners :global(.stub__t) { font-family: var(--font-serif); font-size: 1.5rem; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tr__winners :global(.stub__t small) { display: block; font-family: var(--font-stamp); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #a8a29e; }
+
+  .tr__trust { margin: 0; text-align: center; color: #78716c; font-size: 14px; max-width: 60ch; margin-inline: auto; }
+  .tr__how { border-top: 1px solid #E3DACA; padding-top: 20px; }
+  .tr__how summary { cursor: pointer; font-family: var(--font-stamp); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
+  .tr__how ol { margin: 16px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; color: #57534e; font-size: 14.5px; max-width: 68ch; }
+
+  @media (max-width: 620px) {
+    .tr__winners :global(.stub) { grid-template-columns: auto 1fr; gap: 12px 16px; padding: 18px; }
+    .tr__winners :global(.stub__t) { grid-column: 2; text-align: left; }
+    .tr__cd { gap: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .tr *, .tr :global(*) { transition-duration: .01ms !important; } }
+</style>

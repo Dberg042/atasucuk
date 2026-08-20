@@ -146,25 +146,25 @@ type LastCallCopy = { subject: string; heading: string; body: string; button: st
 
 const LAST_CALL_COPY: Record<string, LastCallCopy> = {
   no: {
-    subject: 'Siste sjanse: trekningen er i morgen 🎟️',
-    heading: 'Loddet ditt er ikke aktivt ennå',
-    body: 'I morgen trekker vi tre gavekort på 500 kr. Du meldte deg på, men e-postadressen din er fortsatt ikke bekreftet — og kun bekreftede lodd er med i trekningen. Ett klikk, så er du med.',
+    subject: 'Takk for interessen \u2014 bekreft e-posten din f\u00f8r trekningen',
+    heading: 'Takk for interessen!',
+    body: 'Du meldte deg p\u00e5, men har enn\u00e5 ikke bekreftet bekreftelses-e-posten vi sendte deg tidligere \u2014 derfor sender vi denne p\u00e5minnelsen. Trekningen av tre gavekort p\u00e5 500 kr skjer i morgen, og kun bekreftede p\u00e5meldinger er med. Bekreft e-posten din s\u00e5 du ikke mister plassen din i trekningen.',
     button: 'Bekreft e-posten min',
-    footer: 'Etter trekningen sender vi ikke flere påminnelser. Hvis du ikke meldte deg på, kan du se bort fra denne e-posten.',
+    footer: 'Takk for at du viste interesse for Ata Sucuk. Hvis du ikke meldte deg p\u00e5, kan du se bort fra denne e-posten.',
   },
   tr: {
-    subject: 'Son şans: çekiliş yarın 🎟️',
-    heading: 'Biletin henüz aktif değil',
-    body: 'Yarın 500 kr değerinde üç hediye çeki çekiyoruz. Kaydoldun ama e-posta adresin hâlâ onaylı değil — çekilişe yalnızca onaylanmış biletler giriyor. Tek tık, hakkın korunur.',
-    button: 'E-postamı onayla',
-    footer: 'Çekilişten sonra başka hatırlatma göndermiyoruz. Eğer kayıt olmadıysan bu e-postayı yok sayabilirsin.',
+    subject: '\u0130lgin i\u00e7in te\u015fekk\u00fcrler \u2014 \u00e7ekili\u015f yar\u0131n, e-postan\u0131 onayla',
+    heading: '\u0130lgin i\u00e7in te\u015fekk\u00fcrler!',
+    body: 'Kaydolmu\u015ftun ama daha \u00f6nce g\u00f6nderdi\u011fimiz onay mailini onaylamad\u0131\u011f\u0131n i\u00e7in sana bu hat\u0131rlatmay\u0131 yap\u0131yoruz. 500 kr de\u011ferinde \u00fc\u00e7 hediye \u00e7ekinin \u00e7ekili\u015fi yar\u0131n yap\u0131lacak ve \u00e7ekili\u015fe yaln\u0131zca onaylanm\u0131\u015f kay\u0131tlar kat\u0131l\u0131yor. Yar\u0131nki \u00e7ekili\u015fteki hakk\u0131n\u0131 kaybetmemek i\u00e7in l\u00fctfen e-postan\u0131 onayla.',
+    button: 'E-postam\u0131 onayla',
+    footer: 'Ata Sucuk\u2019a g\u00f6sterdi\u011fin ilgi i\u00e7in te\u015fekk\u00fcr ederiz. Kay\u0131t olmad\u0131ysan bu e-postay\u0131 yok sayabilirsin.',
   },
   en: {
-    subject: 'Last chance: the draw is tomorrow 🎟️',
-    heading: 'Your ticket is not active yet',
-    body: 'Tomorrow we draw three 500 kr gift cards. You signed up, but your email is still unconfirmed — and only confirmed tickets go into the draw. One click keeps you in.',
+    subject: 'Thank you for your interest \u2014 confirm your email before the draw',
+    heading: 'Thank you for your interest!',
+    body: 'You signed up, but you have not yet confirmed the confirmation email we sent you earlier \u2014 so here is a reminder. The draw for three 500 kr gift cards takes place tomorrow, and only confirmed sign-ups take part. Confirm your email so you don\u2019t lose your spot in the draw.',
     button: 'Confirm my email',
-    footer: 'We send no further reminders after the draw. If you did not sign up, you can ignore this email.',
+    footer: 'Thank you for your interest in Ata Sucuk. If you did not sign up, you can ignore this email.',
   },
 };
 

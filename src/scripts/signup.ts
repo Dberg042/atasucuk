@@ -1,6 +1,6 @@
 // Waitlist formları → Worker /waitlist (T4.4). Tüm form[data-signup]'lara bağlanır.
 // Mesajlar form'un data-msg-* attribute'larından gelir (i18n tek kaynak: ui.ts).
-const API = import.meta.env.PUBLIC_API_URL;
+const API = import.meta.env.PUBLIC_API_URL ?? 'https://api.atasucuk.no';
 
 const lang = document.documentElement.lang || 'no';
 const ref = new URLSearchParams(location.search).get('ref') || undefined;

@@ -15,7 +15,8 @@ export default defineConfig({
       // sitemap'e dahil edilmiyor, hreflang kapsamıyla tutarlı (Base.astro).
       filter: (page) => {
         const path = new URL(page).pathname;
-        return !path.startsWith('/ar/') && !path.startsWith('/fa/');
+        // /cekilis-admin operatör konsolu — indekslenmemeli (noindex meta + burada da hariç).
+        return !path.startsWith('/ar/') && !path.startsWith('/fa/') && path !== '/cekilis-admin/';
       },
     }),
   ],
